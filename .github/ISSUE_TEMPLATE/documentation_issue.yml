@@ -1,0 +1,43 @@
+name: Documentation issue
+description: Report an issue related to documentation
+title: "[DOCS]: "
+labels: [documentation]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: "## Issue with documentation"
+  - type: textarea
+    id: documentation-issue
+    attributes:
+      placeholder: "A clear and concise description of what the issue is."
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## Steps to reproduce"
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      placeholder: "Steps to reproduce the issue."
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## Expected documentation"
+  - type: textarea
+    id: expected-documentation
+    attributes:
+      placeholder: "A clear and concise description of what you expected to happen."
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## Additional context"
+  - type: textarea
+    id: additional-context
+    attributes:
+      placeholder: "Add any other context about the documentation issue here."
+    validations:
+      required: false
