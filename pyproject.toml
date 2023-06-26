@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llmflows"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Stoyan Stoyanov"},
 ]
-description = "A simple and lightweight library for creating LLM-powered applications."
+description = "LLMFlows - Simple, Explicit and Transparent LLM Apps"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
@@ -25,5 +25,5 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/stoyan-stoyanov/llmflow"
-"github" = "https://github.com/stoyan-stoyanov/llmflow"
+"Homepage" = "https://github.com/stoyan-stoyanov/llmflows"
+"github" = "https://github.com/stoyan-stoyanov/llmflows"
