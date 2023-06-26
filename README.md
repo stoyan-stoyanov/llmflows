@@ -57,13 +57,9 @@ While this is a good example on how easy it is to use LLMFlows, real-world appli
 With LLMFlows it's quite easy to reproduce this flow by utilizing the Flow and Flowstep classes. LLMFlows will figure out the dependencies and make sure each flowstep is executed only when the flowsteps it depends on are complete:
 
 ```python
-from llmflows.flows.flow import Flow
-from llmflows.flows.flowstep import FlowStep
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
-
-# Create LLM
-open_ai_llm = OpenAI()
+from llmflows.flows import Flow, Flowstep
+from llmflows.llms import OpenAI
+from llmflows.prompts import PromptTemplate
 
 # Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
@@ -81,28 +77,28 @@ lyrics_template = PromptTemplate(
 # Create flowsteps
 flowstep1 = FlowStep(
     name="Flowstep 1",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 flowstep2 = FlowStep(
     name="Flowstep 2",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=song_template,
     output_key="song_title",
 )
 
 flowstep3 = FlowStep(
     name="Flowstep 3",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 flowstep4 = FlowStep(
     name="Flowstep 4",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )
