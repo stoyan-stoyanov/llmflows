@@ -1,43 +1,56 @@
 name: Bug report
-description: File a bug report
+description: File a bug report.
 title: "[BUG]: "
-labels: [bug, needs triage]
-assignees: []
+labels: [bugs, needs triage]
 
 body:
-  - type: markdown
-    attributes:
-      value: "## Describe the bug"
-  - type: textarea
-    id: bug-description
-    attributes:
-      placeholder: "A clear and concise description of what the bug is."
-    validations:
-      required: true
-  - type: markdown
-    attributes:
-      value: "## Reproduction Steps"
-  - type: textarea
-    id: reproduction-steps
-    attributes:
-      placeholder: "Steps to reproduce the behavior."
-    validations:
-      required: true
-  - type: markdown
-    attributes:
-      value: "## Expected behavior"
-  - type: textarea
-    id: expected-behavior
-    attributes:
-      placeholder: "A clear and concise description of what you expected to happen."
-    validations:
-      required: true
-  - type: markdown
-    attributes:
-      value: "## Additional context"
-  - type: textarea
-    id: additional-context
-    attributes:
-      placeholder: "Add any other context about the problem here."
-    validations:
-      required: false
+- type: markdown
+  attributes:
+    value: >
+      Thank you for taking the time to file a bug report. Before creating a new
+      issue, please make sure to take a few minutes to check the issue tracker
+      for existing issues about the bug.
+    
+- type: textarea
+  attributes: 
+    label: "Describe the issue:"
+  validations:
+    required: true
+
+- type: textarea
+  attributes: 
+    label: "Expected behavior"
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: "Reproduce the code example:"
+    description: >
+      A short code example that reproduces the bug. It
+      should be self-contained, i.e., can be copy-pasted into the Python
+      interpreter or run as-is via `python my_buggy_script.py`.
+    placeholder: |
+      Your code here...
+    render: python
+  validations:
+    required: true
+  
+- type: textarea
+  attributes:
+    label: "Error message:"
+    description: >
+      Please include full error message, if any.
+    placeholder: |
+      Your error message here...
+    render: shell
+
+- type: textarea
+  attributes:
+    label: "Context for the issue:"
+    description: |
+      Any other relevant information about the issue.
+    placeholder: |
+      Your explanation here...
+  validations:
+    required: false
