@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llmflows"
+version = "0.0.2"
+authors = [
+  { name="Stoyan Stoyanov"},
+]
+description = "A simple and lightweight library for creating LLM-powered applications."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "aiohttp",
+    "openai==0.27.4",
+    "tiktoken==0.3.3",
+    "pinecone-client==2.2.1",
+    "urllib3==1.26.15"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/stoyan-stoyanov/llmflow"
+"github" = "https://github.com/stoyan-stoyanov/llmflow"

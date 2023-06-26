@@ -1,0 +1,84 @@
+site_name: llmflows
+repo_url: https://github.com/stoyan-stoyanov/llmflows
+theme:
+  name: material
+  logo: llmflows_last_logo.png
+  features:
+    - navigation.sections
+    - navigation.tracking
+    - navigation.path
+    - navigation.top
+    - search.suggest 
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotations
+    - content.code.copy
+  language: en
+  palette: 
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: llmflows
+      primary: white
+      toggle:
+        icon: material/weather-night 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+plugins:
+  - search
+  - mkdocstrings
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences 
+
+
+nav:
+  - Home: index.md
+  - User Guide: 
+    - Introduction: user_guide/Intro.md
+    - LLMs: user_guide/LLMs.md
+    - Chat LLMs: user_guide/Chat LLMs.md
+    - Prompt Templates: user_guide/Prompt Templates.md
+    - Combining LLMs: user_guide/Combining LLMs.md
+    - Creating LLM Flows: user_guide/Creating LLM Flows.md
+    - Complex Flows: user_guide/Complex Flows.md
+    - Vector Databases: user_guide/Vector Databases.md
+    - Question Answering: user_guide/Question Answering.md
+    - Agents: user_guide/Agents.md
+    - Flask Apps: user_guide/Flask Apps.md
+    - FastAPI Apps: user_guide/FastAPI Apps.md
+  - API Reference:
+    - LLMs: 
+      - Overview: api_reference/llms/llms.md
+      - BaseLLM: api_reference/llms/llm.md
+      - OpenAI: api_reference/llms/openai.md
+      - OpenAIChatLLM: api_reference/llms/openai_chat.md
+      - OpenAIEmbeddings: api_reference/llms/openai_embeddings.md
+    - Prompts: 
+      - Overview: api_reference/prompts/prompts.md
+      - PromptTemplate: api_reference/prompts/prompt_template.md
+    - Flows:
+      - Overview: api_reference/flows/flows.md
+      - BaseFlowStep: api_reference/flows/base_flowstep.md
+      - BaseFlow: api_reference/flows/base_flow.md
+      - FlowStep: api_reference/flows/flowstep.md
+      - Flow: api_reference/flows/flow.md
+      - AsyncFlowStep: api_reference/flows/async_flowstep.md
+      - AsyncFlow: api_reference/flows/async_flow.md
+    - VectorStores:
+      - Overview: api_reference/vectorstores/vectorstores.md
+      - VectorDoc: api_reference/vectorstores/vector_doc.md
+      - Pinecone: api_reference/vectorstores/pinecone.md
+    - Callbacks:
+      - Overview: api_reference/callbacks/callbacks.md
+      - Callback: api_reference/callbacks/callback.md
+      - FunctionalCallback: api_reference/callbacks/functional_callback.md
