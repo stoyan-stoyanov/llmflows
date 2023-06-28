@@ -5,11 +5,12 @@ This module contains a class `Pinecone` which provides several methods to
 interact with the Pinecone vector database service.
 """
 
-import pinecone # pylint: disable=import-error
+import pinecone  # pylint: disable=import-error
 from llmflows.vectorstores.vector_doc import VectorDoc
+from llmflows.vectorstores.vector_store import VectorStore
 
 
-class Pinecone:
+class Pinecone(VectorStore):
     """
     Interact with Pinecone, a vector database service.
 
@@ -28,6 +29,30 @@ class Pinecone:
         self.environment = environment
         self._init_client()
 
+    def _prepare_results(self, search_result) -> tuple[list, dict, dict]:
+        """
+        Format the search results for the Pinecone vector store client.
+
+        Args:
+            search_result (dict): The search result returned by the Pinecone search.
+
+        Returns:
+            A tuple containing list of matches, the call parameters, and the pinecone 
+                config.
+        """
+        search_results = search_result["matches"]
+
+        call_data = {
+            "raw_outputs": search_result,
+        }
+
+        config = {
+            "environment": self.environment,
+            "index_name": self.index_name
+        }
+
+        return search_results, call_data, config
+
     def _init_client(self):
         pinecone.init(api_key=self.api_key, environment=self.environment)
         self.index = pinecone.Index(self.index_name)
@@ -37,7 +62,7 @@ class Pinecone:
         """Describe the index."""
         print(self.index.describe_index_stats())
 
-    def search(self, query: VectorDoc, top_k: int) -> list[dict]:
+    def search(self, query: VectorDoc, top_k: int) -> tuple[list, dict, dict]:
         """
         Search the index for similar vectors.
 
@@ -52,7 +77,7 @@ class Pinecone:
         search_result = self.index.query(
             query_embedding, top_k=top_k, include_metadata=True
         )
-        return search_result["matches"]
+        return self._prepare_results(search_result)
 
     def upsert(self, docs: list[VectorDoc]):
         """Insert or update vectors in the index.

@@ -27,7 +27,13 @@ Create a virtual environment:
 
 ```
 python -m venv venv
-source venv
+source venv/bin/activate
+```
+
+*Note:* to build the package in editable mode, you will need pip version later than 21.3:
+
+```commandline
+python3 -m pip install --upgrade pip
 ```
 
 Install the package for local development:
