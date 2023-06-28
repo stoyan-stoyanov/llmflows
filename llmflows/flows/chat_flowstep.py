@@ -1,10 +1,6 @@
-# pylint: disable=R0801, R0913
-
 """
-This module the AsyncFlowStep class, which can execute a language model, record
-execution times, and optionally invoke callbacks on the results. The async 
-implementation allows async flowsteps to be executed in parallel if multiple flowsteps
-have all the required inputs available.
+This file contains the ChatFlowStep class, which represents a step in a Flow that is 
+using a chat LLM.
 """
 
 import logging
@@ -12,52 +8,15 @@ from typing import Any
 from llmflows.llms.llm import BaseLLM
 from llmflows.prompts.prompt_template import PromptTemplate
 from llmflows.callbacks.callback import Callback
-from llmflows.flows.async_base_flowstep import AsyncBaseFlowStep
+from llmflows.flows.flowstep import BaseFlowStep
 
 
-class AsyncFlowStep(AsyncBaseFlowStep):
+class ChatFlowStep(BaseFlowStep):
     """
-    Represents a specific async step in an async Flow.
+    Represents a step in a Flow that is utilizing a chat Language Learning Model (LLM).
 
-    An AsyncFlowStep executes a language model using a prompt template, records the 
-    execution time, and optionally invokes callback functions on the results.
-    Async Flowsteps can be executed in parallel in an AsyncFlow if all the required 
-    inputs are available.
-
-    Attributes:
-        name (str): The name of the flow step.
-        output_key (str): The key for the output of the flow step.
-        llm: The language model to be used in the flow step.
-        prompt_template (PromptTemplate): Template for the prompt to be used with the 
-            language model.
-        callbacks (list[Callback]): Optional functions to be invoked with the results.
-    """
-
-    def __init__(
-        self,
-        name: str,
-        llm: BaseLLM,
-        prompt_template: PromptTemplate,
-        output_key: str,
-        callbacks: list[Callback] = None,
-    ):
-        super().__init__(name, output_key, callbacks)
-        self.llm = llm
-        self.prompt_template = prompt_template
-        self.required_keys = prompt_template.variables
-        self.callbacks = callbacks if callbacks else []
-
-    async def generate(self, inputs: dict[str, Any]) -> tuple[Any, Any, Any]:
-        prompt = self.prompt_template.get_prompt(**inputs)
-        return await self.llm.generate_async(prompt)
-
-
-class AsyncChatFlowStep(AsyncBaseFlowStep):
-    """
-    Represents an async step in a Flow that is utilizing a chat LLM.
-
-    An AsyncChatFlowStep executes a language model using two prompt templates, namely 
-    a system prompt and a message prompt, records the execution time, and optionally 
+    A ChatFlowStep executes a language model using two prompt templates, namely a 
+    system prompt and a message prompt, records the execution time, and optionally 
     invokes callback functions on the results.
 
     Attributes:
@@ -66,10 +25,10 @@ class AsyncChatFlowStep(AsyncBaseFlowStep):
         llm: The language model to be used in the flow step.
         system_prompt_template (PromptTemplate): Template for the system prompt to be 
             used with the language model.
-        message_prompt_template (PromptTemplate): Template for the message prompt to 
-            be used with the language model.
+        message_prompt_template (PromptTemplate): Template for the message prompt to be
+            used with the language model.
         message_key (str): Key used to extract message from inputs.
-        callbacks (list[Callback]): Optional functions to be invoked with the results.
+        callbacks (list[Callable]): Optional functions to be invoked with the results.
     """
 
     def __init__(
@@ -87,7 +46,6 @@ class AsyncChatFlowStep(AsyncBaseFlowStep):
         self.message_key = message_key
         self.system_prompt_template = system_prompt_template
         self.message_prompt_template = message_prompt_template
-        self.callbacks = callbacks if callbacks else []
         self.required_keys = self._add_required_keys()
         self._validate_message_key()
 
@@ -122,14 +80,12 @@ class AsyncChatFlowStep(AsyncBaseFlowStep):
                     "the message key variable."
                 )
 
-    async def generate(self, inputs: dict[str, Any]) -> tuple[Any, Any, Any]:
+    def generate(self, inputs: dict[str, Any]) -> tuple[Any, Any, Any]:
         system_prompt = self.system_prompt_template.get_prompt(**inputs)
         self.llm.update_system_prompt(system_prompt)
-
         if self.message_prompt_template:
             message = self.message_prompt_template.get_prompt(**inputs)
         else:
             message = inputs[self.message_key]
         self.llm.add_message(message)
-
-        return await self.llm.generate_async()
+        return self.llm.generate()
