@@ -3,7 +3,7 @@ This module defines the VectorDoc class which is used to represent a document
 with an optional embedding and metadata.
 """
 
-from typing import Optional
+from typing import Union
 from uuid import uuid4
 
 
@@ -27,9 +27,9 @@ class VectorDoc:
     def __init__(
         self,
         doc: str,
-        doc_id: str = None,
-        metadata: Optional[dict] = None,
-        embedding: Optional[list] = None,
+        doc_id: Union[str, None] = None,
+        metadata: Union[dict, None] = None,
+        embedding: Union[list, None] = None,
     ):
         self.doc_id = doc_id if doc_id is not None else str(uuid4())
         self.doc = doc

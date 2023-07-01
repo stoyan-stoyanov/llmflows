@@ -51,7 +51,7 @@ class VectorStoreFlowStep(BaseFlowStep):
         output_key: str,
         top_k: int = 1,
         append_top_k: bool = False,
-        callbacks: list[Callback] = None,
+        callbacks: Union[list[Callback], None] = None,
     ):
         super().__init__(name, output_key, callbacks)
         self.embeddings_model = embeddings_model
@@ -72,7 +72,7 @@ class VectorStoreFlowStep(BaseFlowStep):
 
         result = search_results[0]["metadata"]["text"]
 
-        if self.apend_top_k:
+        if self.append_top_k:
             result = ""
             for i in range(self.top_k):
                 result += search_results[i + 1]["metadata"]["text"] + "\n"

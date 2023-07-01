@@ -7,7 +7,7 @@ executed in parallel if multiple flowsteps have all the required inputs availabl
 """
 
 import logging
-from typing import Any
+from typing import Any, Union
 from llmflows.llms.llm import BaseLLM
 from llmflows.prompts.prompt_template import PromptTemplate
 from llmflows.callbacks.callback import Callback
@@ -41,15 +41,14 @@ class AsyncChatFlowStep(AsyncBaseFlowStep):
         system_prompt_template: PromptTemplate,
         message_key: str,
         output_key: str,
-        message_prompt_template: PromptTemplate = None,
-        callbacks: list[Callback] = None,
+        message_prompt_template: Union[PromptTemplate, None] = None,
+        callbacks:  Union[list[Callback], None] = None,
     ):
         super().__init__(name, output_key, callbacks)
         self.llm = llm
         self.message_key = message_key
         self.system_prompt_template = system_prompt_template
         self.message_prompt_template = message_prompt_template
-        self.callbacks = callbacks if callbacks else []
         self.required_keys = self._add_required_keys()
         self._validate_message_key()
 

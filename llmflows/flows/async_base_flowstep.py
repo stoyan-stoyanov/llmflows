@@ -12,7 +12,7 @@ multiple flowsteps have all the required inputs available.
 import time
 import datetime
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Union
 from llmflows.callbacks.callback import Callback
 
 
@@ -28,12 +28,13 @@ class AsyncBaseFlowStep(ABC):
         callbacks(list[Callback]): Optional functions to be invoked with the results.
     """
 
-    def __init__(self, name: str, output_key: str, callbacks: list[Callback]):
+    def __init__(
+        self, name: str, output_key: str, callbacks: Union[list[Callback], None]
+    ):
         self.name = name
         self.output_key = output_key
         self.next_steps: list[AsyncBaseFlowStep] = []
         self.parents: list[AsyncBaseFlowStep] = []
-        self.callbacks = [] if callbacks is None else callbacks
 
     def connect(self, *steps: "AsyncBaseFlowStep") -> None:
         """
@@ -64,7 +65,6 @@ class AsyncBaseFlowStep(ABC):
         if len(output_keys) != len(set(output_keys)):
             raise ValueError("All connected flowsteps must have unique output keys.")
 
-
     @abstractmethod
     async def generate(self, inputs: dict[str, Any]) -> tuple[Any, Any, Any]:
         """
@@ -79,7 +79,9 @@ class AsyncBaseFlowStep(ABC):
         """
         pass
 
-    async def execute(self, inputs: dict[str, str], verbose: bool = False) -> dict[str, str]:
+    async def execute(
+        self, inputs: dict[str, str], verbose: bool = False
+    ) -> dict[str, str]:
         """
         Executes the flow step with the provided inputs and returns a dictionary with
         execution details.

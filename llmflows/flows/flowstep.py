@@ -5,7 +5,7 @@ This module the FlowStep class, which can execute a language model, record
 execution times, and optionally invoke callbacks on the results.
 """
 
-from typing import Any
+from typing import Any, Union
 from llmflows.llms.llm import BaseLLM
 from llmflows.prompts.prompt_template import PromptTemplate
 from llmflows.callbacks.callback import Callback
@@ -34,7 +34,7 @@ class FlowStep(BaseFlowStep):
         llm: BaseLLM,
         prompt_template: PromptTemplate,
         output_key: str,
-        callbacks: list[Callback] = None
+        callbacks:  Union[list[Callback], None] = None,
     ):
         super().__init__(name, output_key, callbacks)
         self.llm = llm

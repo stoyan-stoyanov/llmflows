@@ -8,7 +8,7 @@ have all the required inputs available.
 """
 
 import logging
-from typing import Any
+from typing import Any, Union
 from llmflows.llms.llm import BaseLLM
 from llmflows.prompts.prompt_template import PromptTemplate
 from llmflows.callbacks.callback import Callback
@@ -39,13 +39,12 @@ class AsyncFlowStep(AsyncBaseFlowStep):
         llm: BaseLLM,
         prompt_template: PromptTemplate,
         output_key: str,
-        callbacks: list[Callback] = None,
+        callbacks: Union[list[Callback], None] = None,
     ):
         super().__init__(name, output_key, callbacks)
         self.llm = llm
         self.prompt_template = prompt_template
         self.required_keys = prompt_template.variables
-        self.callbacks = callbacks if callbacks else []
 
     async def generate(self, inputs: dict[str, Any]) -> tuple[Any, Any, Any]:
         prompt = self.prompt_template.get_prompt(**inputs)

@@ -9,7 +9,7 @@ execution times, and optionally invoke callbacks on the results.
 import time
 import datetime
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Union
 from llmflows.callbacks.callback import Callback
 
 
@@ -25,7 +25,9 @@ class BaseFlowStep(ABC):
         callbacks(list[Callback]): Optional functions to be invoked with the results.
     """
 
-    def __init__(self, name: str, output_key: str, callbacks: list[Callback]):
+    def __init__(
+        self, name: str, output_key: str, callbacks: Union[list[Callback], None]
+    ):
         self.name = name
         self.output_key = output_key
         self.next_steps: list[BaseFlowStep] = []

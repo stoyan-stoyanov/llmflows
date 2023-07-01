@@ -1,3 +1,3 @@
 # AsyncFlowStep
 
-::: llmflows.flows.async_flowstep.AsyncFlowStep
+::: llmflows.flows.async_flowstep

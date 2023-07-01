@@ -68,12 +68,22 @@ nav:
       - PromptTemplate: api_reference/prompts/prompt_template.md
     - Flows:
       - Overview: api_reference/flows/flows.md
-      - BaseFlowStep: api_reference/flows/base_flowstep.md
       - BaseFlow: api_reference/flows/base_flow.md
-      - FlowStep: api_reference/flows/flowstep.md
       - Flow: api_reference/flows/flow.md
-      - AsyncFlowStep: api_reference/flows/async_flowstep.md
+      - AsyncBaseFlow: api_reference/flows/async_base_flow.md
       - AsyncFlow: api_reference/flows/async_flow.md
+    - Flowsteps:
+      - Overview: api_reference/flows/flowsteps.md
+      - BaseFlowStep: api_reference/flowsteps/base_flowstep.md
+      - FlowStep: api_reference/flowsteps/flowstep.md
+      - ChatFlowStep: api_reference/flowsteps/chat_flowstep.md
+      - FunctionalFlowStep: api_reference/flowsteps/functional_flowstep.md
+      - VectorStoreFlowStep: api_reference/flowsteps/vectorstore_flowstep.md
+      - AsyncBaseFlowStep: api_reference/flowsteps/async_base_flowstep.md
+      - AsyncFlowStep: api_reference/flowsteps/async_flowstep.md
+      - AsyncChatFlowStep: api_reference/flowsteps/async_chat_flowstep.md
+      - AsyncFunctionalFlowStep: api_reference/flowsteps/async_functional_flowstep.md
+      - AsyncVectorStoreFlowStep: api_reference/flowsteps/async_vectorstore_flowstep.md
     - VectorStores:
       - Overview: api_reference/vectorstores/vectorstores.md
       - VectorDoc: api_reference/vectorstores/vector_doc.md

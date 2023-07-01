@@ -8,7 +8,7 @@ from llmflows.callbacks.callback import Callback
 from typing import Callable, Any, Union
 
 
-class FunctionalFlowstep(BaseFlowStep):
+class FunctionalFlowStep(BaseFlowStep):
     """
     Represents a functional flow step that executes a function.
 
@@ -23,10 +23,10 @@ class FunctionalFlowstep(BaseFlowStep):
     def __init__(
         self,
         name: str,
-        fn: Callable,
+        fn: Callable[[dict[str, str]], str],
         required_keys: list[str],
         output_key: str,
-        callbacks: list[Callback] = None,
+        callbacks: Union[list[Callback], None] = None,
     ):
         super().__init__(name, output_key, callbacks)
         self.required_keys = set(required_keys)
