@@ -10,7 +10,7 @@ import logging
 from typing import Any, Union
 from llmflows.llms.llm import BaseLLM
 from llmflows.prompts.prompt_template import PromptTemplate
-from llmflows.callbacks.callback import Callback
+from llmflows.callbacks.base_callback import Callback
 from llmflows.flows.async_base_flowstep import AsyncBaseFlowStep
 
 

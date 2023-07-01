@@ -10,7 +10,7 @@ embeddings model, prompt template, and other attributes.
 from llmflows.prompts.prompt_template import PromptTemplate
 from llmflows.llms.llm import BaseLLM
 from llmflows.flows.flowstep import BaseFlowStep
-from llmflows.callbacks.callback import Callback
+from llmflows.callbacks.base_callback import BaseCallback
 from llmflows.vectorstores.vector_store import VectorStore
 from llmflows.vectorstores.vector_doc import VectorDoc
 from typing import Any, Union
@@ -51,7 +51,7 @@ class VectorStoreFlowStep(BaseFlowStep):
         output_key: str,
         top_k: int = 1,
         append_top_k: bool = False,
-        callbacks: Union[list[Callback], None] = None,
+        callbacks: Union[list[BaseCallback], None] = None,
     ):
         super().__init__(name, output_key, callbacks)
         self.embeddings_model = embeddings_model

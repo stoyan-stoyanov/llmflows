@@ -13,7 +13,7 @@ import time
 import datetime
 from abc import ABC, abstractmethod
 from typing import Any, Union
-from llmflows.callbacks.callback import Callback
+from llmflows.callbacks.async_base_callback import AsyncBaseCallback
 
 
 class AsyncBaseFlowStep(ABC):
@@ -29,12 +29,13 @@ class AsyncBaseFlowStep(ABC):
     """
 
     def __init__(
-        self, name: str, output_key: str, callbacks: Union[list[Callback], None]
+        self, name: str, output_key: str, callbacks: Union[list[AsyncBaseCallback], None]
     ):
         self.name = name
         self.output_key = output_key
         self.next_steps: list[AsyncBaseFlowStep] = []
         self.parents: list[AsyncBaseFlowStep] = []
+        self.callbacks = callbacks if callbacks else []
 
     def connect(self, *steps: "AsyncBaseFlowStep") -> None:
         """
@@ -106,7 +107,7 @@ class AsyncBaseFlowStep(ABC):
         execution_info["prompt_inputs"] = inputs
 
         for callback in self.callbacks:
-            callback.on_start(inputs)
+            await callback.on_start(inputs)
 
         result, call_data, model_config = await self.generate(inputs)
         execution_info["llm_output"] = result
@@ -114,7 +115,7 @@ class AsyncBaseFlowStep(ABC):
         execution_info["model_config"] = model_config
 
         for callback in self.callbacks:
-            callback.on_results(result)
+            await callback.on_results(result)
 
         if verbose:
             print(f"{self.name}:\n{result}\n")
@@ -127,6 +128,6 @@ class AsyncBaseFlowStep(ABC):
         execution_info["result"] = {self.output_key: result}
 
         for callback in self.callbacks:
-            callback.on_end(execution_info)
+            await callback.on_end(execution_info)
 
         return execution_info

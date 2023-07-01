@@ -10,7 +10,7 @@ import time
 import datetime
 from abc import ABC, abstractmethod
 from typing import Any, Union
-from llmflows.callbacks.callback import Callback
+from llmflows.callbacks.base_callback import BaseCallback
 
 
 class BaseFlowStep(ABC):
@@ -26,13 +26,13 @@ class BaseFlowStep(ABC):
     """
 
     def __init__(
-        self, name: str, output_key: str, callbacks: Union[list[Callback], None]
+        self, name: str, output_key: str, callbacks: Union[list[BaseCallback], None]
     ):
         self.name = name
         self.output_key = output_key
         self.next_steps: list[BaseFlowStep] = []
         self.parents: list[BaseFlowStep] = []
-        self.callbacks = [] if callbacks is None else callbacks
+        self.callbacks = callbacks if callbacks else []
 
     def connect(self, *steps: "BaseFlowStep") -> None:
         """
