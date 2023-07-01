@@ -27,11 +27,6 @@ from llmflows.flows import Flow, FlowStep
 from llmflows.llms import OpenAI
 from llmflows.prompts import PromptTemplate
 
-# Create LLMs
-title_llm = OpenAI()
-lyrics_llm = OpenAI()
-heavy_metal_llm = OpenAI()
-
 # Create prompt templates
 title_prompt_template = PromptTemplate(
     prompt="What is a good title of a song about {topic}"
@@ -46,21 +41,21 @@ heavy_metal_prompt_template = PromptTemplate(
 # Create flowsteps
 title_flowstep = FlowStep(
     name="Title Flowstep",
-    llm=title_llm,
+    llm=OpenAI(),
     prompt_template=title_prompt_template,
     output_key="song_title",
 )
 
 lyrics_flowstep = FlowStep(
     name="Lyrics Flowstep",
-    llm=lyrics_llm,
+    llm=OpenAI(),
     prompt_template=lyrics_prompt_template,
     output_key="lyrics",
 )
 
 heavy_metal_flowstep = FlowStep(
     name="Heavy Metal Flowstep",
-    llm=heavy_metal_llm,
+    llm=OpenAI(),
     prompt_template=heavy_metal_prompt_template,
     output_key="heavy_metal_lyrics",
 )
