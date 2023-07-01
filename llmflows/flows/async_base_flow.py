@@ -4,7 +4,7 @@
 LLMFlow module containing the AsyncBaseFlow which all async Flow classes inherit
 """
 
-from llmflows.flows.async_flowstep import AsyncFlowStep
+from llmflows.flows.async_base_flowstep import AsyncBaseFlowStep
 
 
 class AsyncBaseFlow:
@@ -20,7 +20,7 @@ class AsyncBaseFlow:
         names (set): Set of names of all steps in the flow.
     """
 
-    def __init__(self, first_step: AsyncFlowStep = None):
+    def __init__(self, first_step: AsyncBaseFlowStep):
         """
         Initializes the AsyncBaseFlow.
 
@@ -34,7 +34,7 @@ class AsyncBaseFlow:
         self.names = set()
         self._check_unique_attributes()
 
-    def set_first_step(self, step: AsyncFlowStep):
+    def set_first_step(self, step: AsyncBaseFlowStep):
         """
         Sets the initial step of the flow.
 

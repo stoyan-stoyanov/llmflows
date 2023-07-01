@@ -3,7 +3,7 @@ This module provides the BaseFlow class which is used as a base class by all non
 flow classes.
 """
 
-from llmflows.flows.flowstep import FlowStep
+from llmflows.flows.base_flowstep import BaseFlowStep
 
 
 class BaseFlow:
@@ -19,7 +19,7 @@ class BaseFlow:
         names (set): Set of names of all steps in the flow.
     """
 
-    def __init__(self, first_step: FlowStep):
+    def __init__(self, first_step: BaseFlowStep):
         """
         Initializes the BaseFlow with a first flowstep.
 
