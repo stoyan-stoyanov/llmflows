@@ -20,15 +20,22 @@ class OpenAIChat(BaseLLM):
     API, and provides methods to add, remove, replace messages, update system prompts,
     and generate responses.
 
-    Attributes:
-        api_key (str): The API key to use for authentication.
+    Args:
+        system_prompt (str): The system prompt to use for the chat model.
         model (str): The name of the OpenAI model to use.
         temperature (float): The temperature to use for text generation.
         max_messages (int): The maximum number of messages to send to the chat API.
         max_tokens (int): The maximum number of tokens to generate.
         max_retries (int): The maximum number of retries for generating tokens.
         verbose (bool): Whether to print debug information.
+
+    Attributes:
+        temperature (float): The temperature to use for text generation.
+        max_messages (int): The maximum number of messages to send to the chat API.
+        max_tokens (int): The maximum number of tokens to generate.
+        max_retries (int): The maximum number of retries for generating tokens.
         messages (list[dict[str, str]]): A list of messages sent to the chat API.
+        verbose (bool): Whether to print debug information.
     """
 
     def __init__(
@@ -42,7 +49,7 @@ class OpenAIChat(BaseLLM):
         verbose: bool = False,
     ):
         super().__init__(model)
-        self.api_key = os.environ["OPENAI_API_KEY"]
+        self._api_key = os.environ["OPENAI_API_KEY"]
         self.temperature = temperature
         self.max_messages = max_messages
         self.max_tokens = max_tokens

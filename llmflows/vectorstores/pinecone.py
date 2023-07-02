@@ -19,13 +19,17 @@ class Pinecone(VectorStore):
 
     Args:
         index_name (str): The name of the index to use.
-        api_key (str): The API key to use for authentication.
+        api_key (str): The Pinecone API key to use for authentication.
         environment (str): The environment to use, e.g. "production" or "development".
+    
+    Attributes:
+        index_name (str): The name of the index to use.
+        environment (str): The pinecone environment to use.
     """
 
     def __init__(self, index_name: str, api_key: str, environment: str):
         self.index_name = index_name
-        self.api_key = api_key
+        self._api_key = api_key
         self.environment = environment
         self._init_client()
 
@@ -54,7 +58,7 @@ class Pinecone(VectorStore):
         return search_results, call_data, config
 
     def _init_client(self):
-        pinecone.init(api_key=self.api_key, environment=self.environment)
+        pinecone.init(api_key=self._api_key, environment=self.environment)
         self.index = pinecone.Index(self.index_name)
         self.describe()
 

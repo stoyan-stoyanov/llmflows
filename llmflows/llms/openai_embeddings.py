@@ -26,15 +26,13 @@ class OpenAIEmbeddings(BaseLLM):
         model (str): The name of the OpenAI model to use.
 
     Attributes:
-        api_key (str): The API key to use for authentication.
-        model (str): The name of the OpenAI model to use.
+        _api_key (str): The API key to use for authentication.
         max_retries (int): The maximum number of retries for generating embeddings.
     """
 
     def __init__(self, model: str = "text-embedding-ada-002", max_retries: int = 3):
         super().__init__(model)
-        self.api_key = os.getenv("OPENAI_API_KEY")
-        self.model = model
+        self._api_key = os.getenv("OPENAI_API_KEY")
         self.max_retries = max_retries
 
     def generate(

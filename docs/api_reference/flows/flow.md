@@ -1,3 +1,3 @@
 # Flow
 
-::: llmflows.flows.flow.Flow
+::: llmflows.flows.flow

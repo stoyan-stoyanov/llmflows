@@ -1,3 +1,3 @@
 # BaseFlow
 
-::: llmflows.flows.flow.BaseFlow
+::: llmflows.flows.base_flow

@@ -6,7 +6,7 @@ executed at each stage of a FlowStep execution, without the need for subclassing
 """
 
 from typing import Callable, Optional, Any
-from llmflows.callbacks.callback import BaseCallback
+from llmflows.callbacks.base_callback import BaseCallback
 
 class FunctionalCallback(BaseCallback):
     """

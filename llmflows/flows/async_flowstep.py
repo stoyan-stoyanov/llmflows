@@ -7,7 +7,6 @@ implementation allows async flowsteps to be executed in parallel if multiple flo
 have all the required inputs available.
 """
 
-import logging
 from typing import Any, Union
 from llmflows.llms.llm import BaseLLM
 from llmflows.prompts.prompt_template import PromptTemplate
@@ -24,13 +23,19 @@ class AsyncFlowStep(AsyncBaseFlowStep):
     Async Flowsteps can be executed in parallel in an AsyncFlow if all the required 
     inputs are available.
 
-    Attributes:
+    Args:
         name (str): The name of the flow step.
-        output_key (str): The key for the output of the flow step.
-        llm: The language model to be used in the flow step.
+        llm (BaseLLM): The language model to be used in the flow step.
         prompt_template (PromptTemplate): Template for the prompt to be used with the 
             language model.
-        callbacks (list[Callback]): Optional functions to be invoked with the results.
+        callbacks Union[list[AsyncBaseCallback], None]: Callbacks to be invoked during 
+            the flowstep execution.
+
+    Attributes:
+        llm (BaseLLM): The language model to be used in the flow step.
+        prompt_template (PromptTemplate): Template for the prompt to be used with the 
+            language model.
+        required_keys (set[str]): The keys required for the flow step to execute.
     """
 
     def __init__(

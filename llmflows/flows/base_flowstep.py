@@ -17,12 +17,19 @@ class BaseFlowStep(ABC):
     """
     Base class for flowsteps in a flow.
 
+    Args:
+        name (str): The name of the flow step.
+        output_key (str): The dict key for the output of the flow step.
+        callbacks (Union[list[AsyncBaseCallback]): Optional functions to be invoked with
+            the results.
+
     Attributes:
         name (str): The name of the flow step.
-        output_key (str): The key for the output of the flow step.
+        output_key (str): The dict key for the output of the flow step.
         next_steps (list[BaseFlowStep]): The subsequent steps this step connects to.
         parents (list[BaseFlowStep]): The preceding steps that connect to this step.
-        callbacks(list[Callback]): Optional functions to be invoked with the results.
+        callbacks (Union[list[BaseCallback]): Optional callbacks to be invoked with
+            the results.
     """
 
     def __init__(

@@ -73,7 +73,7 @@ nav:
       - AsyncBaseFlow: api_reference/flows/async_base_flow.md
       - AsyncFlow: api_reference/flows/async_flow.md
     - Flowsteps:
-      - Overview: api_reference/flows/flowsteps.md
+      - Overview: api_reference/flowsteps/flowsteps.md
       - BaseFlowStep: api_reference/flowsteps/base_flowstep.md
       - FlowStep: api_reference/flowsteps/flowstep.md
       - ChatFlowStep: api_reference/flowsteps/chat_flowstep.md

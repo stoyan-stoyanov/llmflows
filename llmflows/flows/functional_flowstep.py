@@ -10,7 +10,8 @@ from typing import Callable, Any, Union
 
 class FunctionalFlowStep(BaseFlowStep):
     """
-    Represents a functional flow step that executes a function.
+    Represents a functional flow step that executes a function. The function must take
+        a dictionary of strings as input and return a string(like regular flow steps) 
 
     Args:
         name (str): The name of the flow step.
@@ -19,6 +20,10 @@ class FunctionalFlowStep(BaseFlowStep):
         output_key (str): The key to use for the output.
         callbacks (list[Callback], optional): List of callback instances. Defaults to 
             None.
+    
+    Attributes:
+        required_keys (set[str]): The keys required for the flow step to execute.
+        fn (Callable[[dict[str, str]], str]): The function to be executed.
     """
     def __init__(
         self,

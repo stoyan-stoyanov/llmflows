@@ -19,13 +19,19 @@ class FlowStep(BaseFlowStep):
     A FlowStep executes a language model using a prompt template, records the execution
     time, and optionally invokes callback functions on the results.
 
-    Attributes:
+    Args:
         name (str): The name of the flow step.
-        output_key (str): The key for the output of the flow step.
-        llm: The language model to be used in the flow step.
+        llm (BaseLLM): The language model to be used in the flow step.
         prompt_template (PromptTemplate): Template for the prompt to be used with the 
             language model.
-        callbacks (list[Callable]): Optional functions to be invoked with the results.
+        callbacks (list[BaseCallback]): Callbacks to be invoked during the flowstep 
+            execution.
+
+    Attributes:
+        llm (BaseLLM): The language model to be used in the flow step.
+        prompt_template (PromptTemplate): Template for the prompt to be used with the 
+            language model.
+        required_keys (set[str]): The keys required for the flow step to execute.
     """
 
     def __init__(

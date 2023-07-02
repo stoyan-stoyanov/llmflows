@@ -11,8 +11,10 @@ class BaseFlow:
     Base class for all flows. Each flow is a sequence of steps, represented by FlowStep
     instances.
 
+    Args:
+        first_step (FlowStep): The first step of the flow.
+
     Attributes:
-        first_step (FlowStep): The initial step of the flow.
         steps (list): All steps in the flow.
         output_keys (set): Set of output keys for all steps in the flow.
         input_keys (set): Set of input keys for all steps in the flow.
@@ -20,13 +22,7 @@ class BaseFlow:
     """
 
     def __init__(self, first_step: BaseFlowStep):
-        """
-        Initializes the BaseFlow with a first flowstep.
-
-        Args:
-            first_step (FlowStep): Initial step of the flow.
-        """
-        self.first_step = first_step
+        self._first_step = first_step
         self.steps = self._get_all_steps()
         self.output_keys = set()
         self.input_keys = set()
@@ -40,7 +36,7 @@ class BaseFlow:
         Args:
             step (FlowStep): The initial step for the flow.
         """
-        self.first_step = step
+        self._first_step = step
 
     def _get_all_steps(self):
         """
@@ -49,7 +45,7 @@ class BaseFlow:
         Returns:
             list: A list containing all steps in the flow.
         """
-        queue = [self.first_step]
+        queue = [self._first_step]
         visited_steps = set()
         all_steps = []
 

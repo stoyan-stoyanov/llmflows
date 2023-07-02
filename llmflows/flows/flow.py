@@ -14,8 +14,11 @@ class Flow(BaseFlow):
     Base class for all flows. Each flow is a digraph of steps, represented by FlowStep
     instances.
 
+    Args:
+        first_step (FlowStep): The first step of the flow.
+
     Attributes:
-        first_step (FlowStep): The first step in the flow.
+        _first_step (FlowStep): The first step in the flow.
         results (dict): Stores the results of the executed flow steps.
         executed_steps (set): Keeps track of the steps that have been executed.
     """
@@ -25,7 +28,7 @@ class Flow(BaseFlow):
         self.results = {}
         self.executed_steps = set()
 
-    def execute(self, verbose=False, **inputs):
+    def execute(self, verbose=False, **inputs) -> dict:
         """
         Executes the flow with the provided inputs.
 
@@ -34,13 +37,13 @@ class Flow(BaseFlow):
             **inputs (dict): The inputs to the flow.
 
         Returns:
-            dict: A dictionary of the results from each flow step.
+            A dictionary of the results from each flow step.
 
         Raises:
             ValueError: If any required inputs are missing.
         """
         self._check_all_input_keys_available(inputs)
-        self._execute_step(self.first_step, inputs, verbose)
+        self._execute_step(self._first_step, inputs, verbose)
         return self.results
 
     def _execute_step(self, step, inputs, verbose):

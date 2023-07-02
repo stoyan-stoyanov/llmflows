@@ -23,10 +23,10 @@ pip install llmflows
 ## Philosophy
 
 ### Simple
-We want to build a framework with a minimal set of classes that allows users to build powerful LLM-powered apps without compromising on capabilities.
+We want to build a framework with a minimal set of classes and abstractions that allows users to build flexible LLM-powered apps without compromising on capabilities.
 
 ### Explicit
-We want to enable users to easily create complex flows of LLMs interacting with each other that have explicit and obvious structure.
+We want to create a readable and explicit API enabling users to easily create complex flows of LLMs interacting with each other that have explicit and obvious structure.
 
 ### Transparent
 Flows are traceable, executions are easily logged and none of the classes provided in LLMFlows have hidden prompts. Default prompts introduce unexpected behavior and behavior drift when models are updated. 

@@ -10,7 +10,7 @@ import logging
 from typing import Any, Union
 from llmflows.llms.llm import BaseLLM
 from llmflows.prompts.prompt_template import PromptTemplate
-from llmflows.callbacks.base_callback import Callback
+from llmflows.callbacks.async_base_callback import AsyncBaseCallback
 from llmflows.flows.async_base_flowstep import AsyncBaseFlowStep
 
 
@@ -22,27 +22,37 @@ class AsyncChatFlowStep(AsyncBaseFlowStep):
     a system prompt and a message prompt, records the execution time, and optionally
     invokes callback functions on the results.
 
-    Attributes:
+    Args:
         name (str): The name of the flow step.
+        llm (BaseLLM): The language model to be used in the flow step.
         output_key (str): The key for the output of the flow step.
-        llm: The language model to be used in the flow step.
-        system_prompt_template (PromptTemplate): Template for the system prompt to be
-            used with the language model.
-        message_prompt_template (PromptTemplate): Template for the message prompt to
-            be used with the language model.
+        system_prompt_template (PromptTemplate): Prompt tempalte for the system prompt
+            to be used with the language model.
         message_key (str): Key used to extract message from inputs.
-        callbacks (list[Callback]): Optional functions to be invoked with the results.
+        message_prompt_template (PromptTemplate): Prompt template for the message used
+            with the language model.
+        callbacks (Union[list[AsyncBaseCallback], None]): Callbacks to be invoked
+            during the flowstep execution.
+
+    Attributes:
+        llm (BaseLLM): The language model to be used in the flow step.
+        message_key (str): Key used to extract message from inputs.
+        system_prompt_template (PromptTemplate): Prompt tempalte for the system prompt
+            to be used with the language model.
+        message_prompt_template (PromptTemplate): Prompt template for the message used
+            with the language model.
+        required_keys (set[str]): The keys required for the flow step to execute.
     """
 
     def __init__(
         self,
         name: str,
         llm: BaseLLM,
+        output_key: str,
         system_prompt_template: PromptTemplate,
         message_key: str,
-        output_key: str,
         message_prompt_template: Union[PromptTemplate, None] = None,
-        callbacks:  Union[list[Callback], None] = None,
+        callbacks:  Union[list[AsyncBaseCallback], None] = None,
     ):
         super().__init__(name, output_key, callbacks)
         self.llm = llm

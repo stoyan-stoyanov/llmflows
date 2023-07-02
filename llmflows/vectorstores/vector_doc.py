@@ -45,7 +45,7 @@ class VectorDoc:
             ValueError: If the embedding for the document has not been set.
 
         Returns:
-            list: The embedding of the document.
+            The embedding of the document.
         """
         if self._embedding is not None:
             return self._embedding

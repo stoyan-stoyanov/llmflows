@@ -12,13 +12,10 @@ class BaseLLM(ABC):
     """
     Base class for all Large Language Models (LLMs). Each specific LLM should extend 
     this class.
+
+    Args:
+        model (str): The model name used in the LLM class.
     """
 
     def __init__(self, model: str):
-        """
-        Initializes the BaseLLM with a model.
-
-        Args:
-            model (str): The model name used in the LLM class.
-        """
         self.model = model

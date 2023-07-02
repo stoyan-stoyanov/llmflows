@@ -27,18 +27,27 @@ class VectorStoreFlowStep(BaseFlowStep):
     If the `append_top_k` attribute is set to True, the top_k results will be appended
     in the final result
 
-    Attributes:
+    Args:
         name (str): The name of the flow step.
         vector_store (VectorStore): The vector store instance to use.
         embeddings_model (BaseLLM): The embeddings model instance to use.
-        prompt_template (PromptTemplate): The prompt template to use.
-        required_keys (list[str]): A list of required keys.
-        output_key (str): The key to use for the output.
+        prompt_template (PromptTemplate): Optional prompt template to be used with the 
+            required keys to create a search prompt.
+        output_key (str): The dict key to use for the output.
         top_k (int, optional): The number of top results to return. Defaults to 1.
         append_top_k (bool, optional): Whether to append top_k results. Defaults to
             False.
-        callbacks (list[Callback], optional): List of callback instances. Defaults to
-            None.
+        callbacks (Union[list[BaseCallback], None]): Callbacks to be invoked during 
+            the flowstep execution.
+
+    Attributes:
+        embeddings_model (BaseLLM): The embeddings model instance to use.
+        prompt_template (PromptTemplate): Optional prompt template to be used with the 
+            required keys to create a search prompt.
+        required_keys (list[str]): A list of required keys.
+        vector_store (VectorStore): The vector store instance to use.
+        top_k (int): The number of top results to return.
+        append_top_k (bool): Whether to append top_k results.
     """
 
     def __init__(
@@ -47,7 +56,6 @@ class VectorStoreFlowStep(BaseFlowStep):
         vector_store: VectorStore,
         embeddings_model: BaseLLM,
         prompt_template: PromptTemplate,
-        required_keys: list[str],
         output_key: str,
         top_k: int = 1,
         append_top_k: bool = False,

@@ -19,9 +19,13 @@ class OpenAI(BaseLLM):
 
     Uses the specified OpenAI model and parameters for interacting with the OpenAI API.
 
+    Args:
+        model (str): The name of the OpenAI model to use.
+        temperature (float): The temperature to use for text generation.
+        max_tokens (int): The maximum number of tokens to generate.
+        max_retries (int): The maximum number of retries for generating tokens.
+
     Attributes:
-        api_key (str): OpenAI API key, retrieved from environment variables.
-        model (str): Identifier of the OpenAI model to use.
         temperature (float): The temperature to use for text generation.
         max_tokens (int): The maximum number of tokens to generate.
         max_retries (int): The maximum number of retries for generating tokens.
@@ -38,7 +42,7 @@ class OpenAI(BaseLLM):
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.max_retries = max_retries
-        self.api_key = os.environ["OPENAI_API_KEY"]
+        self._api_key = os.environ["OPENAI_API_KEY"]
 
     def perepare_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
         """
