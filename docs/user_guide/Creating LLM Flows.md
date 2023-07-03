@@ -89,20 +89,38 @@ heavy_metal_flowstep = FlowStep(
     output_key="heavy_metal_lyrics",
 )
 ```
+In order to create a flowstep we have to provide the required parameters for the `FlowStep` class which include:
+
+- name (must be unique)
+- the LLM to be used within the flow
+- the prompt template to be used when calling the LLM
+- output_key (must be unique) which is treated as a prompt variable for other flowsteps
+
+!!! question
+    
+    Q: What if I don't want to provide a prompt template? In many cases I can simply provide a string instead.
+    A: Makes sense! In this scenario feel free to provide a prompt template without any variables.
+
+
 Once we have the FlowStep definitions we can connect the flowsteps in the order we want
 ```python
 title_flowstep.connect(lyrics_flowstep)
 lyrics_flowstep.connect(heavy_metal_flowstep)
 ```
 
-Finally we can create the Flow and run it by using the `execute()` method and providing any required initial inputs.
+Finally we can create the flow and run it. To create the `Flow` object we need to provide the first `FlowStep` and to run it 
+we have to use the `execute()` method and provide any required initial inputs.
 
 ```python
 songwriting_flow = Flow(title_flowstep)
 result = songwriting_flow.execute(topic="love", verbose=True)  # provide initial inputs for the flow
 ```
-Although, this might seem to some like a lot of extra abstractions for basically the same functionality, if we start inspecting the results
+
+This is it!
+
+Although, this might initially seem like a lot of extra abstractions to achieve the same functionality as in the previous examples, if we start inspecting the results
 we will start seeing some advantages of using Flows and FlowSteps.
+
 After running all FlowSteps, the Flow will return detailed results for the execution of each individual FlowStep:
 ```python
 print(result)
@@ -167,11 +185,11 @@ print(result["Title Flowstep"])
 
 ```
 There is a lot to unpack here but after executing the flow we have a complete visibility of what happened at each flowstep.
-Having this information we can answer questions such as:
+By having this information we can answer questions such as:
 
 - when was a particular flowstep executed?
 - how much time it took?
-- what are the input variables?
+- what were the input variables?
 - what was the prompt template?
 - how did the prompt look like?
 - what was the exact configuration of the model?
@@ -180,11 +198,11 @@ Having this information we can answer questions such as:
 - how many tokens were used?
 - what was the final result?
 
-All of this ties to our philosphy of "Simple, Explicit, and Transparent LLM apps. This information allows developers to have complete 
+All of this ties to our philosphy of **"Simple, Explicit, and Transparent LLM apps"**. This information allows developers to have complete 
 visibility and be able to easily log, debug and maintain LLM apps.
 
-This however, is not the only value that LLMFlows provides. The example above was only for demonstrating purposes and real-life applications are more complex than this.
-In the following guides we will go deeper into more complex applications where Flows and FLowSteps really start to shine because of features like figuring out variable dependencies, and concurrent(async) execution.
+This, however, is not the only value that LLMFlows provides. This example is great for the purposes of this guide but real-life applications are usually more complex.
+Next, we will go deeper into more complex applications where Flows and FlowSteps really start to shine due to features like figuring out variable dependencies, and concurrent(async) execution.
 ***
 [:material-arrow-left: Previous: Combining LLMs](Combining LLMs.md){ .md-button }
 [Next: Complex Flows :material-arrow-right:](Complex Flows.md){ .md-button }
