@@ -64,5 +64,5 @@ Then we use the `generate()` method to produce an answer from the Chat LLM.
 
 
 ***
-[Previous](LLMs.md){ .md-button }
-[Next](Prompt Templates.md){ .md-button }
+[:material-arrow-left: Previous: LLMs](LLMs.md){ .md-button }
+[Next: Prompt Templates :material-arrow-right:](Prompt Templates.md){ .md-button }

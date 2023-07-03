@@ -65,5 +65,5 @@ print(song_title)
 ```
 
 ***
-[Previous](Chat LLMs.md){ .md-button }
-[Next](Combining LLMs.md){ .md-button }
+[:material-arrow-left: Previous: Chat LLMs](Chat LLMs.md){ .md-button }
+[Next: Combining LLMs :material-arrow-right:](Combining LLMs.md){ .md-button }

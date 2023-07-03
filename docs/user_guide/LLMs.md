@@ -87,4 +87,4 @@ print(model_config)
 }
 ```
 ***
-[Next](Chat LLMs.md){ .md-button }
+[Next: Chat LLMs :material-arrow-right:](Chat LLMs.md){ .md-button }

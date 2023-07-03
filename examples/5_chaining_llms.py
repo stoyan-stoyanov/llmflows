@@ -32,20 +32,20 @@ title_prompt_template = PromptTemplate(
     prompt="What is a good title of a song about {topic}"
 )
 lyrics_prompt_template = PromptTemplate(
-    prompt="Write me the lyrics for a song with a title {song_title}"
+    prompt="Generate lyrics for a song with a title {song_title}"
 )
 heavy_metal_prompt_template = PromptTemplate(
-    prompt="paraphrase the following lyrics: {lyrics}"
+    prompt="paraphrase the following lyrics to heavy metal style: {lyrics}"
 )
 
 title_prompt = title_prompt_template.get_prompt(topic="friendship")
-song_title = title_llm.generate(title_prompt)
-print(song_title)
+song_title, _, _ = title_llm.generate(title_prompt)
+print("Song title:\n", song_title)
 
 lyrics_prompt = lyrics_prompt_template.get_prompt(song_title=song_title)
-song_lyrics = writer_llm.generate(lyrics_prompt)
-print(song_lyrics)
+song_lyrics, _, _ = writer_llm.generate(lyrics_prompt)
+print("Song Lyrics:\n", song_lyrics)
 
 heavy_metal_prompt = heavy_metal_prompt_template.get_prompt(lyrics=song_lyrics)
-heavy_metal_lyrics = heavy_metal_llm.generate(heavy_metal_prompt)
-print(heavy_metal_lyrics)
+heavy_metal_lyrics, _, _ = heavy_metal_llm.generate(heavy_metal_prompt)
+print("Heavy Metal Lyrics:\n", heavy_metal_lyrics)
