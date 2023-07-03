@@ -30,8 +30,6 @@ from llmflows.flows import Flow, FlowStep
 from llmflows.llms import OpenAI
 from llmflows.prompts import PromptTemplate
 
-# Create LLM
-open_ai_llm = OpenAI()
 
 # Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
@@ -49,28 +47,28 @@ lyrics_template = PromptTemplate(
 # Create flowsteps
 flowstep1 = FlowStep(
     name="Flowstep 1",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 flowstep2 = FlowStep(
     name="Flowstep 2",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=song_template,
     output_key="song_title",
 )
 
 flowstep3 = FlowStep(
     name="Flowstep 3",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 flowstep4 = FlowStep(
     name="Flowstep 4",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )

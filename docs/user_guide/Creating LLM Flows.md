@@ -1,11 +1,9 @@
 ## TL;DR
 
 ```python
-from llmflows.flows.flow import Flow
-from llmflows.flows.flowstep import FlowStep
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
-
+from llmflows.flows import Flow, FlowStep
+from llmflows.llms import OpenAI
+from llmflows.prompts import PromptTemplate
 
 # Create prompt templates
 title_prompt_template = PromptTemplate(
@@ -46,7 +44,8 @@ lyrics_flowstep.connect(heavy_metal_flowstep)
 
 # Create and run Flow
 songwriting_flow = Flow(title_flowstep)
-songwriting_flow.execute(topic="love")  # provide initial data for the flow
+result = songwriting_flow.execute(topic="love")  # provide initial inputs for the flow
+print(result)
 
 ```
 

@@ -1,11 +1,9 @@
 ## TL;DR
 
 ```python
-from llmflows.llms.openai_embeddings import OpenAIEmbeddings
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
-from llmflows.vectorstores.vector_doc import VectorDoc
-from llmflows.vectorstores.pinecone import Pinecone
+from llmflows.llms import OpenAIEmbeddings, OpenAI
+from llmflows.prompts import PromptTemplate
+from llmflows.vectorstores import VectorDoc, Pinecone
 import os
 
 """

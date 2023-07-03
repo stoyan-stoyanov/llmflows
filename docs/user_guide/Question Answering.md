@@ -1,11 +1,9 @@
 ## TL;DR
 
 ```python
-from llmflows.llms.openai_embeddings import OpenAIEmbeddings
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
-from llmflows.vectorstores.vector_doc import VectorDoc
-from llmflows.vectorstores.pinecone import Pinecone
+from llmflows.llms import OpenAIEmbeddings, OpenAI
+from llmflows.prompts import PromptTemplate
+from llmflows.vectorstores import VectorDoc, Pinecone
 import os
 
 """
@@ -31,8 +29,8 @@ embedded_question = embeddings_llm.generate(question)
 
 # Search Pinecone with the question embedding to find the document with the
 # most-relevant text
-search_result = vector_db.search(embedded_question, top_k=2)
-context = search_result[0]["metadata"]["text"]
+search_results, _, _ = vector_db.search(embedded_question, top_k=2)
+context = search_results[0]["metadata"]["text"]
 
 # Provide the most-relevant document text to a llm and use the text as a context
 # to generate the final answer

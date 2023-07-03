@@ -1,13 +1,9 @@
 ## TL;DR
 
 ```python
-from llmflows.flows.flow import Flow
-from llmflows.flows.flowstep import FlowStep
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
-
-# Create LLM
-open_ai_llm = OpenAI()
+from llmflows.flows import Flow, FlowStep
+from llmflows.llms import OpenAI
+from llmflows.prompts import PromptTemplate
 
 # Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
@@ -25,28 +21,28 @@ lyrics_template = PromptTemplate(
 # Create flowsteps
 flowstep1 = FlowStep(
     name="Flowstep 1",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 flowstep2 = FlowStep(
     name="Flowstep 2",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=song_template,
     output_key="song_title",
 )
 
 flowstep3 = FlowStep(
     name="Flowstep 3",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 flowstep4 = FlowStep(
     name="Flowstep 4",
-    llm=open_ai_llm,
+    llm=OpenAI(),
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )
@@ -58,9 +54,11 @@ flowstep3.connect(flowstep4)
 
 # Create and run Flow
 soundtrack_flow = Flow(flowstep1)
-soundtrack_flow.execute(topic="friendship")
+results = soundtrack_flow.execute(topic="friendship", verbose=True)
+print(results)
 
 ```
 
 ## Guide
+![Screenshot](assets/complex_flow.png)
 Not implemented

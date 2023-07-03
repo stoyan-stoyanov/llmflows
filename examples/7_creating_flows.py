@@ -66,5 +66,5 @@ lyrics_flowstep.connect(heavy_metal_flowstep)
 
 # Create and run Flow
 songwriting_flow = Flow(title_flowstep)
-result = songwriting_flow.execute(topic="love")  # provide initial data for the flow
+result = songwriting_flow.execute(topic="love")  # provide initial inputs for the flow
 print(result)

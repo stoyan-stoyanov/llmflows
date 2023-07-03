@@ -1,8 +1,8 @@
 ## TL;DR
 
 ```python
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
+from llmflows.llms import OpenAI
+from llmflows.prompts import PromptTemplate
 
 prompt_template = PromptTemplate(
     prompt="Generate a title for a 90s hip-hop song about {topic}."

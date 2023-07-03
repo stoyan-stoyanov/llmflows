@@ -41,11 +41,11 @@ heavy_metal_prompt_template = PromptTemplate(
 title_prompt = title_prompt_template.get_prompt(topic="friendship")
 song_title = title_llm.generate(title_prompt)
 print(song_title)
-print("---------------------")
+
 lyrics_prompt = lyrics_prompt_template.get_prompt(song_title=song_title)
 song_lyrics = writer_llm.generate(lyrics_prompt)
 print(song_lyrics)
-print("---------------------")
+
 heavy_metal_prompt = heavy_metal_prompt_template.get_prompt(lyrics=song_lyrics)
 heavy_metal_lyrics = heavy_metal_llm.generate(heavy_metal_prompt)
 print(heavy_metal_lyrics)

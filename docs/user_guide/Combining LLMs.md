@@ -1,8 +1,8 @@
 ## TL;DR
 
 ```python
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
+from llmflows.llms import OpenAI
+from llmflows.prompts import PromptTemplate
 
 title_llm = OpenAI()
 writer_llm = OpenAI()
@@ -15,7 +15,7 @@ lyrics_prompt_template = PromptTemplate(
     prompt="Write me the lyrics for a song with a title {song_title}"
 )
 heavy_metal_prompt_template = PromptTemplate(
-    prompt="paraphrase the following lyrics in a heavy metal style: {lyrics}"
+    prompt="paraphrase the following lyrics: {lyrics}"
 )
 
 title_prompt = title_prompt_template.get_prompt(topic="friendship")
