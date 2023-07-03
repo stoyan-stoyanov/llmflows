@@ -111,7 +111,7 @@ vector_db = Pinecone(
 )
 
 # Add the embedded documents to the vector database
-# vector_db.upsert(docs=embedded_docs)
+vector_db.upsert(docs=embedded_docs)
 
 # Define a question, create a question VectorDoc and create it's embeddings
 question = VectorDoc(doc="How was dark energy discovered?")

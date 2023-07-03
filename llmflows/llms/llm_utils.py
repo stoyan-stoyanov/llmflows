@@ -58,7 +58,6 @@ def call_with_retry(api_obj, max_retries, *args, **kwargs):
             ServiceUnavailableError,
         ) as error:
             num_retries += 1
-            print("Retrying: Attempt %s. Error: %s", num_retries, str(error))
             logging.warning("Retrying: Attempt %s. Error: %s", num_retries, str(error))
             time.sleep(min(delay, max_delay))
             delay *= delay_multiplier
@@ -113,7 +112,6 @@ async def async_call_with_retry(api_obj, max_retries, *args, **kwargs):
             ServiceUnavailableError,
         ) as error:
             num_retries += 1
-
             logging.warning("Retrying: Attempt %s. Error: %s", num_retries, str(error))
             await asyncio.sleep(min(delay, max_delay))
             delay *= delay_multiplier

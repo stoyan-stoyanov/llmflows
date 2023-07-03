@@ -66,6 +66,19 @@ class OpenAIChat(BaseLLM):
 
     @messages.setter
     def messages(self, value):
+        """
+        Sets the conversation history.
+
+        Each message in the list should be a dictionary containing 
+        "role" and "content" keys.
+
+        Args:
+            value (list): A list of message dictionaries.
+
+        Raises:
+            ValueError: If the provided value is not a list or if any 
+            dictionary in the list is not a valid message.
+        """
         if not isinstance(value, list):
             raise ValueError("messages must be a list of dicts")
         for item in value:
@@ -206,11 +219,6 @@ class OpenAIChat(BaseLLM):
             A tuple containing the generated chat message, raw output data, and model
                 configuration.
         """
-        if self.verbose:
-            print("[SYSTEM] Messages sent to OpenAI chat API:")
-            for msg in self.messages:
-                print(msg)
-            print("---------")
 
         completion, retries = call_with_retry(
             api_obj=openai.ChatCompletion,
@@ -238,11 +246,6 @@ class OpenAIChat(BaseLLM):
             A tuple containing the generated chat message, raw output data, and model
                 configuration.
         """
-        if self.verbose:
-            print("[SYSTEM] Messages sent to OpenAI chat API:")
-            for msg in self.messages:
-                print(msg)
-            print("---------")
 
         completion, retries = await async_call_with_retry(
             api_obj=openai.ChatCompletion,

@@ -19,3 +19,21 @@ class BaseLLM(ABC):
 
     def __init__(self, model: str):
         self.model = model
+
+    def generate(self):
+        """
+        Generates text from the LLM.
+
+        Raises:
+            NotImplementedError: If the LLM does not implement the generate method.
+        """
+        raise NotImplementedError
+
+    async def generate_async(self):
+        """
+        Generates text from the LLM asynchronously.
+
+        Raises:
+            NotImplementedError: If the LLM does not implement the generate_async method.
+        """
+        raise NotImplementedError

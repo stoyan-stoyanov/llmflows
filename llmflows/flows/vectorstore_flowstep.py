@@ -64,7 +64,7 @@ class VectorStoreFlowStep(BaseFlowStep):
         super().__init__(name, output_key, callbacks)
         self.embeddings_model = embeddings_model
         self.prompt_template = prompt_template
-        self.required_keys = set(required_keys)
+        self.required_keys = prompt_template.variables
         self.vector_store = vector_store
         self.top_k = top_k
         self.append_top_k = append_top_k
