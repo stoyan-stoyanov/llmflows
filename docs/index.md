@@ -1,16 +1,10 @@
-# LLMFlows - Simple, Explicit and Transparent LLM Apps
-
+# LLMFlows - Simple, Explicit, and Transparent LLM Apps
 <p align="center">
   <img src="llmflows_last_logo.png" />
 </p>
 
-[![Twitter](https://img.shields.io/twitter/follow/LLMFlows?style=social)](https://twitter.com/LLMFlows)
-![Pylint workflow](https://github.com/stoyan-stoyanov/llmflow/actions/workflows/pylint.yml/badge.svg)
-![License](https://img.shields.io/github/license/stoyan-stoyanov/llmflow)
-![PyPi](https://img.shields.io/pypi/v/llmflows)
-![Stars](https://img.shields.io/github/stars/stoyan-stoyanov/llmflow?style=social)
-![Release date](https://img.shields.io/github/release-date/stoyan-stoyanov/llmflow?style=social)
-
+[:fontawesome-brands-twitter: Twitter](LLMs.md){ .md-button } [:fontawesome-brands-mastodon: Mastodon](LLMs.md){ .md-button } [:simple-substack: Substack](LLMs.md){ .md-button } [:fontawesome-brands-github: Github](LLMs.md){ .md-button }
+***
 ## About
 LLMFlows is a simple and lightweight framework for building LLM-powered applications.
 

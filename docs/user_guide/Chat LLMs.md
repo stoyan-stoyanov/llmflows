@@ -51,7 +51,7 @@ while True:
 ```
 
 ```commandline
-You:hey
+You: hey
 LLM: Hello! How can I assist you today?
 You: ...
 ```
