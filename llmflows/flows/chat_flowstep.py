@@ -98,4 +98,11 @@ class ChatFlowStep(BaseFlowStep):
         else:
             message = inputs[self.message_key]
         self.llm.add_message(message)
-        return self.llm.generate()
+        results = self.llm.generate()
+
+        results[1]["system_prompt_template"] = self.system_prompt_template.prompt
+        results[1]["system_prompt"] = system_prompt
+        results[1]["message_prompt_template"] = self.message_prompt_template.prompt
+        results[1]["message_prompt"] = message
+        results[1]["message_history"] = self.llm.messages
+        return results

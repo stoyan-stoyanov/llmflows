@@ -8,25 +8,19 @@ title_llm = OpenAI()
 writer_llm = OpenAI()
 heavy_metal_llm = OpenAI()
 
-title_prompt_template = PromptTemplate(
-    prompt="What is a good title of a song about {topic}"
-)
-lyrics_prompt_template = PromptTemplate(
-    prompt="Write me the lyrics for a song with a title {song_title}"
-)
-heavy_metal_prompt_template = PromptTemplate(
-    prompt="paraphrase the following lyrics: {lyrics}"
-)
+title_template = PromptTemplate("What is a good title of a song about {topic}")
+lyrics_template = PromptTemplate("Write me the lyrics for a song with a title {song_title}")
+heavy_metal_template = PromptTemplate("paraphrase the following lyrics: {lyrics}")
 
-title_prompt = title_prompt_template.get_prompt(topic="friendship")
+title_prompt = title_template.get_prompt(topic="friendship")
 song_title, _, _ = title_llm.generate(title_prompt)
 print(song_title)
 
-lyrics_prompt = lyrics_prompt_template.get_prompt(song_title=song_title)
+lyrics_prompt = lyrics_template.get_prompt(song_title=song_title)
 song_lyrics, _, _ = writer_llm.generate(lyrics_prompt)
 print(song_lyrics)
 
-heavy_metal_prompt = heavy_metal_prompt_template.get_prompt(lyrics=song_lyrics)
+heavy_metal_prompt = heavy_metal_template.get_prompt(lyrics=song_lyrics)
 heavy_metal_lyrics, _, _ = heavy_metal_llm.generate(heavy_metal_prompt)
 print(heavy_metal_lyrics)
 
@@ -44,15 +38,10 @@ Let's create the prompts for the three steps:
 ```python
 from llmflows.prompts import PromptTemplate
 
-title_prompt_template = PromptTemplate(
-    prompt="What is a good title of a song about {topic}"
-)
-lyrics_prompt_template = PromptTemplate(
-    prompt="Generate lyrics for a song with a title {song_title}"
-)
-heavy_metal_prompt_template = PromptTemplate(
-    prompt="paraphrase the following lyrics to heavy metal style: {lyrics}"
-)
+title_template = PromptTemplate("What is a good title of a song about {topic}")
+lyrics_template = PromptTemplate("Write me the lyrics for a song with a title {song_title}")
+heavy_metal_template = PromptTemplate("paraphrase the following lyrics: {lyrics}")
+
 ```
 
 Now we can use these prompt templates to generate text based on an initial input and each generated text can be the input for the variable in the next prompt template
@@ -64,13 +53,13 @@ title_llm = OpenAI()
 writer_llm = OpenAI()
 heavy_metal_llm = OpenAI()
 
-title_prompt = title_prompt_template.get_prompt(topic="friendship")
+title_prompt = title_template.get_prompt(topic="friendship")
 song_title, _, _ = title_llm.generate(title_prompt)
 
-lyrics_prompt = lyrics_prompt_template.get_prompt(song_title=song_title)
+lyrics_prompt = lyrics_template.get_prompt(song_title=song_title)
 song_lyrics, _, _ = writer_llm.generate(lyrics_prompt)
 
-heavy_metal_prompt = heavy_metal_prompt_template.get_prompt(lyrics=song_lyrics)
+heavy_metal_prompt = heavy_metal_template.get_prompt(lyrics=song_lyrics)
 heavy_metal_lyrics, _, _ = heavy_metal_llm.generate(heavy_metal_prompt)
 
 ```
@@ -88,7 +77,7 @@ print("Song Lyrics:\n", song_lyrics)
 ```
 ```commandline
 Song Lyrics:
- 
+
 Verse 1:
 It's been a long road, but we made it here
 We've been through tough times, but we stayed strong through the years

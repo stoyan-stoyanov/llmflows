@@ -49,4 +49,8 @@ class FlowStep(BaseFlowStep):
 
     def generate(self, inputs: dict[str, Any]) -> tuple[Any, Any, Any]:
         prompt = self.prompt_template.get_prompt(**inputs)
-        return self.llm.generate(prompt)
+        results = self.llm.generate(prompt)
+        results[1]["prompt_template"] = self.prompt_template.prompt
+        results[1]["prompt"] = prompt
+
+        return results
