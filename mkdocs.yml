@@ -14,7 +14,7 @@ theme:
     - content.code.annotations
     - content.code.copy
   language: en
-  palette: 
+  palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: llmflows
@@ -38,13 +38,14 @@ plugins:
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
-  - pymdownx.superfences 
+  - pymdownx.superfences
+  - admonition
+  - attr_list
 
 
 nav:
   - Home: index.md
-  - User Guide: 
-    - Introduction: user_guide/Intro.md
+  - User Guide:
     - LLMs: user_guide/LLMs.md
     - Chat LLMs: user_guide/Chat LLMs.md
     - Prompt Templates: user_guide/Prompt Templates.md
@@ -54,15 +55,15 @@ nav:
     - Vector Databases: user_guide/Vector Databases.md
     - Question Answering: user_guide/Question Answering.md
     - Vector Stores in Flows: user_guide/Adding Vector Stores to Flows.md
-    - Agents: user_guide/Agents.md
-    - Flask Apps: user_guide/Flask Apps.md
-    - FastAPI Apps: user_guide/FastAPI Apps.md
+#    - Agents: user_guide/Agents.md
+#    - Flask Apps: user_guide/Flask Apps.md
+#    - FastAPI Apps: user_guide/FastAPI Apps.md
   - API Reference:
     - LLMs: 
       - Overview: api_reference/llms/llms.md
       - BaseLLM: api_reference/llms/llm.md
       - OpenAI: api_reference/llms/openai.md
-      - OpenAIChatLLM: api_reference/llms/openai_chat.md
+      - OpenAIChat: api_reference/llms/openai_chat.md
       - OpenAIEmbeddings: api_reference/llms/openai_embeddings.md
     - Prompts: 
       - Overview: api_reference/prompts/prompts.md
