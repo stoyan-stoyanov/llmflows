@@ -53,7 +53,7 @@ nav:
     - Complex Flows: user_guide/Complex Flows.md
     - Vector Databases: user_guide/Vector Databases.md
     - Question Answering: user_guide/Question Answering.md
-    - Question Answering: user_guid/Adding Vector Stores to Flows.md
+    - Adding Vector Stores to Flows: user_guide/Adding Vector Stores to Flows.md
     - Agents: user_guide/Agents.md
     - Flask Apps: user_guide/Flask Apps.md
     - FastAPI Apps: user_guide/FastAPI Apps.md

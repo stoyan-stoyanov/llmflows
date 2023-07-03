@@ -71,4 +71,6 @@ print(results)
 ```
 
 ## Guide
+![Screenshot](assets/LLMFlows_VectorStore_Flowstep.png)
+
 Not implemented
