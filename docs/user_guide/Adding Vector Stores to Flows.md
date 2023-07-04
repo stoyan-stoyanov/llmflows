@@ -159,6 +159,5 @@ results = qa_flow.execute(topic="wormholes", verbose=True)
 print(results)
 ```
 
-
 ***
 [:material-arrow-left: Previous: Question Answering](Question Answering.md){ .md-button }

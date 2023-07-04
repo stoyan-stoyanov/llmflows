@@ -1,12 +1,25 @@
 # LLMFlows - Simple, Explicit, and Transparent LLM Apps
+
 <p align="center">
   <img src="llmflows_last_logo.png" />
 </p>
 
-[:fontawesome-brands-twitter: Twitter](LLMs.md){ .md-button } [:fontawesome-brands-mastodon: Mastodon](LLMs.md){ .md-button } [:simple-substack: Substack](LLMs.md){ .md-button } [:fontawesome-brands-github: Github](LLMs.md){ .md-button }
+[![Twitter](https://img.shields.io/twitter/follow/LLMFlows?style=social)](https://twitter.com/LLMFlows)
+![Pylint workflow](https://github.com/stoyan-stoyanov/llmflow/actions/workflows/pylint.yml/badge.svg)
+![License](https://img.shields.io/github/license/stoyan-stoyanov/llmflow)
+![PyPi](https://img.shields.io/pypi/v/llmflows)
+![Stars](https://img.shields.io/github/stars/stoyan-stoyanov/llmflow?style=social)
+![Release date](https://img.shields.io/github/release-date/stoyan-stoyanov/llmflow?style=social)
+
+
 ***
+Source code: [https://github.com/stoyan-stoyanov/llmflows](https://github.com/stoyan-stoyanov/llmflows)<br/>
+Twitter: [https://twitter.com/LLMFlows](https://twitter.com/LLMFlows)<br/>
+Substack: [https://llmflows.substack.com/](https://llmflows.substack.com/)<br/>
+***
+
 ## About
-LLMFlows is a simple and lightweight framework for building LLM-powered applications.
+LLMFlows is a framework for building LLM-powered applications.
 
 ## Installation
 ```
