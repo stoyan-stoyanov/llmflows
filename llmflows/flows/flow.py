@@ -58,6 +58,7 @@ class Flow(BaseFlow):
         Returns:
             Any: The output of the step.
         """
+
         if not step or any(parent.output_key not in inputs for parent in step.parents):
             return
 

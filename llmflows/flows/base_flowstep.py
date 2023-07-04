@@ -52,9 +52,30 @@ class BaseFlowStep(ABC):
             ValueError: If connected flow steps have the same output key.
         """
         self._check_unique_keys(*steps)
+        for step in steps:
+            if self._introduces_cycle(step):
+                raise ValueError("Adding this connection would introduce a cycle.")
         self.next_steps.extend(steps)
         for step in steps:
             step.parents.append(self)
+
+    def _introduces_cycle(self, step: "BaseFlowStep") -> bool:
+        """
+        Checks if adding a connection to the given step would introduce a cycle.
+
+        Args:
+            step (BaseFlowStep): The step to which a connection is being added.
+
+        Returns:
+            bool: True if adding the connection would introduce a cycle, False otherwise.
+        """
+        to_visit = [step]
+        while to_visit:
+            current_step = to_visit.pop()
+            if current_step == self:
+                return True
+            to_visit.extend(current_step.next_steps)
+        return False
 
     def _check_unique_keys(self, *steps: "BaseFlowStep") -> None:
         """

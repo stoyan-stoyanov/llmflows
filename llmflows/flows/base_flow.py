@@ -106,6 +106,7 @@ class BaseFlow:
         """
 
         print(self.output_keys.union(user_inputs.keys()))
+        print(self.input_keys)
         if not self.input_keys.issubset(self.output_keys.union(user_inputs.keys())):
             raise ValueError("Some flowsteps have missing inputs")
 
