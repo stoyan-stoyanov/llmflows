@@ -15,9 +15,7 @@ pip install llmflows
 
 ## Where to start
 
-After installing `llmflows` with `pip` your go-to destination should be the user guide on the left. Each page helps new users 
-gradually learn LLMFlow starting from simple concepts, going through all main abstractions and ending at complex use-cases
-where LLMFlow really shines. 
+After installing `llmflows` with `pip` your go-to destination should be the user guide. Each page helps new users gradually learn LLMFlow starting from simple concepts, going through all main abstractions and ending with complex use-cases where LLMFlows really shines. 
 
 Each page has a TL;DR code snippet that you can just copy, paste and move on. If you already have significant experience with 
 LLMs, and prompt engineering or you are in a rush feel free to use the TL;DR section together with the API referrence when needed.
