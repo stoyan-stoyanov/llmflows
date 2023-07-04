@@ -98,8 +98,9 @@ In order to create a flowstep we have to provide the required parameters for the
 
 !!! question
     
-    Q: What if I don't want to provide a prompt template? In many cases I can simply provide a string instead.
-    A: Makes sense! In this scenario feel free to provide a prompt template without any variables.
+    Q: What if I don't want to provide a prompt template? In many cases I can simply use a string instead.
+
+    A: Makes sense! In this scenario, feel free to create a prompt template without any variables.
 
 
 Once we have the FlowStep definitions we can connect the flowsteps in the order we want
@@ -201,7 +202,7 @@ By having this information we can answer questions such as:
 All of this ties to our philosphy of **"Simple, Explicit, and Transparent LLM apps"**. This information allows developers to have complete 
 visibility and be able to easily log, debug and maintain LLM apps.
 
-This, however, is not the only value that LLMFlows provides. This example is great for the purposes of this guide but real-life applications are usually more complex.
+This, however, is not the only value that LLMFlows can provide. This example is great for the purposes of this guide but real-life applications are usually more complex.
 Next, we will go deeper into more complex applications where Flows and FlowSteps really start to shine due to features like figuring out variable dependencies, and concurrent(async) execution.
 ***
 [:material-arrow-left: Previous: Combining LLMs](Combining LLMs.md){ .md-button }

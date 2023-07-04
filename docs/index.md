@@ -13,16 +13,31 @@ LLMFlows is a simple and lightweight framework for building LLM-powered applicat
 pip install llmflows
 ```
 
+## Where to start
+
+After installing `llmflows` with `pip` your go-to destination should be the user guide on the left. Each page helps new users 
+gradually learn LLMFlow starting from simple concepts, going through all main abstractions and ending at complex use-cases
+where LLMFlow really shines. 
+
+Each page has a TL;DR code snippet that you can just copy, paste and move on. If you already have significant experience with 
+LLMs, and prompt engineering or you are in a rush feel free to use the TL;DR section together with the API referrence when needed.
+
+If you are new to LLMs and prompt engineering feel free to go through the user guide in the specified order where you can learn
+about concepts, abstractions and patterns when creating LLM-powered applications. 
+
+We hope you find this documentation useful and look forward to any feedback you have on how we can improve it.
+
+
 ## Philosophy
 
 ### Simple
-We want to create a framework with a minimal set of classes that allows users to build powerful LLM-powered apps without compromising on capabilities.
+Our goal is to build a simple, well documented framework with a minimal set of classes and abstractions that allow users to build flexible LLM-powered apps without compromising on capabilities.
 
 ### Explicit
-We want to enable users to easily create complex flows of LLMs interacting with each other that have explicit and obvious structure.
+We want to create an explicit API enabling users to write clean, and readable code while being able to easily create complex flows of LLMs interacting with each other.
 
 ### Transparent
-Flows are traceable, executions are easily logged and none of the classes provided in LLMFlows have hidden prompts - prompts are for you to decide.
+We aim helping users have full transparency on their LLM-powered apps by providing traceable flows, and complete information for each component of the app making it easy to monitor, maintain, and debug.
 
 ## Usage
 Here is a minimal example of an LLM with a PromptTemplate:

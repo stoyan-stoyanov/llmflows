@@ -20,19 +20,20 @@ You can quickly install LLMFlows with pip
 pip install llmflows
 ```
 
+## Documentation
+The full documentation including user guides and api reference can be found at readthedocs.
+
 ## Philosophy
 
 ### Simple
-We want to build a framework with a minimal set of classes and abstractions that allows users to build flexible LLM-powered apps without compromising on capabilities.
+Our goal is to build a simple, well documented framework with a minimal set of classes and abstractions that allow users to build flexible LLM-powered apps without compromising on capabilities.
 
 ### Explicit
-We want to create a readable and explicit API enabling users to easily create complex flows of LLMs interacting with each other that have explicit and obvious structure.
+We want to create an explicit API enabling users to write clean, and readable code while being able to easily create complex flows of LLMs interacting with each other.
 
 ### Transparent
-Flows are traceable, executions are easily logged and none of the classes provided in LLMFlows have hidden prompts. Default prompts introduce unexpected behavior and behavior drift when models are updated. 
+We aim helping users have full transparency on their LLM-powered apps by providing traceable flows, and complete information for each component of the app making it easy to monitor, maintain, and debug.
 
-## Documentation
-The full documentation for LLMFlows can be found here.
 
 ## Usage
 Here is a minimal example of an LLM with a PromptTemplate:
