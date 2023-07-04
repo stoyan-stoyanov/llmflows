@@ -1,4 +1,4 @@
-# LLMFlows - Simple, Explicit and Transparent LLM Apps
+# LLMFlows - Simple, Explicit, and Transparent LLM Apps
 
 <p align="center">
   <img style="width: 80%" src="docs/llmflows_last_logo.png" />

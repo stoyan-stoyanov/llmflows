@@ -136,8 +136,7 @@ results = soundtrack_flow.execute(topic="friendship", verbose=True)
 ```
 
 And Voilà! We managed to create a complex flow pretty much as easy as the basic example from the previous guide. 
-LLMFlows will figure out the dependencies, and execute the flow in the right order - making sure that all the inputs are 
-available before executing a given flowstep. 
+LLMFlows will figure out the dependencies, and execute the flow in the right order - making sure that all the inputs are available before executing a given flowstep. 
 
 In fact, you might have already noticed that there is an emerging pattern:
 
@@ -148,6 +147,10 @@ In fact, you might have already noticed that there is an emerging pattern:
 5. run the flow
 
 By following this pattern you can create any flow with any level of complexity as long as you can represent it as a DAG.
+
+In our next guide we will create a flow that can be optimized for total runtime by executing 
+flowsteps that already have all their required inputs in parallel.
+
 ***
 [:material-arrow-left: Previous: Creating LLM Flows](Creating LLM Flows.md){ .md-button }
 [Next: Complex Flows :material-arrow-right:](Async Flows.md){ .md-button }

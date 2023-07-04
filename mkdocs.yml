@@ -55,7 +55,8 @@ nav:
     - Combining LLMs: user_guide/Combining LLMs.md
     - Creating LLM Flows: user_guide/Creating LLM Flows.md
     - Complex Flows: user_guide/Complex Flows.md
-    - Vector Databases: user_guide/Vector Databases.md
+    - Async Flows: user_guide/Async Flows.md
+    - Vector Stores: user_guide/Vector Databases.md
     - Question Answering: user_guide/Question Answering.md
     - Vector Stores in Flows: user_guide/Adding Vector Stores to Flows.md
 #    - Agents: user_guide/Agents.md

@@ -33,7 +33,7 @@ import asyncio
 
 import json
 
-# Create LLM
+# Create LLMs
 open_ai_llm = OpenAI()
 chat_llm = OpenAIChat()
 

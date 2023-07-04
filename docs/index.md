@@ -39,26 +39,6 @@ We want to create an explicit API enabling users to write clean, and readable co
 ### Transparent
 We aim helping users have full transparency on their LLM-powered apps by providing traceable flows, and complete information for each component of the app making it easy to monitor, maintain, and debug.
 
-## Usage
-Here is a minimal example of an LLM with a PromptTemplate:
-
-```python
-
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
-
-prompt_template = PromptTemplate(
-   prompt="Generate a title for a 90s hip-hop song about {topic}."
-)
-llm_prompt = prompt_template.get_prompt(topic="friendship")
-
-llm = OpenAI()
-song_title = llm.generate(llm_prompt)
-
-```
-
-For more examples such as how to create question answering apps and web applications with Flask and FastAPI check our user guide.
-
 ## License
 LLMFlows is covered by the MIT license. For more information check `LICENCE.md`.
 
