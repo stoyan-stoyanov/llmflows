@@ -44,7 +44,7 @@ print(result)
 ```
 ***
 ## Guide
-In the previous guides we went through the `LLM` and `PromptTemplate` abstractions and we introduced two common patterns when building LLM-powered apps. 
+In the introduction section we went through the `LLM` and `PromptTemplate` abstractions and we introduced two common patterns when building LLM-powered apps. 
 In the first pattern we used prompt templates to create dynamic prompts and in the second pattern we used the output of an LLM call as an input to another LLM.
 
 In this guide we are going to introduce two new main abstractions of LLMFlows - Flowsteps and Flows.

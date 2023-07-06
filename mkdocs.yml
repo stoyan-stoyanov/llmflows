@@ -49,12 +49,8 @@ markdown_extensions:
 nav:
   - Home: index.md
   - User Guide:
-    - LLMs: user_guide/LLMs.md
-    - Chat LLMs: user_guide/Chat LLMs.md
-    - Prompt Templates: user_guide/Prompt Templates.md
-    - Combining LLMs: user_guide/Combining LLMs.md
-    - Creating LLM Flows: user_guide/Creating LLM Flows.md
-    - Complex Flows: user_guide/Complex Flows.md
+    - Introduction: user_guide/Introduction.md
+    - LLM Flows: user_guide/Complex Flows.md
     - Async Flows: user_guide/Async Flows.md
     - Vector Stores: user_guide/Vector Databases.md
     - Question Answering: user_guide/Question Answering.md
