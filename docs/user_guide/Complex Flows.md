@@ -60,7 +60,7 @@ print(results)
 ```
 ***
 ## Guide
-In the previous guide we introduced the Flow and FlowStep abstractions and we saw how we can create explicit, and transparent 
+In the Introduction section we covered the Flow and FlowStep abstractions and we saw how we can create explicit, and transparent 
 LLM Flows to build LLM-powered apps. In this guide we will dive a bit deeper and will build a slightly more complex example.
 
 Let's imagine that for some reason you want to create an app that can generate a movie title, a movie song title based on the movie title, write a summary 
@@ -152,5 +152,5 @@ In our next guide we will create a flow that can be optimized for total runtime 
 flowsteps that already have all their required inputs in parallel.
 
 ***
-[:material-arrow-left: Previous: Creating LLM Flows](Creating LLM Flows.md){ .md-button }
-[Next: Complex Flows :material-arrow-right:](Async Flows.md){ .md-button }
+[:material-arrow-left: Previous: Introduction](Introduction.md){ .md-button }
+[Next: Async Flows :material-arrow-right:](Async Flows.md){ .md-button }
