@@ -11,11 +11,9 @@
 ![Stars](https://img.shields.io/github/stars/stoyan-stoyanov/llmflow?style=social)
 ![Release date](https://img.shields.io/github/release-date/stoyan-stoyanov/llmflow?style=social)
 
-***
 Documentation: [https://readthedocs.org/](https://readthedocs.org/)<br/>
 Twitter: [https://twitter.com/LLMFlows](https://twitter.com/LLMFlows)<br/>
 Substack: [https://llmflows.substack.com/](https://llmflows.substack.com/)<br/>
-***
 
 ## About
 LLMFlows is a framework for building simple, explicit, and transparent LLM applications.
