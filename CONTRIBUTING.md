@@ -2,8 +2,6 @@
 
 First off, thanks for taking the time to check out our little porject and considering contributing to it! We are really glad you're reading this, and we need volunteer developers like you to help this project come to fruition.
 
-If you choose to contribute here are the guidelines we'd like you to follow:
-
 ## How to Contribute
 
 ### Step 1: Set up a working copy on your computer
@@ -69,7 +67,7 @@ You can run tests with the following command:
 
 ### Step 5: Ensure your code follows the style guidelines
 
-This project uses pylint for code linting, and it's part of the GitHub Actions workflow. Ensure your changes do not break any linting rules by running pylint locally:
+We use black for code formatting and pylint for code linting, and it's part of the GitHub Actions workflow. Ensure your changes do not break any linting rules by running pylint locally:
 
 ```
 pylint your_module.py
