@@ -40,8 +40,8 @@ characters_template = PromptTemplate(
     "What are two main characters for a movie called {movie_title}?"
 )
 lyrics_template = PromptTemplate(
-    "Write lyrics of a movie song called {song_title}. The main characters are"
-    " {main_characters}"
+    "Write lyrics of a movie song called {song_title}. The main characters are "
+    "{main_characters}"
 )
 
 # Create flowsteps
