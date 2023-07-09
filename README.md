@@ -26,15 +26,15 @@ pip install llmflows
 
 ## Philosophy
 
-### Simple
+### **Simple**
 Our goal is to build a simple, well-documented framework with minimal abstractions that 
 allow users to build flexible LLM-powered apps without compromising on capabilities.
 
-### Explicit
+### **Explicit**
 We want to create an explicit API enabling users to write clean and readable code while 
 easily creating complex flows of LLMs interacting with each other.
 
-### Transparent
+### **Transparent**
 We aim to help users have full transparency on their LLM-powered apps by providing 
 traceable flows and complete information for each app component, making it easy to 
 monitor, maintain, and debug.
@@ -132,61 +132,36 @@ web applications with Flask and FastAPI.
 
 ## Features
 
-### LLM Integration
-- Utilize LLMs such as OpenAI's GPT-3 for generating natural language text.
-- Configure LLM classes with specific models, settings, and parameters.
-- Use the `generate()` method to generate text based on prompts.
-
-### Prompt Templates
-- Create dynamic prompts using Prompt Templates.
-- Define variables within the prompts that can be filled in later.
-- Generate prompt strings by providing the required variables.
-
-### Flows and FlowSteps
-- Structure your LLM applications using Flows and FlowSteps.
-- Create a directed acyclic graph (DAG) of flow steps to define the order of execution.
-- Connect flow steps to pass outputs as inputs to subsequent steps.
-- Execute the flow using the `start()` method to perform the defined steps.
-
-### VectorStore Integration
-- Leverage vector databases with the VectorStoreFlowStep for efficient storage and 
-retrieval of vector embeddings.
-- Connect to vector databases such as Pinecone for scalable storage and querying of 
-  vectors.
-
-### FunctionalFlowStep
-- Incorporate custom string manipulation functions into flows.
-- Apply functions to manipulate text without relying on LLM calls.
-
-### FunctionalCallback
-- Execute callback functions at different stages within a flow step for enhanced 
-customization and integration capabilities.
-- Utilize callbacks for logging, tracing, or other custom requirements.
-
-## Features
-
-### LLMs
+### **LLMs**
 - Utilize LLMs such as OpenAI's ChatGPT to generate natural language text.
 - Configure LLM classes easily, choosing specific models, parameters, and settings.
-- Benefit from automatic retries when model calls fail, ensuring reliable LLM interactions.
+- Benefit from automatic retries when model calls fail, ensuring reliable LLM 
+  interactions.
 
-### Prompt Templates
-- Create dynamic prompts using Prompt Templates, providing flexible and customizable text generation.
-- Define variables within prompts to generate prompt strings tailored to specific inputs.
+### **Prompt Templates**
+- Create dynamic prompts using Prompt Templates, providing flexible and customizable 
+  text generation.
+- Define variables within prompts to generate prompt strings tailored to specific 
+  inputs.
 
-### Flows and FlowSteps
+### **Flows and FlowSteps**
 - Structure LLM applications using Flows and FlowSteps, providing a clear and organized framework for executing LLM interactions.
-- Connect flow steps to pass outputs as inputs, facilitating seamless data flow and maintaining a transparent LLM pipeline.
-- Leverage Async Flows to run LLMs in parallel when all their inputs are available, optimizing performance and efficiency.
-- Incorporate custom string manipulation functions directly into flows, allowing specialized text transformations without relying solely on LLM calls.
+- Connect flow steps to pass outputs as inputs, facilitating seamless data flow and
+    maintaining a transparent LLM pipeline.
+- Leverage Async Flows to run LLMs in parallel when all their inputs are available, 
+  optimizing performance and efficiency.
+- Incorporate custom string manipulation functions directly into flows, allowing 
+  specialized text transformations without relying solely on LLM calls.
 
-### VectorStore Integration
-- Integrate with vector databases like Pinecone using the VectorStoreFlowStep, empowering efficient and scalable storage and retrieval of vector embeddings.
+### **VectorStore Integration**
+- Integrate with vector databases like Pinecone using the VectorStoreFlowStep, 
+  empowering efficient and scalable storage and retrieval of vector embeddings.
 - Leverage vector databases for seamless storage and querying of vectors, enabling straightforward integration with LLM-powered applications.
 
-### Callbacks
+### **Callbacks**
 - Execute callback functions at different stages within flow steps, enabling enhanced customization, logging, tracing, or other specific integrations.
-- Utilize callbacks to comprehensively control and monitor LLM-powered apps, ensuring clear visibility into the execution process.
+- Utilize callbacks to comprehensively control and monitor LLM-powered apps, ensuring 
+  clear visibility into the execution process.
 
 ## FAQ
 
