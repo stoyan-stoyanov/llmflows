@@ -59,6 +59,20 @@ song_title = llm.generate(llm_prompt)
 
 ```
 
+You can also create a simple chat application with a few lines of code:
+```python
+from llmflows.llms import OpenAIChat
+
+
+llm = OpenAIChat(system_prompt="You are a useful assistant")
+
+while True:
+    user_message = input("You:")
+    llm.add_message(user_message)
+    llm_response, call_data, model_config = llm.generate()
+    print(f"LLM: {llm_response}")
+```
+
 However, real-world applications are often more complex and have dependencies between 
 prompts and LLM calls. For example:
 
