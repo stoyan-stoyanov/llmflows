@@ -36,9 +36,9 @@ heavy_metal_flowstep = FlowStep(
 title_flowstep.connect(lyrics_flowstep)
 lyrics_flowstep.connect(heavy_metal_flowstep)
 
-# Create and run Flow
+# Create and start the Flow
 songwriting_flow = Flow(title_flowstep)
-result = songwriting_flow.execute(topic="love")  # provide initial inputs for the flow
+result = songwriting_flow.start(topic="love")  # provide initial inputs for the flow
 print(result)
 
 ```
@@ -109,12 +109,12 @@ title_flowstep.connect(lyrics_flowstep)
 lyrics_flowstep.connect(heavy_metal_flowstep)
 ```
 
-Finally we can create the flow and run it. To create the `Flow` object we need to provide the first `FlowStep` and to run it 
-we have to use the `execute()` method and provide any required initial inputs.
+Finally we can create the flow and start it. To create the `Flow` object we need to provide the first `FlowStep` and to start it 
+we have to use the `start()` method and provide any required initial inputs.
 
 ```python
 songwriting_flow = Flow(title_flowstep)
-result = songwriting_flow.execute(topic="love", verbose=True)  # provide initial inputs for the flow
+result = songwriting_flow.start(topic="love", verbose=True)  # provide initial inputs for the flow
 ```
 
 This is it!

@@ -15,9 +15,9 @@ class ChatFlowStep(BaseFlowStep):
     """
     Represents a step in a Flow that is utilizing a chat Language Learning Model (LLM).
 
-    A ChatFlowStep executes a language model using two prompt templates, namely a 
-    system prompt and a message prompt, records the execution time, and optionally 
-    invokes callback functions on the results.
+    A ChatFlowStep calls a language model using a system prompt and a message prompt,
+    records the run time, and optionally invokes callback functions on the
+    results.
 
     Args:
         name (str): The name of the flow step.
@@ -29,7 +29,7 @@ class ChatFlowStep(BaseFlowStep):
         message_prompt_template (PromptTemplate): Prompt template for the message used
             with the language model.
         callbacks (Union[list[AsyncBaseCallback], None]): Callbacks to be invoked
-            during the flowstep execution.
+            within the flowstep
 
     Attributes:
         llm (BaseLLM): The language model to be used in the flow step.
@@ -38,7 +38,7 @@ class ChatFlowStep(BaseFlowStep):
             to be used with the language model.
         message_prompt_template (PromptTemplate): Prompt template for the message used
             with the language model.
-        required_keys (set[str]): The keys required for the flow step to execute.
+        required_keys (set[str]): The keys required for the flow step to run.
     """
 
     def __init__(

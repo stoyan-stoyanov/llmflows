@@ -93,7 +93,7 @@ flowstep3.connect(flowstep4)
 async def run_flow():
     # Create and run Flow
     soundtrack_flow = AsyncFlow(flowstep1)
-    result = await soundtrack_flow.execute(topic="friendship", verbose=True)
+    result = await soundtrack_flow.start(topic="friendship", verbose=True)
     print(result)
 
 

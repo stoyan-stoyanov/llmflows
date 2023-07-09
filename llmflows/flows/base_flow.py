@@ -110,9 +110,9 @@ class BaseFlow:
         if not self.input_keys.issubset(self.output_keys.union(user_inputs.keys())):
             raise ValueError("Some flowsteps have missing inputs")
 
-    def execute(self, **inputs):
+    def start(self, **inputs):
         """
-        Placeholder method for executing the flow.
+        Placeholder method for starting the flow.
 
         Args:
             inputs (dict): Inputs to the flow.

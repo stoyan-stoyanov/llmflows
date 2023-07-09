@@ -105,7 +105,7 @@ class BaseFlowStep(ABC):
         """
         pass
 
-    def execute(self, inputs: dict[str, str], verbose: bool = False) -> dict[str, str]:
+    def run(self, inputs: dict[str, str], verbose: bool = False) -> dict[str, str]:
         """
         Executes the flow step with the provided inputs and returns a dictionary with
         execution details.
@@ -121,7 +121,7 @@ class BaseFlowStep(ABC):
                 and callback executions are printed.
 
         Returns:
-            dict[str, str]: A dictionary with various execution details and results.
+            dict[str, str]: A dictionary with various runtime details and results.
         """
         execution_info = {}
         start_time = datetime.datetime.now().isoformat()

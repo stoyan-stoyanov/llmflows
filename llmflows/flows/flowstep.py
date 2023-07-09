@@ -1,8 +1,8 @@
 # pylint: disable=R0801, R0913
 
 """
-This module the FlowStep class, which can execute a language model, record
-execution times, and optionally invoke callbacks on the results.
+This module the FlowStep class, which can call a language model, record
+run times, and optionally invoke callbacks on the results.
 """
 
 from typing import Any, Union
@@ -16,7 +16,7 @@ class FlowStep(BaseFlowStep):
     """
     Represents a specific step in a Flow.
 
-    A FlowStep executes a language model using a prompt template, records the execution
+    A FlowStep calls a language model using a prompt template, records the run
     time, and optionally invokes callback functions on the results.
 
     Args:
@@ -24,14 +24,13 @@ class FlowStep(BaseFlowStep):
         llm (BaseLLM): The language model to be used in the flow step.
         prompt_template (PromptTemplate): Template for the prompt to be used with the 
             language model.
-        callbacks (list[BaseCallback]): Callbacks to be invoked during the flowstep 
-            execution.
+        callbacks (list[BaseCallback]): Callbacks to be invoked within the flowstep
 
     Attributes:
         llm (BaseLLM): The language model to be used in the flow step.
         prompt_template (PromptTemplate): Template for the prompt to be used with the 
             language model.
-        required_keys (set[str]): The keys required for the flow step to execute.
+        required_keys (set[str]): The keys required for the flow step to run.
     """
 
     def __init__(

@@ -3,7 +3,7 @@
 """
 This file contains the AsyncChatFlowStep class, which represents a step in an AsyncFlow
 that is using a chat LLM. The async implementation allows async flowsteps to be 
-executed in parallel if multiple flowsteps have all the required inputs available.
+run in parallel if multiple flowsteps have all the required inputs available.
 """
 
 import logging
@@ -18,8 +18,8 @@ class AsyncChatFlowStep(AsyncBaseFlowStep):
     """
     Represents an async step in a Flow that is utilizing a chat LLM.
 
-    An AsyncChatFlowStep executes a language model using two prompt templates, namely
-    a system prompt and a message prompt, records the execution time, and optionally
+    An AsyncChatFlowStep calls a language model using two prompt templates, namely
+    a system prompt and a message prompt, records the run time, and optionally
     invokes callback functions on the results.
 
     Args:
@@ -32,7 +32,7 @@ class AsyncChatFlowStep(AsyncBaseFlowStep):
         message_prompt_template (PromptTemplate): Prompt template for the message used
             with the language model.
         callbacks (Union[list[AsyncBaseCallback], None]): Callbacks to be invoked
-            during the flowstep execution.
+            during the flowstep run.
 
     Attributes:
         llm (BaseLLM): The language model to be used in the flow step.
@@ -41,7 +41,7 @@ class AsyncChatFlowStep(AsyncBaseFlowStep):
             to be used with the language model.
         message_prompt_template (PromptTemplate): Prompt template for the message used
             with the language model.
-        required_keys (set[str]): The keys required for the flow step to execute.
+        required_keys (set[str]): The keys required for the flow step to run.
     """
 
     def __init__(

@@ -18,9 +18,9 @@ class AsyncFlowStep(AsyncBaseFlowStep):
     """
     Represents a specific async step in an async Flow.
 
-    An AsyncFlowStep executes a language model using a prompt template, records the 
-    execution time, and optionally invokes callback functions on the results.
-    Async Flowsteps can be executed in parallel in an AsyncFlow if all the required 
+    An AsyncFlowStep calls a language model using a prompt template, records the
+    run time, and optionally invokes callback functions on the results.
+    Async Flowsteps can be run in parallel in an AsyncFlow if all the required
     inputs are available.
 
     Args:
@@ -28,14 +28,14 @@ class AsyncFlowStep(AsyncBaseFlowStep):
         llm (BaseLLM): The language model to be used in the flow step.
         prompt_template (PromptTemplate): Template for the prompt to be used with the 
             language model.
-        callbacks Union[list[AsyncBaseCallback], None]: Callbacks to be invoked during 
-            the flowstep execution.
+        callbacks Union[list[AsyncBaseCallback], None]: Callbacks to be invoked
+            when running the flow
 
     Attributes:
         llm (BaseLLM): The language model to be used in the flow step.
         prompt_template (PromptTemplate): Template for the prompt to be used with the 
             language model.
-        required_keys (set[str]): The keys required for the flow step to execute.
+        required_keys (set[str]): The keys required for the flow step to run.
     """
 
     def __init__(

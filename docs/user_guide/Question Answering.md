@@ -51,19 +51,27 @@ print("Final answer:", final_answer)
 ***
 ## Guide
 !!! warning
-    Before starting this guide you will need to have completed the [previous guide](Vector Databases.md) and upsert the VectorDocs into Pinecone.
+    Before starting this guide, you must complete the 
+    [previous guide](Vector Databases.md) and upsert the VectorDocs into Pinecone.
 
-In the previous guide we got familiar with the `VectorStore` and `VectorDoc` classes. We used some text from Wikipedia to create a list of VectorDocs and then we created word embeddings for each one by using the `OpenAIEmbeddings` class. Finally, we uploaded the vectors to the Pinecone vector database with the help of the `Pinecone` client.
+In the previous guide, we got familiar with the `VectorStore` and `VectorDoc` classes. 
+We used some text from Wikipedia to create a list of VectorDocs, and then we generated 
+word embeddings for each one using the `OpenAIEmbeddings` class. Finally, we uploaded 
+the vectors to the Pinecone vector database with the help of the `Pinecone` client.
 
-Now that we have some data in Pinecone we can start putting it to work. One of the most popular applications of LLMs and vector databases is question answering. Here is a common question answering approach:
+Now that we have some data in Pinecone, we can start putting it to work. Question 
+answering is one of the most popular applications of LLMs and vector databases. 
+Here is a common question-answering approach:
 
-1. We start with a string reperesenting a question
+1. We start with a string representing a question
 2. We convert the string to a vector embedding
-3. We use the vector embedding to search a vector database for a text with a similar vector embedding
-4. We obtain the text from the most similar vector
-5. We use the original question and the obtained text together with an LLM and we ask the LLM to generate a response
+3. We use the vector embedding to search a vector database for a text with a similar 
+4. vector embedding
+5. We obtain the text from the most similar vector
+6. We use the original question and the obtained text together with an LLM, and we ask 
+7. the LLM to generate a response
 
-Let's create the question and its vector emebeddings:
+Let's create the question and its vector embeddings:
 
 ```python
 question = VectorDoc(doc="How was dark energy discovered?")
@@ -71,7 +79,7 @@ embeddings_llm = OpenAIEmbeddings()
 embedded_question = embeddings_llm.generate(question)
 ```
 
-We can use the embedded question to search Pinecone:
+We can use the question embeddings to search Pinecone:
 
 ```python
 vector_db = Pinecone(
@@ -84,7 +92,7 @@ search_results, _, _ = vector_db.search(embedded_question)
 context = search_results[0]["metadata"]["text"]
 
 ```
-Let's see what the context provided by the search result looks like
+Let's see what the context provided by the search result looks like.
 ```python
 print(context)
 ```
@@ -106,9 +114,11 @@ was no way to explain an accelerating expansion of the universe. Since the
 accelerated expansion.
 
 ```
-Great! Looks like the retrieved text is relevant and contains the information required to answer the querstion.
+Great! The retrieved text is relevant and contains the information required to answer 
+the question.
 
-Now we have the question and the context and we can use an LLM to answer the question based on the context:
+Now we have the question and the context, and we can use an LLM to answer the question 
+based on the context:
 
 ```python
 llm = OpenAI()
@@ -137,10 +147,12 @@ background (CMB) supported this conclusion and provided further evidence of
 dark energy's existence.
 ```
 
-Impressive, right? We managed to fetch the right context from a bunch of texts stored in a vector database and use a large language model to answer our question!
+Impressive, right? We managed to fetch the proper context from many texts stored in a 
+vector database and use a large language model to answer our question!
 
-Now that we know what makes vector stores tick, in our next guide we will see how we can use vector stores in flows.
+Now that we know what makes vector stores tick, we will see how to use them in flows 
+in the next guide.
 
 ***
-[:material-arrow-left: Previous: Vector Stores](Vector Databases.md){ .md-button }
-[Next: Vector Stores in Flows :material-arrow-right:](Adding Vector Stores to Flows.md){ .md-button }
+[:material-arrow-left: Previous: Vector Stores](Vector Stores.md){ .md-button }
+[Next: Vector Stores in Flows :material-arrow-right:](Vector Stores in Flows.md){ .md-button }
