@@ -91,7 +91,7 @@ subject = "wild birthday party"
 
 async def run_flow():
     planning_flow = AsyncFlow(idea_flowstep)
-    flow_results = await planning_flow.execute(subject=subject)
+    flow_results = await planning_flow.start(subject=subject)
 
     for result in flow_results:
         print(result)
@@ -118,7 +118,7 @@ details_flowstep = FlowStep(
 evaluation_flowstep.connect(details_flowstep)
 best_plan_with_details = Flow(evaluation_flowstep)
 
-complete_plan = best_plan_with_details.execute(
+complete_plan = best_plan_with_details.start(
     subject=subject,
     idea=plans[0]["output_value"],
     plan_1=plans[1]["output_value"],

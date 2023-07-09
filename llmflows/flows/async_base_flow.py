@@ -108,9 +108,9 @@ class AsyncBaseFlow:
         if not self.input_keys.issubset(self.output_keys.union(user_inputs.keys())):
             raise ValueError("Some flowsteps have missing inputs")
 
-    async def execute(self, **inputs: str):
+    async def start(self, **inputs: str):
         """
-        Placeholder for flow execution method. To be overridden in subclasses.
+        Placeholder starting the flow. To be overridden in subclasses.
 
         Args:
             **inputs (str): Inputs to the flow.

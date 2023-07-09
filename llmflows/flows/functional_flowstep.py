@@ -1,5 +1,5 @@
 """
-LLMFlow module for the `FunctionalFlowstep` class that can be used to execute a given
+LLMFlow module for the `FunctionalFlowstep` class that can be used to run a given
 function within a flow.
 """
 
@@ -10,20 +10,20 @@ from typing import Callable, Any, Union
 
 class FunctionalFlowStep(BaseFlowStep):
     """
-    Represents a functional flow step that executes a function. The function must take
+    Represents a functional flow step that runs a function. The function must take
         a dictionary of strings as input and return a string(like regular flow steps) 
 
     Args:
         name (str): The name of the flow step.
-        fn (Callable): The function to execute.
+        fn (Callable): The function to run.
         required_keys (list[str]): A list of required keys.
         output_key (str): The key to use for the output.
         callbacks (list[Callback], optional): List of callback instances. Defaults to 
             None.
     
     Attributes:
-        required_keys (set[str]): The keys required for the flow step to execute.
-        fn (Callable[[dict[str, str]], str]): The function to be executed.
+        required_keys (set[str]): The keys required for the flow step to run.
+        fn (Callable[[dict[str, str]], str]): The function to be run.
     """
     def __init__(
         self,

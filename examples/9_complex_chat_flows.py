@@ -103,5 +103,5 @@ flowstep4.connect(*critics)
 
 # Create and run Flow
 soundtrack_flow = Flow(flowstep1)
-results = soundtrack_flow.execute(topic="friendship", verbose=True)
+results = soundtrack_flow.start(topic="friendship", verbose=True)
 print(json.dumps(results, indent=4))

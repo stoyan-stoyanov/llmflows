@@ -38,7 +38,7 @@ class VectorStoreFlowStep(BaseFlowStep):
         append_top_k (bool, optional): Whether to append top_k results. Defaults to
             False.
         callbacks (Union[list[BaseCallback], None]): Callbacks to be invoked during 
-            the flowstep execution.
+            while the flow is running.
 
     Attributes:
         embeddings_model (BaseLLM): The embeddings model instance to use.

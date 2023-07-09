@@ -3,7 +3,7 @@
 Welcome to the LLMFlows user guide. In this introductory section, we will review some 
 of the main abstractions of LLMFlows and cover some basic patterns when building 
 LLM-powered applications. In the end, we will see how we can use the `Flow` and 
-`Flowstep` classes to create explicit and transparent LLM apps easily.
+`FlowStep` classes to create explicit and transparent LLM apps easily.
 
 ## LLMs
 LLMs are one of the main abstractions in LLMFlows. LLM classes are wrappers around LLM 
@@ -59,10 +59,10 @@ an interface for this API.
 from llmflows.llms import OpenAIChat
 ```
 
-Regular LLMs like GPT-3 require just an input prompt to make a completion, but Chat 
-LLMs work a bit differently.On the other hand, `OpenAIChat` requires a list of messages 
-representing a conversation history between a user and an assistant. This conversation 
-history is sent to the model, and a new message is generated based on it.
+Regular LLMs like GPT-3 require just an input prompt to make a completion. On the other 
+hand, `OpenAIChat` requires a list of messages representing a conversation history 
+between a user and an assistant. This conversation history is sent to the model, and a 
+new message is generated based on it.
 
 In addition to the conversation history, `OpenAIChat` supports system messages (AKA 
 system prompts) that set the behavior of the Chat LLM. 
@@ -81,7 +81,7 @@ llm = OpenAIChat(system_prompt="You are a useful assistant")
 Like `OpenAI`, The `OpenAIChat` class has `generate()` and `generate_async()` 
 methods but it also provides methods for managing conversation history like adding, 
 removing and updating messages. For more information check the 
-[OpenAIChat](openai_chat.md) section of our API reference.
+[OpenAIChat](../api_reference/llms/openai_chat.md) section of our API reference.
 
 We can easily use these methods to build a simple chatbot assistant with a few lines of 
 code:
@@ -362,13 +362,13 @@ title_flowstep.connect(lyrics_flowstep)
 lyrics_flowstep.connect(heavy_metal_flowstep)
 ```
 
-Now we can create the flow and run it. We must provide the first `FlowStep` to create 
-the' Flow' object. Finally, to run it, we must use the `execute()` method and provide 
+Now we can create the flow and start it. We must provide the first `FlowStep` to create 
+the' Flow' object. Finally, to start it, we must use the `start()` method and provide 
 any required initial inputs.
 
 ```python
 songwriting_flow = Flow(title_flowstep)
-result = songwriting_flow.execute(topic="love", verbose=True)  # provide initial inputs for the flow
+result = songwriting_flow.start(topic="love", verbose=True)  # provide initial inputs for the flow
 ```
 
 This is it!
@@ -377,8 +377,7 @@ Although this seems like a lot of extra abstractions to achieve the same functio
 as in the previous examples, if we start inspecting the results, we will see some 
 advantages of using Flows and FlowSteps.
 
-After running all FlowSteps, the Flow will return detailed results for the execution 
-of each individual FlowStep:
+After running all FlowSteps, the Flow will return detailed results for each individual FlowStep:
 
 ```python
 print(result)
@@ -392,7 +391,7 @@ print(result)
 }
 ```
 
-Let's take a look at what happend when executing the "Title Flowstep":
+Let's take a look at what happend when running the "Title Flowstep":
 ```python
 print(result["Title Flowstep"])
 ```
@@ -443,11 +442,11 @@ print(result["Title Flowstep"])
 
 ```
 
-There is a lot to unpack here, but after executing the flow, we have complete 
+There is a lot to unpack here, but after finishing the flow, we have complete 
 visibility of what happened at each flowstep. By having this information, we can answer 
 questions such as:
 
-- When was a particular flowstep executed?
+- When was a particular flowstep run?
 - How much time did it take?
 - What were the input variables?
 - What was the prompt template?
@@ -466,6 +465,6 @@ This, however, is only one of many values that LLMFlows can provide. This simple
 example is excellent for this guide, but real-life applications are usually more 
 complex. Next, we will go deeper into more complex applications where Flows and 
 FlowSteps start to shine due to features like figuring out variable dependencies and 
-concurrent(async) execution.
+running FlowSteps in parallel.
 ***
-[Next: LLM Flows :material-arrow-right:](Complex Flows.md){ .md-button }
+[Next: LLM Flows :material-arrow-right:](LLM Flows.md){ .md-button }

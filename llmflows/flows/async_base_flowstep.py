@@ -2,10 +2,10 @@
 
 """
 This module contains the AsyncBaseFlowStep used as a base class by all async
-FlowStep classes. Each async flowstep can execute a task, record
-execution times, and optionally invoke callbacks on the results.
+FlowStep classes. Each async flowstep can run a task, record
+run times, and optionally invoke callbacks on the results.
 
-The async implementation allows async flowsteps to be executed in parallel if
+The async implementation allows async flowsteps to be run in parallel if
 multiple flowsteps have all the required inputs available.
 """
 
@@ -90,25 +90,25 @@ class AsyncBaseFlowStep(ABC):
         """
         pass
 
-    async def execute(
+    async def run(
         self, inputs: dict[str, str], verbose: bool = False
     ) -> dict[str, str]:
         """
-        Executes the flow step with the provided inputs and returns a dictionary with
-        execution details.
+        Runs the flow step with the provided inputs and returns a dictionary with
+        runtime details.
 
         This includes the start and end times, the prompts and the input to the
         language model, the output from the language model, details about the model
-        configuration and the result of the step. Callback functions can be executed
+        configuration and the result of the step. Callback functions can be run
         with the result as well.
 
         Args:
             inputs (dict[str, str]): The inputs to the flow step.
             verbose (bool, optional): If true, the output of the step
-                and callback executions are printed.
+                and callbacks are printed.
 
         Returns:
-            dict[str, str]: A dictionary with various execution details and results.
+            dict[str, str]: A dictionary with various runtime details and results.
         """
         execution_info = {}
         start_time = datetime.datetime.now().isoformat()
