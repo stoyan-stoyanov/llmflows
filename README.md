@@ -167,7 +167,7 @@ web applications with Flask and FastAPI.
 - Incorporate custom string manipulation functions directly into flows, allowing 
   specialized text transformations without relying solely on LLM calls.
 
-### **VectorStore Integration**
+### **VectorStore Integrations**
 - Integrate with vector databases like Pinecone using the VectorStoreFlowStep, 
   empowering efficient and scalable storage and retrieval of vector embeddings.
 - Leverage vector databases for seamless storage and querying of vectors, enabling straightforward integration with LLM-powered applications.
@@ -176,6 +176,20 @@ web applications with Flask and FastAPI.
 - Execute callback functions at different stages within flow steps, enabling enhanced customization, logging, tracing, or other specific integrations.
 - Utilize callbacks to comprehensively control and monitor LLM-powered apps, ensuring 
   clear visibility into the execution process.
+
+### **Complete Transparency**
+After executing a Flow you can answer questions such as:
+
+- When was a particular flowstep run?
+- How much time did it take?
+- What were the input variables?
+- What was the prompt template?
+- What did the prompt look like?
+- What was the exact configuration of the model?
+- How many times did we retry the request?
+- What was the raw data the API returned?
+- How many tokens were used?
+- What was the final result?
 
 ## FAQ
 
