@@ -55,27 +55,29 @@ nav:
     - Vector Stores: user_guide/Vector Stores.md
     - Question Answering: user_guide/Question Answering.md
     - Vector Stores in Flows: user_guide/Vector Stores in Flows.md
+    - Functional FlowSteps: user_guide/Functional FlowSteps.md
+    - Callbacks: user_guide/Callbacks.md
 #    - Agents: user_guide/Agents.md
 #    - Flask Apps: user_guide/Flask Apps.md
 #    - FastAPI Apps: user_guide/FastAPI Apps.md
   - API Reference:
     - LLMs: 
-      - Overview: api_reference/llms/llms.md
+      # - Overview: api_reference/llms/llms.md
       - BaseLLM: api_reference/llms/llm.md
       - OpenAI: api_reference/llms/openai.md
       - OpenAIChat: api_reference/llms/openai_chat.md
       - OpenAIEmbeddings: api_reference/llms/openai_embeddings.md
     - Prompts: 
-      - Overview: api_reference/prompts/prompts.md
+      # - Overview: api_reference/prompts/prompts.md
       - PromptTemplate: api_reference/prompts/prompt_template.md
     - Flows:
-      - Overview: api_reference/flows/flows.md
+      # - Overview: api_reference/flows/flows.md
       - BaseFlow: api_reference/flows/base_flow.md
       - Flow: api_reference/flows/flow.md
       - AsyncBaseFlow: api_reference/flows/async_base_flow.md
       - AsyncFlow: api_reference/flows/async_flow.md
     - Flowsteps:
-      - Overview: api_reference/flowsteps/flowsteps.md
+      # - Overview: api_reference/flowsteps/flowsteps.md
       - BaseFlowStep: api_reference/flowsteps/base_flowstep.md
       - FlowStep: api_reference/flowsteps/flowstep.md
       - ChatFlowStep: api_reference/flowsteps/chat_flowstep.md
@@ -87,11 +89,11 @@ nav:
       - AsyncFunctionalFlowStep: api_reference/flowsteps/async_functional_flowstep.md
       - AsyncVectorStoreFlowStep: api_reference/flowsteps/async_vectorstore_flowstep.md
     - VectorStores:
-      - Overview: api_reference/vectorstores/vectorstores.md
+      # - Overview: api_reference/vectorstores/vectorstores.md
       - VectorDoc: api_reference/vectorstores/vector_doc.md
       - Pinecone: api_reference/vectorstores/pinecone.md
     - Callbacks:
-      - Overview: api_reference/callbacks/callbacks.md
+      # - Overview: api_reference/callbacks/callbacks.md
       - BaseCallback: api_reference/callbacks/base_callback.md
       - FunctionalCallback: api_reference/callbacks/functional_callback.md
       - AsyncBaseCallback: api_reference/callbacks/async_base_callback.md

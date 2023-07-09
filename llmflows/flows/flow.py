@@ -5,7 +5,7 @@ LLMFlow module for the Flow class used for defining and executing flows, which a
 digraphs of steps. Each step is represented by a `FlowStep` instance.
 """
 
-from llmflows.flows.flowstep import FlowStep
+from llmflows.flows.flowstep import BaseFlowStep
 from llmflows.flows.base_flow import BaseFlow
 
 
@@ -15,15 +15,15 @@ class Flow(BaseFlow):
     instances.
 
     Args:
-        first_step (FlowStep): The first step of the flow.
+        first_step (BaseFlowStep): The first step of the flow.
 
     Attributes:
-        _first_step (FlowStep): The first step in the flow.
+        _first_step (BaseFlowStep): The first step in the flow.
         results (dict): Stores the results of the executed flow steps.
         completed_steps (set): Keeps track of the steps that have been executed.
     """
 
-    def __init__(self, first_step: FlowStep):
+    def __init__(self, first_step: BaseFlowStep):
         super().__init__(first_step)
         self.results = {}
         self.completed_steps = set()
