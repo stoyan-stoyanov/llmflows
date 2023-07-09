@@ -130,9 +130,67 @@ by running flow steps that already have all their required inputs in parallel.
 Check our documentation for more examples, such as creating question-answering apps and 
 web applications with Flask and FastAPI.
 
+## Features
+
+### LLM Integration
+- Utilize LLMs such as OpenAI's GPT-3 for generating natural language text.
+- Configure LLM classes with specific models, settings, and parameters.
+- Use the `generate()` method to generate text based on prompts.
+
+### Prompt Templates
+- Create dynamic prompts using Prompt Templates.
+- Define variables within the prompts that can be filled in later.
+- Generate prompt strings by providing the required variables.
+
+### Flows and FlowSteps
+- Structure your LLM applications using Flows and FlowSteps.
+- Create a directed acyclic graph (DAG) of flow steps to define the order of execution.
+- Connect flow steps to pass outputs as inputs to subsequent steps.
+- Execute the flow using the `start()` method to perform the defined steps.
+
+### VectorStore Integration
+- Leverage vector databases with the VectorStoreFlowStep for efficient storage and 
+retrieval of vector embeddings.
+- Connect to vector databases such as Pinecone for scalable storage and querying of 
+  vectors.
+
+### FunctionalFlowStep
+- Incorporate custom string manipulation functions into flows.
+- Apply functions to manipulate text without relying on LLM calls.
+
+### FunctionalCallback
+- Execute callback functions at different stages within a flow step for enhanced 
+customization and integration capabilities.
+- Utilize callbacks for logging, tracing, or other custom requirements.
+
+## Features
+
+### LLMs
+- Utilize LLMs such as OpenAI's ChatGPT to generate natural language text.
+- Configure LLM classes easily, choosing specific models, parameters, and settings.
+- Benefit from automatic retries when model calls fail, ensuring reliable LLM interactions.
+
+### Prompt Templates
+- Create dynamic prompts using Prompt Templates, providing flexible and customizable text generation.
+- Define variables within prompts to generate prompt strings tailored to specific inputs.
+
+### Flows and FlowSteps
+- Structure LLM applications using Flows and FlowSteps, providing a clear and organized framework for executing LLM interactions.
+- Connect flow steps to pass outputs as inputs, facilitating seamless data flow and maintaining a transparent LLM pipeline.
+- Leverage Async Flows to run LLMs in parallel when all their inputs are available, optimizing performance and efficiency.
+- Incorporate custom string manipulation functions directly into flows, allowing specialized text transformations without relying solely on LLM calls.
+
+### VectorStore Integration
+- Integrate with vector databases like Pinecone using the VectorStoreFlowStep, empowering efficient and scalable storage and retrieval of vector embeddings.
+- Leverage vector databases for seamless storage and querying of vectors, enabling straightforward integration with LLM-powered applications.
+
+### Callbacks
+- Execute callback functions at different stages within flow steps, enabling enhanced customization, logging, tracing, or other specific integrations.
+- Utilize callbacks to comprehensively control and monitor LLM-powered apps, ensuring clear visibility into the execution process.
+
 ## FAQ
 
-### How is this different than langchain?
+### **How is this different than langchain?**
 Langchain is a great library, and LLMFlows has undoubtedly been inspired by it. 
 However, our philosophy is a bit different. Langchian has a "chain for everything" 
 philosophy and provides many classes with multiple LLM calls, logic, and built-in 
@@ -142,16 +200,16 @@ we are focusing on providing as few building blocks as possible and having an
 easy-to-understand API while matching (and in some cases exceeding) the capabilities 
 of langchain.
 
-### You only have OpenAI wrappers, but I want to use AcmeLLM.
+### **You only have OpenAI wrappers, but I want to use AcmeLLM.**
 We decided to release the library initially supporting only OpenAI LLMs, but we have a 
 roadmap and will slowly add new wrappers around the most popular models. If you are 
 willing to spend some time, we are looking for contributors and maintainers.
 
-### You only support Pinecone. Do you have plans to extend the list?
+### **You only support Pinecone. Do you have plans to extend the list?**
 Yes! Over time, we will also add Chroma, Weaviate, Redis, Elastic Search, and other 
 popular solutions. If you want to help us out, check out our contribution section.
 
-### Why can't I find any info related to document loaders?
+### **Why can't I find any info related to document loaders?**
 For the time being, we have decided not to implement document loaders for a few reasons:
 
 1. plenty of capable libraries like Llama-index and langchain have tons of loaders.

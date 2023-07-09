@@ -73,7 +73,8 @@ print(result)
 In the last guide, we saw how we could use the `FunctionalFlowStep` class within flows 
 when we want to have functions that manipulate strings that don't rely on LLM calls. 
 
-This guide introduces the `FunctionalCallback` class, which we can use to run callback functions at different stages of any flow step. 
+This guide introduces the `FunctionalCallback` class, which we can use to run callback 
+functions at different stages of any flow step. 
 
 !!! question
 
@@ -83,7 +84,8 @@ This guide introduces the `FunctionalCallback` class, which we can use to run ca
     manipulate strings within flows. It gets input variables, generates an output based 
     on its `flowstep_function`, and has an `output_key` like any other flow step. On 
     the other hand, the `FunctionalCallback` class is a callback that can be passed to 
-    any flow step and runs on certain events. Unlike the `FunctionalFlowStep`, the `FunctionalCallback` class can't manipulate data within a `Flow`. It's primary 
+    any flow step and runs on certain events. Unlike the `FunctionalFlowStep`, the 
+    `FunctionalCallback` class can't manipulate data within a `Flow`. It's primary 
     usage is for integrations with 3rd party solutions for tracing and logging.
 
 !!! info
@@ -129,7 +131,8 @@ logging_callback = FunctionalCallback(
 ```
 
 Like in the previous example, the `capitalize_first_letters()` function capitalizes the 
-final lyrics' first letter. We also define two other functions that we pass to our `FunctionalCallback` class. 
+final lyrics' first letter. We also define two other functions that we pass to our 
+`FunctionalCallback` class. 
 
 !!! info
 
@@ -137,10 +140,9 @@ final lyrics' first letter. We also define two other functions that we pass to o
     step":
 
     1. `on_start_fn` runs at the beginning of the flow. 
-    2. `on_result_fun` that runs after the results from calling an LLM or invoking a 
-    3. function are computed. 
-    4. `on_end_fn` runs right before the flow step ends.
-    5. `on_error_fn` runs if there is any error within the flow step.
+    2. `on_result_fn` that runs after the flow step results are computed. 
+    3. `on_end_fn` runs right before the flow step ends.
+    4. `on_error_fn` runs if there is any error within the flow step.
 
 Now that we have the required functions, we can define the flow steps. Let's also pass 
 the `FunctionalCallback` to the "Lyrics Flowstep". Now the two functions we defined 
