@@ -28,9 +28,7 @@ class Pinecone(VectorStore):
     """
 
     def __init__(self, index_name: str, api_key: str, environment: str):
-        self.index_name = index_name
-        self._api_key = api_key
-        self.environment = environment
+        super().__init__(index_name, api_key, environment)
         self._init_client()
 
     def _prepare_results(self, search_result) -> tuple[list, dict, dict]:
@@ -51,15 +49,15 @@ class Pinecone(VectorStore):
         }
 
         config = {
-            "environment": self.environment,
-            "index_name": self.index_name
+            "environment": self.region,
+            "index_name": self.storage_entity
         }
 
         return search_results, call_data, config
 
     def _init_client(self):
-        pinecone.init(api_key=self._api_key, environment=self.environment)
-        self.index = pinecone.Index(self.index_name)
+        pinecone.init(api_key=self._api_key, environment=self.region)
+        self.index = pinecone.Index(self.storage_entity)
         self.describe()
 
     def describe(self):

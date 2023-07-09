@@ -93,6 +93,8 @@ class BaseFlow:
                     step.message_prompt_template.variables,
                     {step.message_key},
                 )
+            elif flowstep_class == "FunctionalFlowStep":
+                self.input_keys.update(step.required_keys)
 
     def _check_all_input_keys_available(self, user_inputs):
         """
@@ -108,7 +110,10 @@ class BaseFlow:
         print(self.output_keys.union(user_inputs.keys()))
         print(self.input_keys)
         if not self.input_keys.issubset(self.output_keys.union(user_inputs.keys())):
-            raise ValueError("Some flowsteps have missing inputs")
+            missing_inputs = self.input_keys.difference(
+                self.output_keys.union(user_inputs.keys())
+            )
+            raise ValueError(f"Some flowsteps have missing inputs: {missing_inputs}")
 
     def start(self, **inputs):
         """
