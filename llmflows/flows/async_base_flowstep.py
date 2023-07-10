@@ -88,7 +88,6 @@ class AsyncBaseFlowStep(ABC):
         Returns:
             tuple: result, call data and model configuration.
         """
-        pass
 
     async def run(
         self, inputs: dict[str, str], verbose: bool = False

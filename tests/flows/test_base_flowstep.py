@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 import unittest
 from typing import Any
 from llmflows.flows.base_flowstep import BaseFlowStep

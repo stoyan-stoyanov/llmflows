@@ -1,4 +1,5 @@
-import os
+# pylint: skip-file
+
 import unittest
 from unittest.mock import MagicMock
 

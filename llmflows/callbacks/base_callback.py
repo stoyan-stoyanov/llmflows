@@ -5,7 +5,7 @@ The Callback class is designed to be subclassed by users who want to create thei
 own custom callbacks for different stages of a FlowStep execution.
 """
 
-from typing import Callable, Optional, Any
+from typing import Any
 
 
 class BaseCallback:

@@ -5,7 +5,7 @@ This is the base module for all LLM (Large Language Model) wrappers.
 Each specific LLM should extend this base class.
 """
 
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class BaseLLM(ABC):
@@ -20,20 +20,14 @@ class BaseLLM(ABC):
     def __init__(self, model: str):
         self.model = model
 
+    @abstractmethod
     def generate(self):
         """
         Generates text from the LLM.
-
-        Raises:
-            NotImplementedError: If the LLM does not implement the generate method.
         """
-        raise NotImplementedError
 
-    async def generate_async(self):
+    @abstractmethod
+    async def generate_async(self, *args, **kwargs):
         """
         Generates text from the LLM asynchronously.
-
-        Raises:
-            NotImplementedError: If the LLM does not implement the generate_async method.
         """
-        raise NotImplementedError

@@ -1,3 +1,4 @@
+# pylint: disable=R0913
 """
 This module provides the `VectorStoreFlowStep` class which extends the `BaseFlowStep` 
 class.
@@ -7,13 +8,13 @@ Each instance of this class will be initialized with a specific vector store,
 embeddings model, prompt template, and other attributes.
 """
 
+from typing import Any, Union
 from llmflows.prompts.prompt_template import PromptTemplate
 from llmflows.llms.llm import BaseLLM
 from llmflows.flows.flowstep import BaseFlowStep
 from llmflows.callbacks.base_callback import BaseCallback
 from llmflows.vectorstores.vector_store import VectorStore
 from llmflows.vectorstores.vector_doc import VectorDoc
-from typing import Any, Union
 
 
 class VectorStoreFlowStep(BaseFlowStep):

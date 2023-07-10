@@ -10,8 +10,8 @@ each of the methods defined in VectorStore.
 """
 
 from abc import ABC, abstractmethod
-from llmflows.vectorstores.vector_doc import VectorDoc
 from typing import List
+from llmflows.vectorstores.vector_doc import VectorDoc
 
 
 class VectorStore(ABC):
@@ -29,7 +29,6 @@ class VectorStore(ABC):
     @abstractmethod
     def describe(self) -> None:
         """Describe the index."""
-        pass
 
     @abstractmethod
     def search(self, query: VectorDoc, top_k: int) -> List[dict]:
@@ -43,7 +42,6 @@ class VectorStore(ABC):
         Returns:
             list[dict]: A list of dictionaries representing the search results.
         """
-        pass
 
     @abstractmethod
     def upsert(self, docs: List[VectorDoc]) -> None:
@@ -52,4 +50,3 @@ class VectorStore(ABC):
         Args:
             docs (list[VectorDoc]): VectorDoc objects to insert or update.
         """
-        pass

@@ -4,9 +4,9 @@ function within a flow.
 """
 
 import inspect
+from typing import Callable, Any, Union
 from llmflows.flows.flowstep import BaseFlowStep
 from llmflows.callbacks.base_callback import BaseCallback
-from typing import Callable, Any, Union
 
 
 class FunctionalFlowStep(BaseFlowStep):

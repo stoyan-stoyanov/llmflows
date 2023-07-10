@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 import unittest
 from llmflows.prompts.prompt_template import PromptTemplate
 

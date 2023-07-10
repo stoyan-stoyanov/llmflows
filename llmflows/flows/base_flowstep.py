@@ -103,7 +103,6 @@ class BaseFlowStep(ABC):
         Returns:
             tuple: result, call data and model configuration.
         """
-        pass
 
     def run(self, inputs: dict[str, str], verbose: bool = False) -> dict[str, str]:
         """
