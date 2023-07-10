@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from fastapi import FastAPI
 import uvicorn
 from flows import soundtrack_flow
