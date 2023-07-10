@@ -44,7 +44,7 @@ class OpenAI(BaseLLM):
         self.max_retries = max_retries
         self._api_key = os.environ["OPENAI_API_KEY"]
 
-    def perepare_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
+    def prepare_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
         """
         Formats results after generation.
 
@@ -91,7 +91,7 @@ class OpenAI(BaseLLM):
             temperature=self.temperature,
         )
 
-        return self.perepare_results(completion, retries)
+        return self.prepare_results(completion, retries)
 
     async def generate_async(self, prompt) -> tuple[str, dict, dict]:
         """
@@ -113,4 +113,4 @@ class OpenAI(BaseLLM):
             temperature=self.temperature,
         )
 
-        return self.perepare_results(completion, retries)
+        return self.prepare_results(completion, retries)
