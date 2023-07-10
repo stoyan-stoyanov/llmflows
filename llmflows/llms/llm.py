@@ -27,7 +27,7 @@ class BaseLLM(ABC):
         """
 
     @abstractmethod
-    async def generate_async(self, *args, **kwargs):
+    async def generate_async(self):
         """
         Generates text from the LLM asynchronously.
         """

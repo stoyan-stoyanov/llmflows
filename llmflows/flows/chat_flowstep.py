@@ -6,7 +6,7 @@ using a chat LLM.
 
 import logging
 from typing import Any, Union
-from llmflows.llms.llm import BaseLLM
+from llmflows.llms import OpenAIChat
 from llmflows.prompts.prompt_template import PromptTemplate
 from llmflows.callbacks.base_callback import BaseCallback
 from llmflows.flows.flowstep import BaseFlowStep
@@ -45,12 +45,12 @@ class ChatFlowStep(BaseFlowStep):
     def __init__(
         self,
         name: str,
-        llm: BaseLLM,
+        llm: OpenAIChat,
         output_key: str,
         system_prompt_template: PromptTemplate,
         message_key: str,
         message_prompt_template: Union[PromptTemplate, None] = None,
-        callbacks: Union[list[BaseCallback], None] = None
+        callbacks: Union[list[BaseCallback], None] = None,
     ):
         super().__init__(name, output_key, callbacks)
         self.llm = llm
@@ -76,12 +76,14 @@ class ChatFlowStep(BaseFlowStep):
     def _validate_message_key(self):
         if self.message_key in self.system_prompt_template.variables:
             logging.warning(
-                "The message_key matches a variable in the system"
-                " prompt.\nmessage_key: %s\nsystem_prompt_template"
-                " variables: %s. Ignore this warning"
-                " if you intended to include the message in the system prompt.",
+                (
+                    "The message_key matches a variable in the system"
+                    " prompt.\nmessage_key: %s\nsystem_prompt_template"
+                    " variables: %s. Ignore this warning"
+                    " if you intended to include the message in the system prompt."
+                ),
                 self.message_key,
-                self.system_prompt_template.variables
+                self.system_prompt_template.variables,
             )
 
         if self.message_prompt_template:
@@ -101,9 +103,15 @@ class ChatFlowStep(BaseFlowStep):
         self.llm.add_message(message)
         results = self.llm.generate()
 
-        results[1]["system_prompt_template"] = self.system_prompt_template.prompt
+        results[1]["system_prompt_template"] = (
+            self.system_prompt_template.prompt if self.system_prompt_template else None
+        )
         results[1]["system_prompt"] = system_prompt
-        results[1]["message_prompt_template"] = self.message_prompt_template.prompt
+        results[1]["message_prompt_template"] = (
+            self.message_prompt_template.prompt
+            if self.message_prompt_template
+            else None
+        )
         results[1]["message_prompt"] = message
         results[1]["message_history"] = self.llm.messages
         return results

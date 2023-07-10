@@ -1,4 +1,4 @@
-# pylint: disable=R0913, R0902, R0801
+# pylint: disable=R0913, R0902, R0801, W0221
 """
 This module implements a wrapper for OpenAI chat models, using BaseLLM as a 
 base class.

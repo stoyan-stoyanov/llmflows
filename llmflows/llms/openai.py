@@ -1,4 +1,4 @@
-# pylint: disable=too-few-public-methods, R0913
+# pylint: disable=too-few-public-methods, R0913, W0221
 
 """
 This module implements a wrapper for OpenAI completion models, using BaseLLM as a 
