@@ -68,4 +68,3 @@ class TestFunctionalFlowStep(unittest.TestCase):
         self.assertEqual(
             str(context.exception), "Return value must be of type str, but got int"
         )
-g
