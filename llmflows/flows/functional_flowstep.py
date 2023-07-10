@@ -59,4 +59,11 @@ class FunctionalFlowStep(BaseFlowStep):
             key: value for key, value in inputs.items() if key in fn_args
         }
 
-        return self.flowstep_fn(**filtered_inputs), None, None
+        result = self.flowstep_fn(**filtered_inputs)
+
+        if not isinstance(result, str):
+            raise TypeError(
+                f"Return value must be of type str, but got {type(result).__name__}"
+            )
+
+        return result, None, None
