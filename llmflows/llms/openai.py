@@ -6,8 +6,8 @@ base class.
 """
 
 import os
-import openai
 from typing import Union
+import openai
 from .llm import BaseLLM
 from .llm_utils import call_with_retry, async_call_with_retry
 

@@ -5,6 +5,7 @@ base class.
 """
 
 import os
+from typing import Union
 import openai
 from .llm import BaseLLM
 from .llm_utils import call_with_retry, async_call_with_retry
@@ -28,6 +29,7 @@ class OpenAIChat(BaseLLM):
         max_tokens (int): The maximum number of tokens to generate.
         max_retries (int): The maximum number of retries for generating tokens.
         verbose (bool): Whether to print debug information.
+        api_key (str): The API key to use for interacting with the OpenAI API.
 
     Attributes:
         temperature (float): The temperature to use for text generation.
@@ -47,15 +49,21 @@ class OpenAIChat(BaseLLM):
         max_tokens: int = 250,
         max_retries: int = 3,
         verbose: bool = False,
+        api_key: Union[str, None] = None,
     ):
         super().__init__(model)
-        self._api_key = os.environ["OPENAI_API_KEY"]
         self.temperature = temperature
         self.max_messages = max_messages
         self.max_tokens = max_tokens
         self.max_retries = max_retries
         self.messages = [{"role": "system", "content": system_prompt}]
         self.verbose = verbose
+        self._api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        if not self._api_key:
+            raise ValueError(
+                "API Key must be provided or set in the OPENAI_API_KEY environment"
+                " variable"
+            )
 
     @property
     def messages(self):
