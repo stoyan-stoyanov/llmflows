@@ -79,7 +79,7 @@ class OpenAI(BaseLLM):
 
         return text_result, call_data, model_config
 
-    def generate(self, prompt) -> tuple[str, dict, dict]:
+    def generate(self, prompt: str) -> tuple[str, dict, dict]:
         """
         Generates text from a given prompt using OpenAI API.
 
@@ -90,6 +90,10 @@ class OpenAI(BaseLLM):
             A tuple containing the generated text, the raw response data, and the
                 model configuration.
         """
+
+        if not isinstance(prompt, str):
+            raise TypeError("Prompt must be a string")
+
         completion, retries = call_with_retry(
             api_obj=openai.Completion,
             max_retries=self.max_retries,
@@ -101,7 +105,7 @@ class OpenAI(BaseLLM):
 
         return self.prepare_results(completion, retries)
 
-    async def generate_async(self, prompt) -> tuple[str, dict, dict]:
+    async def generate_async(self, prompt: str) -> tuple[str, dict, dict]:
         """
         Generates text from a given prompt using OpenAI API asynchronously.
 
@@ -112,6 +116,10 @@ class OpenAI(BaseLLM):
             A tuple containing the generated text, the raw response data, and the
                 model configuration.
         """
+
+        if not isinstance(prompt, str):
+            raise TypeError("Prompt must be a string")
+
         completion, retries = await async_call_with_retry(
             api_obj=openai.Completion,
             max_retries=self.max_retries,
