@@ -7,6 +7,7 @@ base class.
 
 import os
 import openai
+from typing import Union
 from .llm import BaseLLM
 from .llm_utils import call_with_retry, async_call_with_retry
 
@@ -24,6 +25,7 @@ class OpenAI(BaseLLM):
         temperature (float): The temperature to use for text generation.
         max_tokens (int): The maximum number of tokens to generate.
         max_retries (int): The maximum number of retries for generating tokens.
+        api_key (str): The API key to use for interacting with the OpenAI API.
 
     Attributes:
         temperature (float): The temperature to use for text generation.
@@ -37,12 +39,18 @@ class OpenAI(BaseLLM):
         temperature: float = 0.7,
         max_tokens: int = 500,
         max_retries: int = 3,
+        api_key: Union[str, None] = None,
     ):
         super().__init__(model)
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.max_retries = max_retries
-        self._api_key = os.environ["OPENAI_API_KEY"]
+        self._api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        if not self._api_key:
+            raise ValueError(
+                "API Key must be provided or set in the OPENAI_API_KEY environment"
+                " variable"
+            )
 
     def prepare_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
         """
@@ -53,7 +61,7 @@ class OpenAI(BaseLLM):
             retries (int): Number of retries taken for successful generation.
 
         Returns:
-            A tuple containing the generated text, the raw response data, and the 
+            A tuple containing the generated text, the raw response data, and the
                 model configuration.
         """
         text_result = model_outputs.choices[0]["text"]
@@ -79,7 +87,7 @@ class OpenAI(BaseLLM):
             prompt (str): Text prompt for generation.
 
         Returns:
-            A tuple containing the generated text, the raw response data, and the 
+            A tuple containing the generated text, the raw response data, and the
                 model configuration.
         """
         completion, retries = call_with_retry(
@@ -101,7 +109,7 @@ class OpenAI(BaseLLM):
             prompt (str): Text prompt for generation.
 
         Returns:
-            A tuple containing the generated text, the raw response data, and the 
+            A tuple containing the generated text, the raw response data, and the
                 model configuration.
         """
         completion, retries = await async_call_with_retry(

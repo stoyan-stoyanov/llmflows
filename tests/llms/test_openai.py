@@ -12,6 +12,7 @@ class TestOpenAI(unittest.TestCase):
             temperature=0.7,
             max_tokens=500,
             max_retries=3,
+            api_key="test_api_key"
         )
 
     def test_generate(self):
