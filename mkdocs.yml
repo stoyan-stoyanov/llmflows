@@ -57,7 +57,7 @@ nav:
     - Vector Stores in Flows: user_guide/Vector Stores in Flows.md
     - Functional FlowSteps: user_guide/Functional FlowSteps.md
     - Callbacks: user_guide/Callbacks.md
-    - LLMFlows in FastAPI: user_guide/LLMFlows in FastAPI.md
+    - LLMFlows with FastAPI: user_guide/LLMFlows with FastAPI.md
     - Conclusion: user_guide/Conclusion.md
 #    - Agents: user_guide/Agents.md
 #    - Flask Apps: user_guide/Flask Apps.md
