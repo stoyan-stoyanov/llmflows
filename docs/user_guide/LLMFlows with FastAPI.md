@@ -7,48 +7,50 @@ from llmflows.llms import OpenAI, OpenAIChat
 from llmflows.prompts import PromptTemplate
 
 
-# Create flowsteps
-flowstep1 = AsyncFlowStep(
-    name="Flowstep 1",
-    llm=OpenAI(),
-    prompt_template=PromptTemplate("What is a good title of a movie about {topic}?"),
-    output_key="movie_title",
-)
+def create_flow():
+    flowstep1 = AsyncFlowStep(
+        name="Flowstep 1",
+        llm=OpenAI(),
+        prompt_template=PromptTemplate("What is a good title of a movie about {topic}?"),
+        output_key="movie_title",
+    )
 
-flowstep2 = AsyncFlowStep(
-    name="Flowstep 2",
-    llm=OpenAI(),
-    prompt_template=PromptTemplate(
-        "What is a good song title of a soundtrack for a movie called {movie_title}?"
-    ),
-    output_key="song_title",
-)
+    flowstep2 = AsyncFlowStep(
+        name="Flowstep 2",
+        llm=OpenAI(),
+        prompt_template=PromptTemplate(
+            "What is a good song title of a soundtrack for a movie called {movie_title}?"
+        ),
+        output_key="song_title",
+    )
 
-flowstep3 = AsyncFlowStep(
-    name="Flowstep 3",
-    llm=OpenAI(),
-    prompt_template=PromptTemplate(
-        "What are two main characters for a movie called {movie_title}?"
-    ),
-    output_key="main_characters",
-)
+    flowstep3 = AsyncFlowStep(
+        name="Flowstep 3",
+        llm=OpenAI(),
+        prompt_template=PromptTemplate(
+            "What are two main characters for a movie called {movie_title}?"
+        ),
+        output_key="main_characters",
+    )
 
-flowstep4 = AsyncFlowStep(
-    name="Flowstep 4",
-    llm=OpenAI(),
-    prompt_template=PromptTemplate(
-        "Write lyrics of a movie song called {song_title}. The main characters are"
-        " {main_characters}"
-    ),
-    output_key="song_lyrics",
-)
+    flowstep4 = AsyncFlowStep(
+        name="Flowstep 4",
+        llm=OpenAI(),
+        prompt_template=PromptTemplate(
+            "Write lyrics of a movie song called {song_title}. The main characters are"
+            " {main_characters}"
+        ),
+        output_key="song_lyrics",
+    )
 
-# Connect flowsteps
-flowstep1.connect(flowstep2, flowstep3, flowstep4)
-flowstep2.connect(flowstep4)
-flowstep3.connect(flowstep4)
+    # Connect flowsteps
+    flowstep1.connect(flowstep2, flowstep3, flowstep4)
+    flowstep2.connect(flowstep4)
+    flowstep3.connect(flowstep4)
 
-soundtrack_flow = AsyncFlow(flowstep1)
+    soundtrack_flow = AsyncFlow(flowstep1)
+
+    return soundtrack_flow
 ```
 
 `app.py`
@@ -56,13 +58,13 @@ soundtrack_flow = AsyncFlow(flowstep1)
 ```python
 from fastapi import FastAPI
 import uvicorn
-from flows import soundtrack_flow
+from flows import create_flow
 
 app = FastAPI()
 
 @app.get("/generate_lyrics/")
 async def generate_lyrics(movie_topic: str):
-    print(movie_topic)
+    soundtrack_flow = create_flow()
     return await soundtrack_flow.start(topic=movie_topic, verbose=True)
 
 if __name__ == "__main__":
@@ -116,7 +118,7 @@ Let's check what happens when we open it in the browser:
 So far, so good! We made a simple fastAPI app with just a few lines of code and is able to return our query parameter. 
 Now let's add LLMFlow. 
 
-Let's create a `flow.py` file in the same directory. FastAPI works great with async functions so let's reuse our async flow example from our guide.
+Let's create a `flow.py` file in the same directory. FastAPI works great with async functions so let's reuse our async flow example from our guide. To make sure we use a new flow on each call, let's create a `create_flow()` function in `flow.py`:
 
 ```python
 from llmflows.flows import AsyncFlow, AsyncFlowStep, AsyncChatFlowStep
@@ -124,48 +126,50 @@ from llmflows.llms import OpenAI, OpenAIChat
 from llmflows.prompts import PromptTemplate
 
 
-# Create flowsteps
-flowstep1 = AsyncFlowStep(
-    name="Flowstep 1",
-    llm=OpenAI(),
-    prompt_template=PromptTemplate("What is a good title of a movie about {topic}?"),
-    output_key="movie_title",
-)
+def create_flow():
+    flowstep1 = AsyncFlowStep(
+        name="Flowstep 1",
+        llm=OpenAI(),
+        prompt_template=PromptTemplate("What is a good title of a movie about {topic}?"),
+        output_key="movie_title",
+    )
 
-flowstep2 = AsyncFlowStep(
-    name="Flowstep 2",
-    llm=OpenAI(),
-    prompt_template=PromptTemplate(
-        "What is a good song title of a soundtrack for a movie called {movie_title}?"
-    ),
-    output_key="song_title",
-)
+    flowstep2 = AsyncFlowStep(
+        name="Flowstep 2",
+        llm=OpenAI(),
+        prompt_template=PromptTemplate(
+            "What is a good song title of a soundtrack for a movie called {movie_title}?"
+        ),
+        output_key="song_title",
+    )
 
-flowstep3 = AsyncFlowStep(
-    name="Flowstep 3",
-    llm=OpenAI(),
-    prompt_template=PromptTemplate(
-        "What are two main characters for a movie called {movie_title}?"
-    ),
-    output_key="main_characters",
-)
+    flowstep3 = AsyncFlowStep(
+        name="Flowstep 3",
+        llm=OpenAI(),
+        prompt_template=PromptTemplate(
+            "What are two main characters for a movie called {movie_title}?"
+        ),
+        output_key="main_characters",
+    )
 
-flowstep4 = AsyncFlowStep(
-    name="Flowstep 4",
-    llm=OpenAI(),
-    prompt_template=PromptTemplate(
-        "Write lyrics of a movie song called {song_title}. The main characters are"
-        " {main_characters}"
-    ),
-    output_key="song_lyrics",
-)
+    flowstep4 = AsyncFlowStep(
+        name="Flowstep 4",
+        llm=OpenAI(),
+        prompt_template=PromptTemplate(
+            "Write lyrics of a movie song called {song_title}. The main characters are"
+            " {main_characters}"
+        ),
+        output_key="song_lyrics",
+    )
 
-# Connect flowsteps
-flowstep1.connect(flowstep2, flowstep3, flowstep4)
-flowstep2.connect(flowstep4)
-flowstep3.connect(flowstep4)
+    # Connect flowsteps
+    flowstep1.connect(flowstep2, flowstep3, flowstep4)
+    flowstep2.connect(flowstep4)
+    flowstep3.connect(flowstep4)
 
-soundtrack_flow = AsyncFlow(flowstep1)
+    soundtrack_flow = AsyncFlow(flowstep1)
+
+    return soundtrack_flow
 ```
 
 Now we can import the flow in `app.py`. Here is how the final code looks like:
@@ -173,12 +177,13 @@ Now we can import the flow in `app.py`. Here is how the final code looks like:
 ```python
 from fastapi import FastAPI
 import uvicorn
-from flows import soundtrack_flow
+from flows import create_flow
 
 app = FastAPI()
 
 @app.get("/generate_lyrics/")
 async def generate_lyrics(movie_topic: str):
+    soundtrack_flow = create_flow()
     return await soundtrack_flow.start(topic=movie_topic, verbose=True)
 
 if __name__ == "__main__":
