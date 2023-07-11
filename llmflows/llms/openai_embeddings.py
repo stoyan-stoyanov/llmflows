@@ -1,4 +1,4 @@
-# pylint: disable=too-few-public-methods, W0221
+# pylint: disable=too-few-public-methods, W0221, R0801
 
 """
 This module helps with creating embeddings form OpenAIs API.

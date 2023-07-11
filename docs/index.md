@@ -61,8 +61,8 @@ traceable flows and complete information for each app component, making it easy 
 monitor, maintain, and debug.
 
 ## License
-LLMFlows is covered by the MIT license. For more information, check `LICENCE.md`.
+LLMFlows is covered by the MIT license. For more information, check [`LICENCE`](https://github.com/stoyan-stoyanov/llmflows/blob/main/LICENSE).
 
 ## Contributing
 Thank you for spending the time to read our README! If you like what you saw and are 
-considering contributing, please check CONTRIBUTING.md
+considering contributing, please check [`CONTRIBUTING.md`](https://github.com/stoyan-stoyanov/llmflows/blob/main/CONTRIBUTING.md)
