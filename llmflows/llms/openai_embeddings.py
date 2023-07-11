@@ -18,8 +18,8 @@ class OpenAIEmbeddings(BaseLLM):
 
     Inherits from BaseLLM.
 
-    Uses the specified OpenAI model and parameters for interacting with the OpenAI 
-    embeddings API. Adds embeddings to a single VectorDoc or a list of VectorDoc 
+    Uses the specified OpenAI model and parameters for interacting with the OpenAI
+    embeddings API. Adds embeddings to a single VectorDoc or a list of VectorDoc
     classes, based on the text in the VectorDoc.
 
     Args:
@@ -30,10 +30,20 @@ class OpenAIEmbeddings(BaseLLM):
         max_retries (int): The maximum number of retries for generating embeddings.
     """
 
-    def __init__(self, model: str = "text-embedding-ada-002", max_retries: int = 3):
+    def __init__(
+        self,
+        model: str = "text-embedding-ada-002",
+        max_retries: int = 3,
+        api_key: Union[str, None] = None,
+    ):
         super().__init__(model)
-        self._api_key = os.getenv("OPENAI_API_KEY")
         self.max_retries = max_retries
+        self._api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        if not self._api_key:
+            raise ValueError(
+                "API Key must be provided or set in the OPENAI_API_KEY environment"
+                " variable"
+            )
 
     def generate(
         self, docs: Union[VectorDoc, list[VectorDoc]]
@@ -46,7 +56,7 @@ class OpenAIEmbeddings(BaseLLM):
 
         Returns:
             If a single VectorDoc was passed, returns it with its embedding field
-                updated. If a list of VectorDocs was passed, returns the list with the 
+                updated. If a list of VectorDocs was passed, returns the list with the
                 embedding field of each VectorDoc updated.
         """
         single_item = False
@@ -61,7 +71,7 @@ class OpenAIEmbeddings(BaseLLM):
             api_obj=openai.Embedding,
             engine=self.model,
             input=texts,
-            max_retries=self.max_retries
+            max_retries=self.max_retries,
         )
 
         for i, doc in enumerate(docs):
@@ -80,7 +90,7 @@ class OpenAIEmbeddings(BaseLLM):
 
         Returns:
             If a single VectorDoc was passed, returns it with its embedding field
-                updated. If a list of VectorDocs was passed, returns the list with the 
+                updated. If a list of VectorDocs was passed, returns the list with the
                 embedding field of each VectorDoc updated.
         """
         single_item = False
@@ -95,7 +105,7 @@ class OpenAIEmbeddings(BaseLLM):
             api_obj=openai.Embedding,
             engine=self.model,
             input=texts,
-            max_retries=self.max_retries
+            max_retries=self.max_retries,
         )
 
         for i, doc in enumerate(docs):

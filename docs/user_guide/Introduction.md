@@ -26,8 +26,16 @@ llm = OpenAI(
     temperature=0.7,
     max_tokens=500,
     max_retries=3,
+    api_key=<YOUR-OPENAI-API-KEY>
 )
 ```
+
+!!! tip
+
+    When using the OpenAI LLM classes, you must provide an OpenAI API key. LLMFlows 
+    will check for an `OPENAI_API_KEY` environment variable and load the API key. 
+    You can also specify your API key through the `api_key` parameter when initializing 
+    the `OpenAI` LLM class.
 
 All LLM classes have `.generate()` and `.generate_async()` mehtods for 
 generating text. In order to generate text with `"text-davinci-003"` the only thing we 
