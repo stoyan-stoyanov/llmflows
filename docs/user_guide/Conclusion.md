@@ -1,7 +1,8 @@
 Thank you for taking the time to read our user guide! In this guide, we explored the 
 various abstractions provided by LLMFlows for building LLM-powered applications. We 
 covered the main concepts of `LLMs`, `Prompt Templates`, `Flows`, `FlowSteps`, 
-`VectorStores`, `VectorDocs`, and `Callbacks`.
+`VectorStores`, `VectorDocs`, and `Callbacks`. And in the end we built a simple fastAPI 
+app.
 
 LLMFlows allows developers to easily interact with LLMs such as OpenAI's ChatGPT and 
 utilize their text-generating capabilities. We learned how to configure LLM classes, 
@@ -24,8 +25,7 @@ We explored how FunctionalCallbacks can be utilized in flows to execute callback
 functions at different stages, enabling integrations with logging, tracing, or other 
 custom requirements.
 
-By summarizing the user guidelines and providing an overview of LLMFlows, we hope you 
-have gained a solid understanding of the library and its capabilities. We are grateful 
+We hope you've gained a solid understanding of the library and its capabilities. We are grateful 
 for your time and interest in LLMFlows, and we hope that it will empower you to build 
 incredible LLM-powered applications. Thank you!
 

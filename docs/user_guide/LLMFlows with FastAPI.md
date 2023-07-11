@@ -73,9 +73,11 @@ if __name__ == "__main__":
 ```
 
 ## Guide
-In this guide we are going to see how we can create a simple fastaAPI app and use LLMFlows to build a LLM-powered web app.
+In this guide, we are going to see how we can create a simple fastaAPI app and use 
+LLMFlows to build a LLM-powered web app.
 
-Let's start by creating a simple fastAPI app. To start we need to install `fastapi` and `uvicorn`.
+Let's start by creating our fastAPI app. For this, we need to install `fastapi` and 
+`uvicorn`.
 
 ```
 pip install fastapi uvicorn
@@ -91,7 +93,7 @@ app = FastAPI()
 
 @app.get("/generate_lyrics/")
 async def generate_lyrics(movie_topic: str):
-    return {"movie_topic"}
+    return {"movie_topic": movie_topic}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
@@ -110,15 +112,24 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
 
-Looking good! Our app is running. 
+It's looking good! Our app is running.
+
 Let's check what happens when we open it in the browser:
+
+```
+http://localhost:8000/generate_lyrics/?movie_topic=alien cowboys
+```
 
 ![Screenshot](assets/fastapi_guide_1.png)
 
-So far, so good! We made a simple fastAPI app with just a few lines of code and is able to return our query parameter. 
-Now let's add LLMFlow. 
+So far, so good! We made a simple fastAPI app with just a few lines of code, and it can 
+return our query parameter. 
+Now let's include LLMFlow. Let's create a `flow.py` file in the same directory. FastAPI 
+works great with async functions, so let's reuse our async flow example from our 
+previous guides. To make sure we use a new flow on each call, let's create a 
+`create_flow()` function in `flow.py`:
 
-Let's create a `flow.py` file in the same directory. FastAPI works great with async functions so let's reuse our async flow example from our guide. To make sure we use a new flow on each call, let's create a `create_flow()` function in `flow.py`:
+
 
 ```python
 from llmflows.flows import AsyncFlow, AsyncFlowStep, AsyncChatFlowStep
@@ -172,7 +183,7 @@ def create_flow():
     return soundtrack_flow
 ```
 
-Now we can import the flow in `app.py`. Here is how the final code looks like:
+Now we can import `create_flow()` in `app.py`. Here is what the final code looks like:
 
 ```python
 from fastapi import FastAPI
@@ -189,12 +200,28 @@ async def generate_lyrics(movie_topic: str):
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
 ```
-Now when we pass the `movie_topic` query paramter in the url, it will be used as an input to our `soundtrack_flow`. 
-Let's run it again and see what happens. 
+
+We've defined the `movie_topic` query parameter, and when we add it to the url, it 
+will be used as input to our `soundtrack_flow`. 
+Let's rerun the app and see what happens. 
 
 ```commandline
 python3 app.py
 ```
+Now we can go to the browser and try to generate the song lyrics of a movie about 
+"yoga":
+
+```
+http://localhost:8000/generate_lyrics/?movie_topic=yoga
+```
+
+![Screenshot](assets/fastapi_guide_2.png)
+
+This is a hadful!
+
+The `AsyncFlow` returned the final result and detailed runtime information for each 
+flowstep. In addition, `flowtep3` and `flowstep4` ran in parallel thanks to the async 
+implementation.
 
 ***
 [:material-arrow-left: Previous: Callbacks](Callbacks.md){ .md-button }
