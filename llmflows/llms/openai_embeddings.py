@@ -24,6 +24,8 @@ class OpenAIEmbeddings(BaseLLM):
 
     Args:
         model (str): The name of the OpenAI model to use.
+        api_key (str): The API key to use for authentication.
+        max_retries (int): The maximum number of retries for generating embeddings.
 
     Attributes:
         _api_key (str): The API key to use for authentication.

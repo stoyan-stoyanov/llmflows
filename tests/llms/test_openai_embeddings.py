@@ -10,13 +10,15 @@ from llmflows.vectorstores.vector_doc import VectorDoc
 
 class TestOpenAIEmbeddings(unittest.TestCase):
     def setUp(self):
-        self.llm = OpenAIEmbeddings(model="test_model", max_retries=3)
+        self.llm = OpenAIEmbeddings(
+            model="test_model", max_retries=3, api_key="test_key"
+        )
 
     def test_initialization(self):
         self.assertEqual(self.llm.model, "test_model")
         self.assertEqual(self.llm.max_retries, 3)
 
-    @patch('openai.Embedding.create', autospec=True)
+    @patch("openai.Embedding.create", autospec=True)
     def test_generate_single_doc(self, mock_openai_embedding_create):
         # Define the mock return value
         mock_output = {"data": [{"embedding": "test_embedding"}]}
@@ -37,10 +39,15 @@ class TestOpenAIEmbeddings(unittest.TestCase):
         # Assert that the method returned the expected output
         self.assertEqual(result_doc.embedding, "test_embedding")
 
-    @patch('openai.Embedding.create', autospec=True)
+    @patch("openai.Embedding.create", autospec=True)
     def test_generate_multiple_docs(self, mock_openai_embedding_create):
         # Define the mock return value
-        mock_output = {"data": [{"embedding": "test_embedding_1"}, {"embedding": "test_embedding_2"}]}
+        mock_output = {
+            "data": [
+                {"embedding": "test_embedding_1"},
+                {"embedding": "test_embedding_2"},
+            ]
+        }
         mock_openai_embedding_create.return_value = mock_output
 
         # Prepare VectorDocs
@@ -59,7 +66,7 @@ class TestOpenAIEmbeddings(unittest.TestCase):
         self.assertEqual(result_docs[0].embedding, "test_embedding_1")
         self.assertEqual(result_docs[1].embedding, "test_embedding_2")
 
-    @patch('openai.Embedding.create', autospec=True)
+    @patch("openai.Embedding.create", autospec=True)
     async def test_generate_async_single_doc(self, mock_openai_embedding_create):
         # Define the mock return value
         mock_output = {"data": [{"embedding": "test_embedding"}]}
@@ -80,10 +87,15 @@ class TestOpenAIEmbeddings(unittest.TestCase):
         # Assert that the method returned the expected output
         self.assertEqual(result_doc.embedding, "test_embedding")
 
-    @patch('openai.Embedding.create', autospec=True)
+    @patch("openai.Embedding.create", autospec=True)
     async def test_generate_async_multiple_docs(self, mock_openai_embedding_create):
         # Define the mock return value
-        mock_output = {"data": [{"embedding": "test_embedding_1"}, {"embedding": "test_embedding_2"}]}
+        mock_output = {
+            "data": [
+                {"embedding": "test_embedding_1"},
+                {"embedding": "test_embedding_2"},
+            ]
+        }
         mock_openai_embedding_create.return_value = mock_output
 
         # Prepare VectorDocs
