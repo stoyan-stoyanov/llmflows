@@ -5,8 +5,6 @@ This module implements a wrapper for OpenAI completion models, using BaseLLM as 
 base class.
 """
 
-import os
-from typing import Union
 import openai
 from .llm import BaseLLM
 from .llm_utils import call_with_retry, async_call_with_retry

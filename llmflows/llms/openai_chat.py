@@ -4,8 +4,6 @@ This module implements a wrapper for OpenAI chat models, using BaseLLM as a
 base class.
 """
 
-import os
-from typing import Union
 import openai
 from llmflows.llms.llm import BaseLLM
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry

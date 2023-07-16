@@ -4,7 +4,6 @@
 This module helps with creating embeddings form OpenAIs API.
 """
 
-import os
 from typing import Union
 import openai
 from llmflows.vectorstores.vector_doc import VectorDoc

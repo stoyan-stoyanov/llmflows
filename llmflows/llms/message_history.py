@@ -1,12 +1,28 @@
 # pylint: disable=R0913, R0902, R0801, W0221
 """
-This module implements a wrapper for OpenAI chat models, using BaseLLM as a 
-base class.
+This module contains the MessageHistory class, which is used to store the conversation
+history and the system prompt sent to OpenAI's chat API.
 """
 
 
 class MessageHistory:
-    """
+    """ 
+    Abstraction for the conversation history and the system prompt sent to OpenAI's 
+    chat API.
+
+    MessageHistory is used to store the a system prompt and the conversation history
+    for a chat LLM. The system prompt is stored as the first message in the history.
+    The conversation history is stored as a list of messages, where each message is a
+    dictionary with "role" and "content" keys. In addition MessageHistory provides a 
+    set of methods for managing the messages and system prompt. MessageHistory is used 
+    by the ChatLLM generate and generate_async methods.
+
+    Args:
+        max_messages (int): The maximum number of messages to store in the history.
+    
+    Attributes:
+        max_messages (int): The maximum number of messages to store in the history.
+        messages (list[dict[str, str]]): The conversation history.
     """
 
     def __init__(
@@ -26,7 +42,7 @@ class MessageHistory:
         """
         if self.messages and self.messages[0]["role"] == "system":
             return self.messages[0]["content"]
-        return ""  # return an empty string if there is no system prompt
+        return ""
 
     @system_prompt.setter
     def system_prompt(self, new_prompt: str) -> None:
@@ -40,7 +56,6 @@ class MessageHistory:
             self.messages.insert(0, {"role": "system", "content": new_prompt})
         else:
             self.update_system_prompt(new_prompt)
-
 
     def update_system_prompt(self, new_prompt: str):
         """
@@ -63,14 +78,14 @@ class MessageHistory:
         """
         Sets the conversation history.
 
-        Each message in the list should be a dictionary containing 
+        Each message in the list should be a dictionary containing
         "role" and "content" keys.
 
         Args:
             value (list): A list of message dictionaries.
 
         Raises:
-            ValueError: If the provided value is not a list or if any 
+            ValueError: If the provided value is not a list or if any
             dictionary in the list is not a valid message.
         """
         if not isinstance(value, list):
@@ -80,9 +95,11 @@ class MessageHistory:
         self._messages = value
 
     def add_user_message(self, message: str) -> None:
+        """ Adds a new user message to the conversation history."""
         self.add_message(message_str=message, role="user")
-    
+
     def add_ai_message(self, message: str) -> None:
+        """Adds a new assistant message to the conversation history."""
         self.add_message(message_str=message, role="assistant")
 
     def add_message(self, message_str: str, role: str) -> None:
@@ -104,21 +121,20 @@ class MessageHistory:
 
         self.messages.append({"role": role, "content": message_str})
 
-
     @staticmethod
     def validate_role(role: str) -> str:
         """
         Validates the role of a message.
 
         Args:
-            role (str): The role of the message (either "user", "assistant", 
+            role (str): The role of the message (either "user", "assistant",
                 or "system").
 
         Returns:
             str: The validated role.
 
         Raises:
-            ValueError: If the role is "system", as this should be updated using 
+            ValueError: If the role is "system", as this should be updated using
                 'update_system_prompt' method.
             ValueError: If the role is not "user" or "assistant".
         """
@@ -145,7 +161,7 @@ class MessageHistory:
             The validated message.
 
         Raises:
-            ValueError: If the provided message does not contain the necessary fields 
+            ValueError: If the provided message does not contain the necessary fields
                 ("role" and "content").
         """
         if {"role", "content"}.issubset(message):

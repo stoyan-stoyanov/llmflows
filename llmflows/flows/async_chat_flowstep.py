@@ -6,7 +6,6 @@ that is using a chat LLM. The async implementation allows async flowsteps to be
 run in parallel if multiple flowsteps have all the required inputs available.
 """
 
-import logging
 from typing import Any, Union
 from llmflows.llms import OpenAIChat, MessageHistory
 from llmflows.prompts.prompt_template import PromptTemplate

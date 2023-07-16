@@ -68,6 +68,7 @@ nav:
       - BaseLLM: api_reference/llms/llm.md
       - OpenAI: api_reference/llms/openai.md
       - OpenAIChat: api_reference/llms/openai_chat.md
+      - MessageHistory: api_reference/llms/message_history.md
       - OpenAIEmbeddings: api_reference/llms/openai_embeddings.md
     - Prompts: 
       # - Overview: api_reference/prompts/prompts.md
