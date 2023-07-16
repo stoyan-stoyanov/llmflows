@@ -9,17 +9,15 @@ for generating text using the OpenAI GPT-3 API. It then uses the generate method
 the OpenAI class to generate a cool title for an 80s rock song, and prints the result 
 to the console.
 
-Example:
-    $ python 1_llm.py
-    "Rockin' the Night Away"
-
 Note:
-    This script requires the llmflows package to be installed, as well as an OpenAI API key with access to the GPT-3 API.
+    This script requires the llmflows package to be installed, as well as an OpenAI 
+    API key with access to the GPT-3 API.
 """
-
+import os
 from llmflows.llms import OpenAI
 
+open_ai_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
-llm = OpenAI()
+llm = OpenAI(api_key=open_ai_key)
 result = llm.generate(prompt="Generate a cool title for an 80s rock song")
 print(result)

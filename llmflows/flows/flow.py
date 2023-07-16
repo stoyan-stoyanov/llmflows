@@ -27,6 +27,13 @@ class Flow(BaseFlow):
         super().__init__(first_step)
         self.results = {}
         self.completed_steps = set()
+    
+    def _reset_flow(self):
+        """
+        Resets the flow by clearing the results and completed steps.
+        """
+        self.results = {}
+        self.completed_steps = set()
 
     def start(self, verbose=False, **inputs) -> dict:
         """
@@ -44,7 +51,11 @@ class Flow(BaseFlow):
         """
         self._check_all_input_keys_available(inputs)
         self._run_step(self._first_step, inputs, verbose)
-        return self.results
+
+        final_result = self.results
+        self._reset_flow()
+
+        return final_result
 
     def _run_step(self, step, inputs, verbose):
         """

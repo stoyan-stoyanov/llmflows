@@ -35,17 +35,17 @@ class OpenAI(BaseLLM):
 
     def __init__(
         self,
+        api_key: str,
         model: str = "text-davinci-003",
         temperature: float = 0.7,
         max_tokens: int = 500,
-        max_retries: int = 3,
-        api_key: Union[str, None] = None,
+        max_retries: int = 3
     ):
         super().__init__(model)
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.max_retries = max_retries
-        self._api_key = api_key or os.environ.get("OPENAI_API_KEY")
+        self._api_key = api_key
         if not self._api_key:
             raise ValueError(
                 "API Key must be provided or set in the OPENAI_API_KEY environment"

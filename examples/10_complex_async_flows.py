@@ -1,38 +1,30 @@
 # pylint: skip-file
 
 """
-This script demonstrates how to use the llmflows package to create a complex data
-processing pipeline using multiple flow steps.
+This script demonstrates how to use the llmflows package to create an async flow
+multiple async flow steps.
 
 The script creates an OpenAI language model (LLM) and several prompt templates, and 
-uses them to define four flow steps: one for generating a movie title, one for 
+uses them to define four async flow steps: one for generating a movie title, one for 
 generating a song title for the movie, one for generating two main characters for 
 the movie, and one for generating lyrics for a song based on the movie title and 
-main characters. The script then connects the flow steps together to create a data 
-processing pipeline.
-
-Example:
-    $ python 8_complex_flows.py
-    {
-        "movie_title": "The Last Unicorn",
-        "song_title": "The Last Unicorn",
-        "main_characters": "Amalthea and Schmendrick",
-        "lyrics": "In a world of darkness and despair, two heroes rise to fight the 
-            evil that threatens to destroy them..."
-    }
+main characters. The script then connects the flow steps together to create a flow 
+which runs flowsteps that have all required inputs in parallel.
 
 Note:
     This script requires the llmflows package to be installed, as well as an OpenAI API
     key with access to the GPT-3 API.
 """
-
+import os
 from llmflows.flows import AsyncFlow, AsyncFlowStep
 from llmflows.llms import OpenAI
 from llmflows.prompts import PromptTemplate
 import asyncio
 
+open_ai_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
+
 # Create LLM
-open_ai_llm = OpenAI()
+open_ai_llm = OpenAI(api_key=open_ai_key)
 
 # Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")

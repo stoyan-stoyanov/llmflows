@@ -1,40 +1,30 @@
 # pylint: skip-file
 
 """
-This script demonstrates how to use the llmflows package to create a complex data
-processing pipeline using multiple flow steps.
+This script demonstrates how to use the llmflows package to create a more complex flow
+using multiple interdependent chat flow steps.
 
-The script creates an OpenAI language model (LLM) and several prompt templates, and 
+The script creates an ChatOpenAI LLM class and several prompt templates, and 
 uses them to define four flow steps: one for generating a movie title, one for 
 generating a song title for the movie, one for generating two main characters for 
 the movie, and one for generating lyrics for a song based on the movie title and 
 main characters. The script then connects the flow steps together to create a data 
 processing pipeline.
 
-Example:
-    $ python 8_complex_flows.py
-    {
-        "movie_title": "The Last Unicorn",
-        "song_title": "The Last Unicorn",
-        "main_characters": "Amalthea and Schmendrick",
-        "lyrics": "In a world of darkness and despair, two heroes rise to fight the 
-            evil that threatens to destroy them..."
-    }
-
 Note:
     This script requires the llmflows package to be installed, as well as an OpenAI API
     key with access to the GPT-3 API.
 """
-
+import os
+import json
 from llmflows.flows import Flow, FlowStep, ChatFlowStep
-from llmflows.llms import OpenAI, OpenAIChat
+from llmflows.llms import OpenAI, OpenAIChat, MessageHistory
 from llmflows.prompts import PromptTemplate
 
-import json
+open_ai_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 # Create LLM
-open_ai_llm = OpenAI()
-chat_llm = OpenAIChat()
+open_ai_llm = OpenAI(api_key=open_ai_key)
 
 # Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
@@ -49,49 +39,53 @@ lyrics_template = PromptTemplate(
     " {main_characters}"
 )
 
-critic_system_template = PromptTemplate("You are a music critic and write short reviews of song lyrics")
-critic_message_template = PromptTemplate("Hey, what is your opinion on the following song: {song_lyrics}")
-
 # Create flowsteps
 flowstep1 = FlowStep(
     name="Flowstep 1",
-    llm=OpenAI(),
+    llm=open_ai_llm,
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 flowstep2 = FlowStep(
     name="Flowstep 2",
-    llm=OpenAI(),
+    llm=open_ai_llm,
     prompt_template=song_template,
     output_key="song_title",
 )
 
 flowstep3 = FlowStep(
     name="Flowstep 3",
-    llm=OpenAI(),
+    llm=open_ai_llm,
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 flowstep4 = FlowStep(
     name="Flowstep 4",
-    llm=OpenAI(),
+    llm=open_ai_llm,
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )
 
 critics = []
+critic_system_prompt = "You are a music critic who writes short reviews of song lyrics"
+critic_message_template = PromptTemplate(
+    "Hey, what is your opinion on the following song: {song_lyrics}"
+)
 
-for i in range(2):
+for i in range(3):
+    message_history = MessageHistory()
+    message_history.system_prompt = critic_system_prompt
+
     critics.append(
         ChatFlowStep(
-            name=f"Critic Flowstep {i}",
-            llm=OpenAIChat(),
-            system_prompt_template=critic_system_template,
+            name=f"Critic Flowstep {i+1}",
+            llm=OpenAIChat(api_key=open_ai_key),
+            message_history=message_history,
             message_prompt_template=critic_message_template,
             message_key="song_lyrics",
-            output_key=f"song_review_{i}"
+            output_key=f"song_review_{i+1}",
         )
     )
 

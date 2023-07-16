@@ -1,12 +1,14 @@
 ## TL;DR
 
 ```python
-
+import os
 from llmflows.flows import AsyncFlow, AsyncFlowStep, AsyncChatFlowStep
-from llmflows.llms import OpenAI, OpenAIChat
+from llmflows.llms import OpenAI, OpenAIChat, MessageHistory
 from llmflows.prompts import PromptTemplate
 import asyncio
 import json
+
+openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 # Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
@@ -20,50 +22,51 @@ lyrics_template = PromptTemplate(
     "Write lyrics of a movie song called {song_title}. The main characters are"
     " {main_characters}"
 )
-critic_system_template = PromptTemplate(
-    "You are a music critic and write short reviews of song lyrics"
-)
-critic_message_template = PromptTemplate(
-    "Hey, what is your opinion on the following song: {song_lyrics}
-)
 
 # Create flowsteps
 flowstep1 = AsyncFlowStep(
     name="Flowstep 1",
-    llm=OpenAI(),
+    llm=OpenAI(api_key=openai_api_key),
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 flowstep2 = AsyncFlowStep(
     name="Flowstep 2",
-    llm=OpenAI(),
+    llm=OpenAI(api_key=openai_api_key),
     prompt_template=song_template,
     output_key="song_title",
 )
 
 flowstep3 = AsyncFlowStep(
     name="Flowstep 3",
-    llm=OpenAI(),
+    llm=OpenAI(api_key=openai_api_key),
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 flowstep4 = AsyncFlowStep(
     name="Flowstep 4",
-    llm=OpenAI(),
+    llm=OpenAI(api_key=openai_api_key),
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )
 
 critics = []
+critic_system_prompt = "You are a music critic who writes short reviews of song lyrics"
+critic_message_template = PromptTemplate(
+    "Hey, what is your opinion on the following song: {song_lyrics}"
+)
 
 for i in range(5):
+    message_history = MessageHistory()
+    message_history.system_prompt = critic_system_prompt
+
     critics.append(
         AsyncChatFlowStep(
             name=f"Critic Flowstep {i}",
-            llm=OpenAIChat(),
-            system_prompt_template=critic_system_template,
+            llm=OpenAIChat(api_key=openai_api_key),
+            message_history=message_history,
             message_prompt_template=critic_message_template,
             message_key="song_lyrics",
             output_key=f"song_review_{i}"
@@ -77,15 +80,16 @@ flowstep3.connect(flowstep4)
 flowstep4.connect(*critics)
 
 
-# Create and start Flow
-async def start_flow():
+# Create and run Flow
+async def run_flow():
+    # Create and run Flow
     soundtrack_flow = AsyncFlow(flowstep1)
     result = await soundtrack_flow.start(topic="friendship", verbose=True)
     print(json.dumps(result, indent=4))
 
-
 # Run the flow in an event loop
-asyncio.run(start_flow())
+asyncio.run(run_flow())
+
 
 ```
 ***
@@ -138,6 +142,7 @@ prompt templates:
 from llmflows.prompts import PromptTemplate
 
 # Create prompt templates
+# Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
 song_template = PromptTemplate(
     "What is a good song title of a soundtrack for a movie called {movie_title}?"
@@ -149,17 +154,15 @@ lyrics_template = PromptTemplate(
     "Write lyrics of a movie song called {song_title}. The main characters are"
     " {main_characters}"
 )
-critic_system_template = PromptTemplate(
-    "You are a music critic and write short reviews of song lyrics"
-)
-critic_message_template = PromptTemplate(
-    "Hey, what is your opinion on the following song: {song_lyrics}
-)
 ```
-The next step is to create our flowsteps:
+
+The next step is to create the four flowsteps:
+
 ```python
 from llmflows.flows import AsyncFlow, AsyncFlowStep, AsyncChatFlowStep
-from llmflows.llms import OpenAI, OpenAIChat
+from llmflows.llms import OpenAI, OpenAIChat, MessageHistory
+
+openai_llm = OpenAI(api_key="<your-api-key>")
 
 # Create flowsteps
 flowstep1 = AsyncFlowStep(
@@ -190,14 +193,22 @@ flowstep4 = AsyncFlowStep(
     output_key="song_lyrics",
 )
 
+```
+
+Now let's add a couple of music critics to get their opinion on the lyrics.
+
+```python
 critics = []
 
 for i in range(5):
+    message_history = MessageHistory()
+    message_history.system_prompt = critic_system_prompt
+
     critics.append(
         AsyncChatFlowStep(
             name=f"Critic Flowstep {i}",
-            llm=OpenAIChat(),
-            system_prompt_template=critic_system_template,
+            llm=OpenAIChat(api_key=openai_api_key),
+            message_history=message_history,
             message_prompt_template=critic_message_template,
             message_key="song_lyrics",
             output_key=f"song_review_{i}"
@@ -206,7 +217,30 @@ for i in range(5):
 ```
 
 Note that after creating the four flowsteps from our previous example we added a list 
-of five "Critic Flowsteps". 
+of five "Critic Flowsteps". To do that we used the `AsyncChatFlowStep`. 
+
+The `ChatFlowStep` and `AsyncChatFlowStep` classes use chat LLMs. They have the following parameters:
+
+- name (must be unique)
+- the Chat LLM to be used within the flow
+- optional message history
+- optional message prompt template
+- message key (the name of the variable to be used as a message)
+- output_key (must be unique), which is treated as a prompt variable for other flowsteps
+
+!!! question
+
+    Q: Why is there a message history parameter?
+
+    A: In some cases (e.g. chatbot applications you will need to load a conversation history from a DB or a disk. This parameter is the way to use the preexisting history in the flow.) You can also use the `message_history` to specify a system prompt for the chat LLM in the flow step.
+
+!!! question
+
+    Q: What is a message prompt template?
+
+    A: If provided, the `message_prompt_template` is used together with the `message_key` to provide the final usere message in the message history.
+
+In this example we are specifying the chat LLM behavior with the system prompt in the message history, and we are using the message template to construct the user message that we send to the chat LLM so it can generate the reviews.
 
 Now let's connect all the flowsteps:
 ```python

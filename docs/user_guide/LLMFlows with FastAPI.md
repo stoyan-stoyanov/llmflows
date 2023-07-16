@@ -2,22 +2,24 @@
 
 `flows.py`
 ```python
-from llmflows.flows import AsyncFlow, AsyncFlowStep, AsyncChatFlowStep
-from llmflows.llms import OpenAI, OpenAIChat
+from llmflows.flows import AsyncFlow, AsyncFlowStep
+from llmflows.llms import OpenAI
 from llmflows.prompts import PromptTemplate
 
+
+openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 def create_flow():
     flowstep1 = AsyncFlowStep(
         name="Flowstep 1",
-        llm=OpenAI(),
+        llm=OpenAI(api_key=openai_api_key),
         prompt_template=PromptTemplate("What is a good title of a movie about {topic}?"),
         output_key="movie_title",
     )
 
     flowstep2 = AsyncFlowStep(
         name="Flowstep 2",
-        llm=OpenAI(),
+        llm=OpenAI(api_key=openai_api_key),
         prompt_template=PromptTemplate(
             "What is a good song title of a soundtrack for a movie called {movie_title}?"
         ),
@@ -26,7 +28,7 @@ def create_flow():
 
     flowstep3 = AsyncFlowStep(
         name="Flowstep 3",
-        llm=OpenAI(),
+        llm=OpenAI(api_key=openai_api_key),
         prompt_template=PromptTemplate(
             "What are two main characters for a movie called {movie_title}?"
         ),
@@ -35,7 +37,7 @@ def create_flow():
 
     flowstep4 = AsyncFlowStep(
         name="Flowstep 4",
-        llm=OpenAI(),
+        llm=OpenAI(api_key=openai_api_key),
         prompt_template=PromptTemplate(
             "Write lyrics of a movie song called {song_title}. The main characters are"
             " {main_characters}"
@@ -51,6 +53,7 @@ def create_flow():
     soundtrack_flow = AsyncFlow(flowstep1)
 
     return soundtrack_flow
+
 ```
 
 `app.py`
@@ -132,22 +135,24 @@ previous guides. To make sure we use a new flow on each call, let's create a
 
 
 ```python
-from llmflows.flows import AsyncFlow, AsyncFlowStep, AsyncChatFlowStep
-from llmflows.llms import OpenAI, OpenAIChat
+from llmflows.flows import AsyncFlow, AsyncFlowStep
+from llmflows.llms import OpenAI
 from llmflows.prompts import PromptTemplate
 
+
+openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 def create_flow():
     flowstep1 = AsyncFlowStep(
         name="Flowstep 1",
-        llm=OpenAI(),
+        llm=OpenAI(api_key=openai_api_key),
         prompt_template=PromptTemplate("What is a good title of a movie about {topic}?"),
         output_key="movie_title",
     )
 
     flowstep2 = AsyncFlowStep(
         name="Flowstep 2",
-        llm=OpenAI(),
+        llm=OpenAI(api_key=openai_api_key),
         prompt_template=PromptTemplate(
             "What is a good song title of a soundtrack for a movie called {movie_title}?"
         ),
@@ -156,7 +161,7 @@ def create_flow():
 
     flowstep3 = AsyncFlowStep(
         name="Flowstep 3",
-        llm=OpenAI(),
+        llm=OpenAI(api_key=openai_api_key),
         prompt_template=PromptTemplate(
             "What are two main characters for a movie called {movie_title}?"
         ),
@@ -165,7 +170,7 @@ def create_flow():
 
     flowstep4 = AsyncFlowStep(
         name="Flowstep 4",
-        llm=OpenAI(),
+        llm=OpenAI(api_key=openai_api_key),
         prompt_template=PromptTemplate(
             "Write lyrics of a movie song called {song_title}. The main characters are"
             " {main_characters}"
@@ -217,7 +222,7 @@ http://localhost:8000/generate_lyrics/?movie_topic=yoga
 
 ![Screenshot](assets/fastapi_guide_2.png)
 
-This is a hadful!
+This is a handful!
 
 The `AsyncFlow` returned the final result and detailed runtime information for each 
 flowstep. In addition, `flowtep3` and `flowstep4` ran in parallel thanks to the async 

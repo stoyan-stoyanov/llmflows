@@ -10,15 +10,16 @@ import os
 Before starting this guide you need to have completed the previous one and upsert the VectorDocs to Pinecone.
 """
 
-PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>")
+piencone_api_key = "<pinecone-api-key>"
+openai_api_key = "<openai-api-key>"
 
 # Create embeddings LLM
-embeddings_llm = OpenAIEmbeddings()
+embeddings_llm = OpenAIEmbeddings(api_key=openai_api_key)
 
 # initialize Pinecone
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
-    api_key=PINECONE_API_KEY,
+    api_key=piencone_api_key,
     environment="us-west4-gcp-free",
 )
 
@@ -75,7 +76,7 @@ Let's create the question and its vector embeddings:
 
 ```python
 question = VectorDoc(doc="How was dark energy discovered?")
-embeddings_llm = OpenAIEmbeddings()
+embeddings_llm = OpenAIEmbeddings(api_key="<openai-api-key>")
 embedded_question = embeddings_llm.generate(question)
 ```
 
@@ -84,7 +85,7 @@ We can use the question embeddings to search Pinecone:
 ```python
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
-    api_key=os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>"),
+    api_key="<pinecone-api-key>",
     environment="us-west4-gcp-free",
 )
 
@@ -92,7 +93,9 @@ search_results, _, _ = vector_db.search(embedded_question)
 context = search_results[0]["metadata"]["text"]
 
 ```
+
 Let's see what the context provided by the search result looks like.
+
 ```python
 print(context)
 ```
@@ -121,7 +124,7 @@ Now we have the question and the context, and we can use an LLM to answer the qu
 based on the context:
 
 ```python
-llm = OpenAI()
+llm = OpenAI(api_key="<openai-api-key>")
 prompt_template = PromptTemplate(
     prompt=(
         "Answer the question based on the"
@@ -135,6 +138,7 @@ final_answer = llm.generate(llm_prompt)
 ```
 
 Let's see how did the LLM do:
+
 ```python
 print(final_answer)
 ```

@@ -7,7 +7,8 @@ from llmflows.vectorstores import VectorDoc, Pinecone
 import os
 
 
-PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>")
+piencone_api_key = "<pinecone-api-key>"
+openai_api_key = "<openai-api-key>"
 
 docs = [
     (
@@ -63,7 +64,7 @@ docs = [
 ]
 
 # Create embeddings LLM
-embeddings_llm = OpenAIEmbeddings()
+embeddings_llm = OpenAIEmbeddings(api_key=openai_api_key)
 
 # Convert text texts to VectorDocs and generate embeddings
 vector_docs = [VectorDoc(doc=doc) for doc in docs]
@@ -72,7 +73,7 @@ embedded_docs = embeddings_llm.generate(vector_docs)
 # initialize Pinecone
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
-    api_key=PINECONE_API_KEY,
+    api_key=piencone_api_key,
     environment="us-west4-gcp-free",
 )
 

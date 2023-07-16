@@ -1,25 +1,16 @@
 # pylint: skip-file
 
 """
-This script demonstrates how to use the llmflows package to create a complex data
-processing pipeline using multiple flow steps.
+This script demonstrates how to use the llmflows package to create a complex flow with
+multiple flow steps using chat LLMs together with vector stores.
 
-The script creates an OpenAI language model (LLM) and several prompt templates, and
-uses them to define four flow steps: one for generating a movie title, one for
-generating a song title for the movie, one for generating two main characters for
-the movie, and one for generating lyrics for a song based on the movie title and
-main characters. The script then connects the flow steps together to create a data
-processing pipeline.
-
-Example:
-    $ python 8_complex_flows.py
-    {
-        "movie_title": "The Last Unicorn",
-        "song_title": "The Last Unicorn",
-        "main_characters": "Amalthea and Schmendrick",
-        "lyrics": "In a world of darkness and despair, two heroes rise to fight the
-            evil that threatens to destroy them..."
-    }
+The script uses the OpenAI and OpenAIChat classes together with several prompt templates
+to generate a question related to the information stored in the vector store.
+The question is then passed to the vector store to retrieve the most similar context. 
+After the context is retrieved, it is passed to the next flowstep together with the 
+initial question. The next flowstep then generates an answer to the question based on
+the context. The answer is then passed to the next flowstep which paraphrases the
+answer in an ELI5 style.
 
 Note:
     This script requires the llmflows package to be installed, as well as an OpenAI API
@@ -32,6 +23,7 @@ from llmflows.llms import OpenAI, OpenAIEmbeddings
 from llmflows.prompts import PromptTemplate
 from llmflows.vectorstores import Pinecone
 
+openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
@@ -59,14 +51,14 @@ eli5_template = PromptTemplate(
 # Create flowsteps
 q_flowstep = FlowStep(
     name="Question Flowstep",
-    llm=OpenAI(),
+    llm=OpenAI(api_key=openai_api_key),
     prompt_template=question_template,
     output_key="question",
 )
 
 vs_flowstep = VectorStoreFlowStep(
     name="Vectorstore Flowstep",
-    embeddings_model=OpenAIEmbeddings(),
+    embeddings_model=OpenAIEmbeddings(api_key=openai_api_key),
     vector_store=vector_db,
     prompt_template=vs_template,
     output_key="context",
@@ -74,14 +66,14 @@ vs_flowstep = VectorStoreFlowStep(
 
 answer_flowstep = FlowStep(
     name="Response Flowstep",
-    llm=OpenAI(),
+    llm=OpenAI(api_key=openai_api_key),
     prompt_template=response_template,
     output_key="answer",
 )
 
 eli5_flowstep = FlowStep(
     name="ELI5 Flowstep",
-    llm=OpenAI(),
+    llm=OpenAI(api_key=openai_api_key),
     prompt_template=eli5_template,
     output_key="eli5_answer",
 )

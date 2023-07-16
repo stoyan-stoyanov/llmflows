@@ -5,6 +5,9 @@ from llmflows.flows import Flow, FlowStep
 from llmflows.llms import OpenAI
 from llmflows.prompts import PromptTemplate
 
+
+openai_llm = OpenAI(api_key="<your-api-key>")
+
 # Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
 song_template = PromptTemplate(
@@ -21,28 +24,28 @@ lyrics_template = PromptTemplate(
 # Create flowsteps
 flowstep1 = FlowStep(
     name="Movie Title Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 flowstep2 = FlowStep(
     name="Song Title Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=song_template,
     output_key="song_title",
 )
 
 flowstep3 = FlowStep(
     name="Characters Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 flowstep4 = FlowStep(
     name="Lyrics Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )
@@ -60,7 +63,7 @@ print(results)
 ```
 ***
 ## Guide
-In the Introduction section we covered the Flow and FlowStep abstractions and we saw 
+In the Introduction section we covered the `Flow` and `FlowStep` abstractions and we saw 
 how we can create explicit, and transparent LLM Flows to build LLM-powered apps. In 
 this guide we will dive a bit deeper and will build a slightly more complex example.
 
@@ -94,31 +97,35 @@ lyrics_template = PromptTemplate(
 Now we can create the four flowsteps:
 ```python
 from llmflows.flows import Flow, FlowStep
+from llmflows.llms import OpenAI
 
+openai_llm = OpenAI(api_key="<your-api-key>")
+
+# Create flowsteps
 flowstep1 = FlowStep(
     name="Movie Title Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 flowstep2 = FlowStep(
     name="Song Title Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=song_template,
     output_key="song_title",
 )
 
 flowstep3 = FlowStep(
     name="Characters Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 flowstep4 = FlowStep(
     name="Lyrics Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )

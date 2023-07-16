@@ -1,28 +1,21 @@
 # pylint: skip-file
 
 """
-This script demonstrates how to use an OpenAI language model (LLM) to answer questions.
+This script demonstrates how to create embeddings for a set of texts with the 
+OpenAIEmbeddings class, and upload the embedding vectors to Pinecone.
 
 The script defines a list of sample documents and creates a VectorDoc object for each 
-document. It then uses an OpenAI LLM to embed each document, and adds the resulting 
-embeddings to a Pinecone vector database.
-
-The script also defines a sample question, creates a VectorDoc object for the question, 
-and embeds the question using the same LLM. It then queries the Pinecone vector 
-database to find the document with the closest embedding to the question, and 
-prints the corresponding document text as the answer to the question.
-
-Example:
-    $ python 12_question_answering.py
-    Q: How was dark energy discovered?
-    A: Dark energy was discovered in 1998 by two teams of astronomers studying 
-    supernovae.
+document. It then uses an OpenAIEmbeddings class to embed each document, and adds the 
+resulting embeddings to a Pinecone vector database using the Pinecone client. Finally,
+the script uses the Pinecone client to search the vector database for the most similar
+documents to a query document. Once the most similar documents have been found, it is 
+passed to the OpenAI class together with the initial question to generate a final 
+answer.
 
 Note:
     This script requires the llmflows and pinecone packages to be installed, as well as
-    an OpenAI API key with access to the GPT-3 API and a Pinecone API key.
+    an OpenAI API key with access to the OpenAI API and a Pinecone API key.
 """
-
 from llmflows.llms import OpenAIEmbeddings, OpenAI
 from llmflows.prompts import PromptTemplate
 from llmflows.vectorstores import VectorDoc, Pinecone
@@ -33,10 +26,12 @@ import os
 Before starting this tutorial go and create an index in Pinecone with dimension of 1536 
 (the default dimension or openai's embeddings)
 """
-PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>")
+
+piencone_api_key = os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>")
+openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 # Create embeddings LLM
-embeddings_llm = OpenAIEmbeddings()
+embeddings_llm = OpenAIEmbeddings(api_key=openai_api_key)
 
 docs = [
     (
@@ -106,7 +101,7 @@ embedded_docs = embeddings_llm.generate(vector_docs)
 # initialize Pinecone
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
-    api_key=PINECONE_API_KEY,
+    api_key=piencone_api_key,
     environment="us-west4-gcp-free",
 )
 
@@ -124,7 +119,7 @@ context = search_results[0]["metadata"]["text"]
 
 # Provide the most-relevant document text to a llm and use the text as a context
 # to generate the final answer
-llm = OpenAI()
+llm = OpenAI(api_key=openai_api_key)
 prompt_template = PromptTemplate(
     prompt=(
         "Answer the question based on the"

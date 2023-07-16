@@ -9,9 +9,14 @@ from llmflows.vectorstores import Pinecone
 
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
-    api_key=os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>"),
+    api_key="<pinecone-api-key>",
     environment="us-west4-gcp-free",
 )
+
+openai_api_key = "<openai-api-key>"
+
+openai_llm = OpenAI(api_key=openai_api_key)
+openai_embeddings = OpenAIEmbeddings(api_key=openai_api_key)
 
 # Create prompt templates
 question_template = PromptTemplate("Ask a random question about {topic}")
@@ -30,14 +35,14 @@ eli5_template = PromptTemplate(
 # Create flowsteps
 q_flowstep = FlowStep(
     name="Question Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=question_template,
     output_key="question",
 )
 
 vs_flowstep = VectorStoreFlowStep(
     name="Vectorstore Flowstep",
-    embeddings_model=OpenAIEmbeddings(),
+    embeddings_model=openai_embeddings,
     vector_store=vector_db,
     prompt_template=vs_template,
     output_key="context",
@@ -45,14 +50,14 @@ vs_flowstep = VectorStoreFlowStep(
 
 answer_flowstep = FlowStep(
     name="Response Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=response_template,
     output_key="response",
 )
 
 eli5_flowstep = FlowStep(
     name="ELI5 Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=eli5_template,
     output_key="eli5_response",
 )
@@ -71,9 +76,10 @@ print(results)
 ***
 ## Guide
 !!! warning
- Before starting this guide, you have to complete the 
- [Vector Stores](Vector Databases.md) guide and upsert the VectorDocs based on the 
- Wikipedia texts into Pinecone.
+
+    Before starting this guide, you have to complete the 
+    [Vector Stores](Vector Databases.md) guide and upsert the VectorDocs based on the 
+    Wikipedia texts into Pinecone.
 
 In the previous two guides, we saw how to create vector embeddings for text documents, 
 upload them to a vector database, and then use them for question answering.
@@ -113,7 +119,10 @@ eli5_template = PromptTemplate(
 
 Now let's create the flow steps based on the figure above. To add a vector store, we 
 can utilize the `VectorStoreFlowStep` class which requires an embedding model, a vector 
-database client, and a prompt template.
+database client, and a prompt template. 
+
+The `VectorStoreFlowStep` constructs a prompt based on the prompt template and its 
+inputs, creates embeddings of the prompt template, searches the vector database with the embeddings, and returns the result as a variable that other flow steps can consume.
 
 ```python
 from llmflows.flows import Flow, FlowStep, VectorStoreFlowStep
@@ -121,20 +130,25 @@ from llmflows.llms import OpenAI, OpenAIEmbeddings
 
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
-    api_key=os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>"),
+    api_key="<pinecone-api-key>",
     environment="us-west4-gcp-free",
 )
 
+openai_api_key = "<openai-api-key>"
+
+openai_llm = OpenAI(api_key=openai_api_key)
+openai_embeddings = OpenAIEmbeddings(api_key=openai_api_key)
+
 q_flowstep = FlowStep(
     name="Question Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=question_template,
     output_key="question",
 )
 
 vs_flowstep = VectorStoreFlowStep(
     name="Vectorstore Flowstep",
-    embeddings_model=OpenAIEmbeddings(),
+    embeddings_model=openai_embeddings,
     vector_store=vector_db,
     prompt_template=vs_template,
     output_key="context",
@@ -142,14 +156,14 @@ vs_flowstep = VectorStoreFlowStep(
 
 answer_flowstep = FlowStep(
     name="Response Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=response_template,
     output_key="response",
 )
 
 eli5_flowstep = FlowStep(
     name="ELI5 Flowstep",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=eli5_template,
     output_key="eli5_response",
 )
