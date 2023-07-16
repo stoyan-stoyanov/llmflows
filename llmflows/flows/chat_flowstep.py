@@ -4,7 +4,6 @@ This file contains the ChatFlowStep class, which represents a step in a Flow tha
 using a chat LLM.
 """
 
-import logging
 from typing import Any, Union
 from llmflows.llms import OpenAIChat, MessageHistory
 from llmflows.prompts.prompt_template import PromptTemplate

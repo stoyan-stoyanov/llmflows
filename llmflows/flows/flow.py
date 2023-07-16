@@ -27,7 +27,7 @@ class Flow(BaseFlow):
         super().__init__(first_step)
         self.results = {}
         self.completed_steps = set()
-    
+
     def _reset_flow(self):
         """
         Resets the flow by clearing the results and completed steps.
@@ -73,9 +73,7 @@ class Flow(BaseFlow):
         if not step or any(parent.output_key not in inputs for parent in step.parents):
             return
 
-        required_inputs = {
-            key: inputs[key] for key in step.required_keys
-        }
+        required_inputs = {key: inputs[key] for key in step.required_keys}
 
         if step not in self.completed_steps:
             flow_data = step.run(required_inputs, verbose)
