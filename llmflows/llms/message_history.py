@@ -138,10 +138,6 @@ class MessageHistory:
                 'update_system_prompt' method.
             ValueError: If the role is not "user" or "assistant".
         """
-        # if role == "system":
-        #     raise ValueError(
-        #       "To update the system prompt use the 'update_system_prompt method"
-        # )
 
         if role not in ["user", "system", "assistant"]:
             raise ValueError(
