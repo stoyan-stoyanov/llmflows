@@ -53,7 +53,8 @@ allow users to build flexible LLM-powered apps without compromising on capabilit
 
 ### Explicit
 We want to create an explicit API enabling users to write clean and readable code while 
-easily creating complex flows of LLMs interacting with each other.
+easily creating complex flows of LLMs interacting with each other. LLMFlows' classes 
+give users full control and do not have any hidden prompts or LLM calls. 
 
 ### Transparent
 We aim to help users have full transparency on their LLM-powered apps by providing 
