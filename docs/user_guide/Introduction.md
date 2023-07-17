@@ -70,7 +70,7 @@ message_history = MessageHistory()
 ```
 
 !!! info
-    OpenAI's chat compeltion API supports three message types in its conversation 
+    OpenAI's chat completion API supports three message types in its conversation 
     history:
 
     1. `system` (system message specifying the behavior of the LLM)
@@ -104,7 +104,8 @@ LLM: Hello! How can I assist you today?
 You: ...
 ```
 
-In the snippet above, we read the user input, and then pass it as a user message to the `message_history` object. Then we pass the object to the `generate()` method of the 
+In the snippet above, we read the user input, and then pass it as a user message to the 
+`message_history` object. Then we pass the object to the `generate()` method of the 
 `llm` which returns the string response, API call information, and the model 
 configuration.
 

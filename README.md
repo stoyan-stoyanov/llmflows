@@ -45,31 +45,36 @@ You can quickly build a simple application with LLMFlows' `LLM` and `PrompTempla
 classes:
 
 ```python
-
-from llmflows.llms.openai import OpenAI
-from llmflows.prompts.prompt_template import PromptTemplate
+from llmflows.llms import OpenAI
+from llmflows.prompts import PromptTemplate
 
 prompt_template = PromptTemplate(
-   prompt="Generate a title for a 90s hip-hop song about {topic}."
+    prompt="Generate a title for a 90s hip-hop song about {topic}."
 )
 llm_prompt = prompt_template.get_prompt(topic="friendship")
 
-llm = OpenAI()
+print(llm_prompt)
+
+llm = OpenAI(api_key="<your-openai-api-key>")
 song_title = llm.generate(llm_prompt)
 
+print(song_title)
 ```
 
 You can also create a simple chat application with a few lines of code:
 ```python
-from llmflows.llms import OpenAIChat
+from llmflows.llms import OpenAIChat, MessageHistory
 
-
-llm = OpenAIChat(system_prompt="You are a useful assistant")
+llm = OpenAIChat(api_key="<your-openai-api-key>")
+message_history = MessageHistory()
 
 while True:
     user_message = input("You:")
-    llm.add_message(user_message)
-    llm_response, call_data, model_config = llm.generate()
+    message_history.add_user_message(user_message)
+
+    llm_response, call_data, model_config = llm.generate(message_history)
+    message_history.add_ai_message(llm_response)
+
     print(f"LLM: {llm_response}")
 ```
 
@@ -87,6 +92,8 @@ from llmflows.flows import Flow, FlowStep
 from llmflows.llms import OpenAI
 from llmflows.prompts import PromptTemplate
 
+openai_llm = OpenAI(api_key="<your-openai-api-key>")
+
 # Create prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
 song_template = PromptTemplate(
@@ -103,28 +110,28 @@ lyrics_template = PromptTemplate(
 # Create flowsteps
 flowstep1 = FlowStep(
     name="Flowstep 1",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 flowstep2 = FlowStep(
     name="Flowstep 2",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=song_template,
     output_key="song_title",
 )
 
 flowstep3 = FlowStep(
     name="Flowstep 3",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 flowstep4 = FlowStep(
     name="Flowstep 4",
-    llm=OpenAI(),
+    llm=openai_llm,
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )
