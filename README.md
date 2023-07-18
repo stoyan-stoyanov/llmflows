@@ -40,7 +40,7 @@ We aim to help users have full transparency on their LLM-powered apps by providi
 traceable flows and complete information for each app component, making it easy to 
 monitor, maintain, and debug.
 
-## Usage
+## Getting Started
 ### LLMs
 LLMs are one of the main abstractions in LLMFlows. LLM classes are wrappers around LLM 
 APIs such as OpenAI's APIs. They provide methods for configuring and calling these APIs, 
@@ -81,8 +81,8 @@ print(song_title)
 ```
 
 ### Chat LLMs
-Regular LLMs like GPT-3 require just an input prompt to make a completion. On the other 
-hand, chat LLMs require a conversation history. The conversation history is represented 
+Unlike regular LLMs that only require a prompt to generate text, chat LLMs require a 
+conversation history. The conversation history is represented 
 as a list of messages between a user and an assistant. This conversation history is 
 sent to the model, and a new message is generated based on it.
 
@@ -108,14 +108,14 @@ while True:
 ```
 
 ### LLM Flows
-Often times, real-world applications are can be more complex and can have dependencies 
+Often times, real-world applications can be more complex and can have dependencies 
 between prompts and LLM calls. For example:
 
 ![Complex flow](docs/complex_flow.png)
 
-You can build such flow using the `Flow` and `Flowstep` classes. LLMFlows will figure 
-out the dependencies and make sure each flowstep runs only when all its dependencies 
-are met:
+When you want to build apps with complex dependencies you can use the `Flow` and 
+`Flowstep` classes. LLMFlows will figure out the dependencies and make sure each 
+flowstep runs only when all its dependencies are met:
 
 ```python
 from llmflows.flows import Flow, FlowStep
@@ -176,10 +176,50 @@ soundtrack_flow = Flow(flowstep1)
 results = soundtrack_flow.start(topic="friendship", verbose=True)
 ```
 
-In addition, LLMFlows provides async classes to improve the runtime of any complex flow 
-by running flow steps that already have all their required inputs in parallel.
-Check our documentation for more examples, such as creating question-answering apps and 
-web applications with Flask and FastAPI.
+### Async Flows
+Sometimes multiple flow steps can run in parallel if all their dependencies are met. 
+For cases like this, LLMFlows provides async classes to improve the runtime of any 
+complex flow by running flow steps that already have all their required inputs in 
+parallel.
+
+```python
+
+...
+
+flowstep1 = AsyncFlowStep(
+    name="Flowstep 1",
+    llm=openai_llm,
+    prompt_template=title_template,
+    output_key="movie_title",
+)
+
+flowstep2 = FlowStep(
+    name="Flowstep 2",
+    llm=openai_llm,
+    prompt_template=song_template,
+    output_key="song_title",
+)
+
+flowstep3 = AsyncFlowStep(
+    name="Flowstep 3",
+    llm=openai_llm,
+    prompt_template=characters_template,
+    output_key="main_characters",
+)
+
+flowstep4 = AsyncFlowStep(
+    name="Flowstep 4",
+    llm=openai_llm,
+    prompt_template=lyrics_template,
+    output_key="song_lyrics",
+)
+
+...
+
+```
+
+Check our documentation for more examples, such as integrating vector databases, 
+creating question-answering apps and web applications with Flask and FastAPI.
 
 ## Features
 
