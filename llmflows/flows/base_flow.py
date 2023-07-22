@@ -107,8 +107,6 @@ class BaseFlow:
             ValueError: If not all required input keys are covered.
         """
 
-        print(self.output_keys.union(user_inputs.keys()))
-        print(self.input_keys)
         if not self.input_keys.issubset(self.output_keys.union(user_inputs.keys())):
             missing_inputs = self.input_keys.difference(
                 self.output_keys.union(user_inputs.keys())

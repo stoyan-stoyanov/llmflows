@@ -17,7 +17,8 @@ Twitter: [https://twitter.com/LLMFlows](https://twitter.com/LLMFlows)<br/>
 Substack: [https://llmflows.substack.com](https://llmflows.substack.com/)<br/>
 
 ## About
-LLMFlows is a framework for building simple, explicit, and transparent LLM applications.
+LLMFlows is a framework for building simple, explicit, and transparent LLM(Large 
+Language Model) applications.
 
 ## Installation
 ```
@@ -138,41 +139,41 @@ lyrics_template = PromptTemplate(
 )
 
 # Create flowsteps
-flowstep1 = FlowStep(
-    name="Flowstep 1",
+movie_title_flowstep = FlowStep(
+    name="Movie Title Flowstep",
     llm=openai_llm,
     prompt_template=title_template,
     output_key="movie_title",
 )
 
-flowstep2 = FlowStep(
-    name="Flowstep 2",
+song_title_flowstep = FlowStep(
+    name="Song Title Flowstep",
     llm=openai_llm,
     prompt_template=song_template,
     output_key="song_title",
 )
 
-flowstep3 = FlowStep(
-    name="Flowstep 3",
+characters_flowstep = FlowStep(
+    name="Characters Flowstep",
     llm=openai_llm,
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
-flowstep4 = FlowStep(
-    name="Flowstep 4",
+song_lyrics_flowstep = FlowStep(
+    name="Song Lyrics Flowstep",
     llm=openai_llm,
     prompt_template=lyrics_template,
     output_key="song_lyrics",
 )
 
 # Connect flowsteps
-flowstep1.connect(flowstep2, flowstep3, flowstep4)
-flowstep2.connect(flowstep4)
-flowstep3.connect(flowstep4)
+movie_title_flowstep.connect(song_title_flowstep, characters_flowstep, song_lyrics_flowstep)
+song_title_flowstep.connect(song_lyrics_flowstep)
+characters_flowstep.connect(song_lyrics_flowstep)
 
 # Create and run Flow
-soundtrack_flow = Flow(flowstep1)
+soundtrack_flow = Flow(title_flowstep)
 results = soundtrack_flow.start(topic="friendship", verbose=True)
 ```
 
@@ -186,28 +187,28 @@ parallel.
 
 ...
 
-flowstep1 = AsyncFlowStep(
+movie_title_flowstep = AsyncFlowStep(
     name="Flowstep 1",
     llm=openai_llm,
     prompt_template=title_template,
     output_key="movie_title",
 )
 
-flowstep2 = FlowStep(
+song_title_flowstep = FlowStep(
     name="Flowstep 2",
     llm=openai_llm,
     prompt_template=song_template,
     output_key="song_title",
 )
 
-flowstep3 = AsyncFlowStep(
+characters_flowstep = AsyncFlowStep(
     name="Flowstep 3",
     llm=openai_llm,
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
-flowstep4 = AsyncFlowStep(
+song_lyrics_flowstep = AsyncFlowStep(
     name="Flowstep 4",
     llm=openai_llm,
     prompt_template=lyrics_template,
@@ -254,8 +255,10 @@ creating question-answering apps and web applications with Flask and FastAPI.
 - Utilize callbacks to comprehensively control and monitor LLM-powered apps, ensuring 
   clear visibility into the execution process.
 
-### **Complete Transparency**
-After executing a Flow you can answer questions such as:
+### **Explicit API and Full Transparency**
+With LLMFlows you have the full control to create explicit applications without any hidden prompts or predefined behaviors.
+
+In addition LLMFlows allows you to answer questions such as:
 
 - When was a particular flowstep run?
 - How much time did it take?
@@ -268,43 +271,9 @@ After executing a Flow you can answer questions such as:
 - How many tokens were used?
 - What was the final result?
 
-## FAQ
-
-### **How is this different than langchain?**
-Langchain is a great library, and LLMFlows has undoubtedly been inspired by it. 
-However, our philosophy is a bit different. Langchian has a "chain for everything" 
-philosophy and provides many classes with multiple LLM calls, logic, and built-in 
-default prompts. While this is great for beginners and default use cases, we feel this 
-can be overwhelming if users want to do anything "out of the ordinary." In contrast, 
-we are focusing on providing as few building blocks as possible and having an 
-easy-to-understand API while matching (and in some cases exceeding) the capabilities 
-of langchain.
-
-### **You only have OpenAI wrappers, but I want to use AcmeLLM.**
-We decided to release the library initially supporting only OpenAI LLMs, but we have a 
-roadmap and will slowly add new wrappers around the most popular models. If you are 
-willing to spend some time, we are looking for contributors and maintainers.
-
-### **You only support Pinecone. Do you have plans to extend the list?**
-Yes! Over time, we will also add Chroma, Weaviate, Redis, Elastic Search, and other 
-popular solutions. If you want to help us out, check out our contribution section.
-
-### **Why can't I find any info related to document loaders?**
-For the time being, we have decided not to implement document loaders for a few reasons:
-
-1. plenty of capable libraries like Llama-index and langchain have tons of loaders.
-2. We think mixing document loaders with LLM and prompt management libraries is awkward 
-3. since document loading usually happens in separate pipelines and is not part of the 
-4. LLM-powered app.
-5. Real-life documents are messy. In our experience, no matter how many loaders are out 
-6. there, they will never cover all the specific use cases.
-
-While we will not invest time into document loaders, we might change direction if we 
-get significant interest and contributors.
-
 ## License
 LLMFlows is covered by the MIT license. For more information, check `LICENCE.md`.
 
 ## Contributing
-Thank you for spending the time to read our README! If you like what you saw and are 
-considering contributing, please check `CONTRIBUTING.md`
+Thank you for spending time going over our README! If you find LLMFlows exciting and 
+you are considering contributing, please check [`CONTRIBUTING.md`](https://github.com/stoyan-stoyanov/llmflows/blob/main/CONTRIBUTING.md).

@@ -58,7 +58,9 @@ nav:
     - Functional FlowSteps: user_guide/Functional FlowSteps.md
     - Callbacks: user_guide/Callbacks.md
     - LLMFlows with FastAPI: user_guide/LLMFlows with FastAPI.md
+    - Agents: user_guide/Agents.md
     - Conclusion: user_guide/Conclusion.md
+    - FAQ: user_guide/FAQ.md
 #    - Agents: user_guide/Agents.md
 #    - Flask Apps: user_guide/Flask Apps.md
 #    - FastAPI Apps: user_guide/FastAPI Apps.md
