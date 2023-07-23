@@ -3,6 +3,7 @@
 <p align="center">
   <img src="llmflows_last_logo.png" />
 </p>
+<br/>
 
 [![Twitter](https://img.shields.io/twitter/follow/LLMFlows?style=social)](https://twitter.com/LLMFlows)
 ![Pylint workflow](https://github.com/stoyan-stoyanov/llmflow/actions/workflows/pylint.yml/badge.svg)
