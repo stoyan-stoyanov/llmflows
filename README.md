@@ -193,28 +193,28 @@ parallel.
 ...
 
 movie_title_flowstep = AsyncFlowStep(
-    name="Flowstep 1",
+    name="Movie Title Flowstep",
     llm=openai_llm,
     prompt_template=title_template,
     output_key="movie_title",
 )
 
 song_title_flowstep = FlowStep(
-    name="Flowstep 2",
+    name="Song Title Flowstep",
     llm=openai_llm,
     prompt_template=song_template,
     output_key="song_title",
 )
 
 characters_flowstep = AsyncFlowStep(
-    name="Flowstep 3",
+    name="Characters Flowstep",
     llm=openai_llm,
     prompt_template=characters_template,
     output_key="main_characters",
 )
 
 song_lyrics_flowstep = AsyncFlowStep(
-    name="Flowstep 4",
+    name="Song Lyrics Flowstep",
     llm=openai_llm,
     prompt_template=lyrics_template,
     output_key="song_lyrics",
