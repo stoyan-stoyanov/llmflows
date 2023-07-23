@@ -12,12 +12,12 @@
 ![Stars](https://img.shields.io/github/stars/stoyan-stoyanov/llmflows?style=social)
 ![Release date](https://img.shields.io/github/release-date/stoyan-stoyanov/llmflows?style=social)
 
-Documentation: [llmflows.readthedocs.io](https://llmflows.readthedocs.io/)<br/>
-PyPI: [https://pypi.org/project/llmflows](https://pypi.org/project/llmflows/)</br>
-Twitter: [https://twitter.com/LLMFlows](https://twitter.com/LLMFlows)<br/>
-Substack: [https://llmflows.substack.com](https://llmflows.substack.com/)<br/>
+Documentation: <a href="https://llmflows.readthedocs.io/" target="_blank">https://llmflows.readthedocs.io</a></br>
+PyPI: <a href="https://pypi.org/project/llmflows/" target="_blank">https://pypi.org/project/llmflows</a></br>
+Twitter: <a href="https://twitter.com/LLMFlows/" target="_blank">https://twitter.com/LLMFlows</a></br>
+Substack: <a href="https://llmflows.substack.com/" target="_blank">https://llmflows.substack.com</a></br>
 
-## About
+## Aboutgi
 LLMFlows is a framework for building simple, explicit, and transparent LLM(Large 
 Language Model) applications.
 
