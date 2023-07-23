@@ -5,11 +5,11 @@
 </p>
 
 [![Twitter](https://img.shields.io/twitter/follow/LLMFlows?style=social)](https://twitter.com/LLMFlows)
-![Pylint workflow](https://github.com/stoyan-stoyanov/llmflow/actions/workflows/pylint.yml/badge.svg)
-![License](https://img.shields.io/github/license/stoyan-stoyanov/llmflow)
+![Pylint workflow](https://github.com/stoyan-stoyanov/llmflows/actions/workflows/pylint.yml/badge.svg)
+![License](https://img.shields.io/github/license/stoyan-stoyanov/llmflows)
 ![PyPi](https://img.shields.io/pypi/v/llmflows)
-![Stars](https://img.shields.io/github/stars/stoyan-stoyanov/llmflow?style=social)
-![Release date](https://img.shields.io/github/release-date/stoyan-stoyanov/llmflow?style=social)
+![Stars](https://img.shields.io/github/stars/stoyan-stoyanov/llmflows?style=social)
+![Release date](https://img.shields.io/github/release-date/stoyan-stoyanov/llmflows?style=social)
 
 Documentation: [https://readthedocs.org](https://readthedocs.org/)<br/>
 PyPI: [https://pypi.org/project/llmflows](https://pypi.org/project/llmflows/)</br>
