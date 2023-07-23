@@ -1,8 +1,12 @@
 # LLMFlows - Simple, Explicit, and Transparent LLM Apps
 <br/>
+<br/>
+<br/>
 <p align="center">
   <img style="width: 80%" src="https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/llmflows_last_logo.png"/>
 </p>
+<br/>
+<br/>
 <br/>
 
 [![Twitter](https://img.shields.io/twitter/follow/LLMFlows?style=social)](https://twitter.com/LLMFlows)
