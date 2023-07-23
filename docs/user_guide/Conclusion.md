@@ -33,5 +33,5 @@ grateful for your time and interest in LLMFlows, and we hope that it will empowe
 to build incredible LLM-powered applications. Thank you!
 
 ***
-[:material-arrow-left: Previous: LLMFlows with FastAPI](LLMFlows with FastAPI.md){ .md-button }
+[:material-arrow-left: Previous: Agents](Agents.md){ .md-button }
 [Next: FAQ :material-arrow-right:](FAQ.md){ .md-button }
