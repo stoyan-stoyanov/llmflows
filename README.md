@@ -17,7 +17,7 @@ PyPI: <a href="https://pypi.org/project/llmflows/" target="_blank">https://pypi.
 Twitter: <a href="https://twitter.com/LLMFlows/" target="_blank">https://twitter.com/LLMFlows</a></br>
 Substack: <a href="https://llmflows.substack.com/" target="_blank">https://llmflows.substack.com</a></br>
 
-## Aboutgi
+## About
 LLMFlows is a framework for building simple, explicit, and transparent LLM(Large 
 Language Model) applications.
 
