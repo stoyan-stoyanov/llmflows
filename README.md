@@ -1,9 +1,8 @@
-# LLMFlows - Simple, Explicit, and Transparent LLM Apps
 <br/>
 <br/>
 <br/>
 <p align="center">
-  <img style="width: 80%" src="https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/llmflows_last_logo.png"/>
+  <img style="width: 80%" src="https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/logo_with_subheading.png"/>
 </p>
 <br/>
 <br/>
@@ -276,8 +275,23 @@ In addition LLMFlows allows you to answer questions such as:
 - How many tokens were used?
 - What was the final result?
 
+## User Guide
+[Introduction](https://llmflows.readthedocs.io/en/latest/user_guide/Introduction/)<br/>
+[LLM Flows](https://llmflows.readthedocs.io/en/latest/user_guide/LLM%20Flows/)<br/>
+[Async Flows](https://llmflows.readthedocs.io/en/latest/user_guide/Async%20Flows/)<br/>
+[Vector Stores](https://llmflows.readthedocs.io/en/latest/user_guide/Vector%20Stores/)<br/>
+[Question Answering](https://llmflows.readthedocs.io/en/latest/user_guide/Question%20Answering/)<br/>
+[Vector Stores in Flows](https://llmflows.readthedocs.io/en/latest/user_guide/Vector%20Stores%20in%20Flows/)<br/>
+[Functional FlowSteps](https://llmflows.readthedocs.io/en/latest/user_guide/Functional%20FlowSteps/)<br/>
+[Callbacks](https://llmflows.readthedocs.io/en/latest/user_guide/Callbacks/)<br/>
+[LLM Flows with FastAPI](https://llmflows.readthedocs.io/en/latest/user_guide/LLMFlows%20with%20FastAPI/)<br/>
+[Agents](https://llmflows.readthedocs.io/en/latest/user_guide/Agents/)<br/>
+
+## Examples
+You can find all examples used in the User Guide in the [examples folder](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples) of the repository.
+
 ## License
-LLMFlows is covered by the MIT license. For more information, check `LICENCE.md`.
+LLMFlows is covered by the MIT license. For more information, check [`LICENCE`](https://github.com/stoyan-stoyanov/llmflows/blob/main/LICENSE).
 
 ## Contributing
 Thank you for spending time going over our README! If you find LLMFlows exciting and 
