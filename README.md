@@ -219,8 +219,10 @@ song_lyrics_flowstep = AsyncFlowStep(
 
 ```
 
-Check our documentation for more examples, such as integrating vector databases, 
-creating question-answering apps and web applications with Flask and FastAPI.
+For more examples, such as integrating vector databases, creating question-answering 
+apps, agents, and web applications visit our 
+[documentation](https://llmflows.readthedocs.io/en/latest/) or check out the 
+[examples folder](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples) of the repository.
 
 ## Features
 
