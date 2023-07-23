@@ -1,9 +1,9 @@
 # LLMFlows - Simple, Explicit, and Transparent LLM Apps
-
+<br/>
 <p align="center">
   <img style="width: 80%" src="docs/llmflows_last_logo.png" />
 </p>
-
+<br/>
 [![Twitter](https://img.shields.io/twitter/follow/LLMFlows?style=social)](https://twitter.com/LLMFlows)
 ![Pylint workflow](https://github.com/stoyan-stoyanov/llmflows/actions/workflows/pylint.yml/badge.svg)
 ![License](https://img.shields.io/github/license/stoyan-stoyanov/llmflows)
