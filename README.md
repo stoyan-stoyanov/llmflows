@@ -1,7 +1,7 @@
 # LLMFlows - Simple, Explicit, and Transparent LLM Apps
 <br/>
 <p align="center">
-  <img style="width: 80%" src="docs/llmflows_last_logo.png" />
+  <img style="width: 80%" src="https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/llmflows_last_logo.png"/>
 </p>
 <br/>
 
