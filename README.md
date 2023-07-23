@@ -113,7 +113,7 @@ while True:
 Often times, real-world applications can be more complex and can have dependencies 
 between prompts and LLM calls. For example:
 
-![Complex flow](docs/complex_flow.png)
+![Complex flow](https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/complex_flow.png)
 
 When you want to build apps with complex dependencies you can use the `Flow` and 
 `Flowstep` classes. LLMFlows will figure out the dependencies and make sure each 
