@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img style="width: 80%" src="https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/logo_with_subheading.png"/>
+  <img src="https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/logo_with_subheading.png"/>
 </p>
 
 
