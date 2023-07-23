@@ -1,12 +1,8 @@
-<br/>
-<br/>
-<br/>
+
 <p align="center">
   <img style="width: 80%" src="https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/logo_with_subheading.png"/>
 </p>
-<br/>
-<br/>
-<br/>
+
 
 [![Twitter](https://img.shields.io/twitter/follow/LLMFlows?style=social)](https://twitter.com/LLMFlows)
 ![Pylint workflow](https://github.com/stoyan-stoyanov/llmflows/actions/workflows/pylint.yml/badge.svg)
