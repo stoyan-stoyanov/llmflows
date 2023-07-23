@@ -1,10 +1,11 @@
 # Contributing to llmflows
 
-First off, thanks for taking the time to check out our little porject and considering 
+First off, thank you for taking the time to check out our little porject and considering 
 contributing to it! We are really glad you're reading this, and we need volunteer 
 developers like you to help this project come to fruition.
 
 ## How to Contribute
+Check out the official [GitHub guide](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) for contributing through forking.
 
 ### Step 1: Set up a working copy on your computer
 
@@ -70,7 +71,7 @@ Ensure that all changes are tested and all tests pass before submitting a pull r
 You can run tests with the following command:
 
 ```
-# add test running command here
+pytest
 ```
 
 ### Step 5: Ensure your code follows the style guidelines
@@ -96,7 +97,7 @@ git push origin name_of_your_branch
 ```
 
 Then, press the "New Pull Request" button on GitHub. In the title field, clearly 
-describe what you've accomplished. Provide a detailed description in the body.
+describe what the PR is about and provide a short and concise desctioption in the body.
 
 ## Getting Help
 
@@ -112,7 +113,7 @@ submitting an issue.
 
 ## Release Cycle
 
-We don't have a release cycle yet and we make new releases or whenever there is enough 
+We don't have a release cycle yet and we make new releases or whenever there are enough 
 new changes. Your changes will be included in the next release after your PR is 
 accepted.
 
