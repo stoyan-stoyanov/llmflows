@@ -11,7 +11,7 @@
 ![Stars](https://img.shields.io/github/stars/stoyan-stoyanov/llmflows?style=social)
 ![Release date](https://img.shields.io/github/release-date/stoyan-stoyanov/llmflows?style=social)
 
-Documentation: [https://readthedocs.org](https://readthedocs.org/)<br/>
+Documentation: [llmflows.readthedocs.io](https://llmflows.readthedocs.io/)<br/>
 PyPI: [https://pypi.org/project/llmflows](https://pypi.org/project/llmflows/)</br>
 Twitter: [https://twitter.com/LLMFlows](https://twitter.com/LLMFlows)<br/>
 Substack: [https://llmflows.substack.com](https://llmflows.substack.com/)<br/>
