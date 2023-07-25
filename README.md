@@ -173,7 +173,7 @@ song_title_flowstep.connect(song_lyrics_flowstep)
 characters_flowstep.connect(song_lyrics_flowstep)
 
 # Create and run Flow
-soundtrack_flow = Flow(title_flowstep)
+soundtrack_flow = Flow(movie_title_flowstep)
 results = soundtrack_flow.start(topic="friendship", verbose=True)
 ```
 
