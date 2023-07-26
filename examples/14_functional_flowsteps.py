@@ -49,5 +49,5 @@ lyrics_flowstep.connect(capitalizer_flowstep)
 
 # Create and run Flow
 songwriting_flow = Flow(title_flowstep)
-result, _, _ = songwriting_flow.start(topic="love", verbose=True)
+result = songwriting_flow.start(topic="love", verbose=True)
 print(result)

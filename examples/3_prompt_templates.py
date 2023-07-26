@@ -27,6 +27,6 @@ llm_prompt = prompt_template.get_prompt(topic="friendship")
 print(llm_prompt)
 
 llm = OpenAI(api_key=open_ai_key)
-song_title = llm.generate(llm_prompt)
+song_title, call_data, model_config = llm.generate(llm_prompt)
 
 print(song_title)

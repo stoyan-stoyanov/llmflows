@@ -130,5 +130,5 @@ prompt_template = PromptTemplate(
 llm_prompt = prompt_template.get_prompt(question=question.doc, context=context)
 print(llm_prompt)
 
-final_answer = llm.generate(llm_prompt)
+final_answer, call_data, model_config = llm.generate(llm_prompt)
 print("Final answer:", final_answer)

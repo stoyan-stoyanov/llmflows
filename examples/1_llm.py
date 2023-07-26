@@ -19,5 +19,5 @@ from llmflows.llms import OpenAI
 open_ai_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 llm = OpenAI(api_key=open_ai_key)
-result = llm.generate(prompt="Generate a cool title for an 80s rock song")
+result, call_data, model_config = llm.generate(prompt="Generate a cool title for an 80s rock song")
 print(result)
