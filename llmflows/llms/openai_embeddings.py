@@ -42,8 +42,7 @@ class OpenAIEmbeddings(BaseLLM):
         self._api_key = api_key
         if not self._api_key:
             raise ValueError("You must provide OpenAI API key")
-        else:
-            openai.api_key = self._api_key
+        openai.api_key = self._api_key
 
     def generate(
         self, docs: Union[VectorDoc, list[VectorDoc]]
