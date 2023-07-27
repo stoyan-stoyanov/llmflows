@@ -1,5 +1,7 @@
 # Introduction
 
+![Screenshot](assets/llmflows_loves_robots.png)
+
 Welcome to the LLMFlows user guide. In this introductory section, we will review some 
 of the main abstractions of LLMFlows and cover some basic patterns when building 
 LLM-powered applications. In the end, we will see how we can use the `Flow` and 

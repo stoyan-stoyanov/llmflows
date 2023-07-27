@@ -10,7 +10,7 @@ import json
 
 openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
-# Create prompt templates
+# Create the prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
 song_template = PromptTemplate(
     "What is a good song title of a soundtrack for a movie called {movie_title}?"
@@ -141,8 +141,7 @@ prompt templates:
 ```python
 from llmflows.prompts import PromptTemplate
 
-# Create prompt templates
-# Create prompt templates
+# Create the prompt templates
 title_template = PromptTemplate("What is a good title of a movie about {topic}?")
 song_template = PromptTemplate(
     "What is a good song title of a soundtrack for a movie called {movie_title}?"
