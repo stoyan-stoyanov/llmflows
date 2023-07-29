@@ -298,9 +298,9 @@ LLMFlows is covered by the MIT license. For more information, check [`LICENCE`](
 ## ❤️ How you can help?
 Thank you for spending time going over our README! 
 
-If you like the project please consider giving it a star.
+If you like the project please consider giving it a star, sharing it with friends or on social media.
 
-If you've tried LLMFlows and have some issues or feedback feel free to open an issue or reach out!
+If you've tried LLMFlows and have some issues, feedback or ideas feel free to open an issue or reach out!
 
 If you find LLMFlows exciting and you are considering contributing, please check [`CONTRIBUTING.md`](https://github.com/stoyan-stoyanov/llmflows/blob/main/CONTRIBUTING.md).
 
