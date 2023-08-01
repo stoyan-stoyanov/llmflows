@@ -31,7 +31,7 @@ llm = OpenAI(api_key="<your-api-key>")
     When using the OpenAI LLM classes, you must provide an OpenAI API key through the 
     `api_key` parameter when initializing the `OpenAI` LLM class.
 
-All LLM classes have `.generate()` and `.generate_async()` mehtods for 
+All LLM classes have `.generate()` and `.generate_async()` methods for 
 generating text. The only thing we need to provide is a `prompt` string.
 
 ```python
