@@ -19,7 +19,7 @@ Substack: <a href="https://llmflows.substack.com/" target="_blank">https://llmfl
 ## 🤖 About LLM Flows
 LLMFlows is a framework for building simple, explicit, and transparent LLM(Large Language Model) applications such as chatbots, question-answering systems, and agents.
 
-At its core, LLMFlows provides a minimalistic set of abstractions that allow you to utilize LLMs and vector stores and build well-structured and explicit apps that don't have hidden prompts or behind LLM calls. LLM Flows ensures complete transparency for each component, making monitoring, maintenance, and debugging easy. 
+At its core, LLMFlows provides a minimalistic set of abstractions that allow you to utilize LLMs and vector stores and build well-structured and explicit apps that don't have hidden prompts or LLM calls. LLM Flows ensures complete transparency for each component, making monitoring, maintenance, and debugging easy. 
 
 
 
