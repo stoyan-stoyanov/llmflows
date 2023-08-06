@@ -9,14 +9,14 @@ import json
 
 app = FastAPI()
 
-# app.mount("/static", StaticFiles(directory="."), name="static")
+app.mount("/static", StaticFiles(directory="."), name="static")
 
 
-# @app.get("/")
-# async def read_index(request: Request):
-#     with open("index.html") as f:
-#         html_content = f.read()
-#     return HTMLResponse(content=html_content, status_code=200)
+@app.get("/")
+async def read_index(request: Request):
+    with open("index.html") as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content, status_code=200)
 
 
 @app.get("/qa/")
@@ -46,16 +46,5 @@ async def answer_question(question: str) -> dict[str, str]:
 
     return {"answer": answer, "eli5_answer": eli5_answer}
 
-
-# # pylint: skip-file
-
-# from fastapi import FastAPI
-# import uvicorn
-# from flows import create_flow
-
-# app = FastAPI()
-
-# @app.get("/generate_lyrics/")
-# async def generate_lyrics(movie_topic: str):
-#     soundtrack_flow = create_flow()
-#     return await soundtrack_flow.start(topic=movie_topic, verbose=True)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=9000)
