@@ -78,18 +78,18 @@ def create_flow():
     return qa_flow
 
 
-if __name__ == "__main__":
-    qa_flow = create_flow()
-    conversation_history_str = ""
-    while True:
-        user_question = input("You: ")
-        conversation_history_str += user_question + "\n"
-        results = qa_flow.start(
-            conversation_history=conversation_history_str,
-            user_question=user_question,
-            verbose=True
-        )
-        answer = results["ELI5 Flowstep"]["generated"]
-        conversation_history_str += answer + "\n"
-        print(answer)
-        print("---")
+# if __name__ == "__main__":
+#     qa_flow = create_flow()
+#     conversation_history_str = ""
+#     while True:
+#         user_question = input("You: ")
+#         conversation_history_str += user_question + "\n"
+#         results = qa_flow.start(
+#             conversation_history=conversation_history_str,
+#             user_question=user_question,
+#             verbose=True
+#         )
+#         answer = results["ELI5 Flowstep"]["generated"]
+#         conversation_history_str += answer + "\n"
+#         print(answer)
+#         print("---")
