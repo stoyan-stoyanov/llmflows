@@ -26,7 +26,7 @@ from prompts import question_template, vs_template, response_template, eli5_temp
 openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 vector_db = Pinecone(
-    index_name="llmflows-tutorial",
+    index_name="llm-99",
     api_key=os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>"),
     environment="us-west4-gcp-free",
 )
