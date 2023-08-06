@@ -6,20 +6,20 @@ history and the system prompt sent to OpenAI's chat API.
 
 
 class MessageHistory:
-    """ 
-    Abstraction for the conversation history and the system prompt sent to OpenAI's 
+    """
+    Abstraction for the conversation history and the system prompt sent to OpenAI's
     chat API.
 
     MessageHistory is used to store the a system prompt and the conversation history
     for a chat LLM. The system prompt is stored as the first message in the history.
     The conversation history is stored as a list of messages, where each message is a
-    dictionary with "role" and "content" keys. In addition MessageHistory provides a 
-    set of methods for managing the messages and system prompt. MessageHistory is used 
+    dictionary with "role" and "content" keys. In addition MessageHistory provides a
+    set of methods for managing the messages and system prompt. MessageHistory is used
     by the ChatLLM generate and generate_async methods.
 
     Args:
         max_messages (int): The maximum number of messages to store in the history.
-    
+
     Attributes:
         max_messages (int): The maximum number of messages to store in the history.
         messages (list[dict[str, str]]): The conversation history.
@@ -66,6 +66,14 @@ class MessageHistory:
         """
         self.messages[0] = {"role": "system", "content": new_prompt}
 
+    def get_conversation_string(self):
+        """
+        Returns the conversation history as a string.
+        """
+        return "\n".join(
+            [f"{message['role']}: {message['content']}" for message in self.messages]
+        )
+
     @property
     def messages(self):
         """
@@ -95,7 +103,7 @@ class MessageHistory:
         self._messages = value
 
     def add_user_message(self, message: str) -> None:
-        """ Adds a new user message to the conversation history."""
+        """Adds a new user message to the conversation history."""
         self.add_message(message_str=message, role="user")
 
     def add_ai_message(self, message: str) -> None:

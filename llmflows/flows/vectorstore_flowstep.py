@@ -76,7 +76,7 @@ class VectorStoreFlowStep(BaseFlowStep):
         question = VectorDoc(doc=self.prompt_template.get_prompt(**inputs))
         embedded_question = self.embeddings_model.generate(question)
         search_results, call_data, config = self.vector_store.search(
-            embedded_question, top_k=2
+            embedded_question, top_k=self.top_k
         )
 
         result = search_results[0]["metadata"]["text"]
@@ -84,6 +84,6 @@ class VectorStoreFlowStep(BaseFlowStep):
         if self.append_top_k:
             result = ""
             for i in range(self.top_k):
-                result += search_results[i + 1]["metadata"]["text"] + "\n"
+                result += search_results[i]["metadata"]["text"] + "\n"
 
         return result, call_data, config

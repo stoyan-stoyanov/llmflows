@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/db9ed7e340.js" crossorigin="anonymous"></script>
+    <title>LLM-99 | Superconductors explained</title>
+    <style>
+        body {
+
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh !important;
+        }
+        .subheading {
+            color: #aaa;
+        }
+        .text-center {
+            margin-top:150px;
+        }
+        .submit-button {
+            width: 100px;
+        }
+
+        .custom-container {
+            max-width: 1000px;
+        }
+
+        .llm {
+            color: #ba1200;
+        }
+
+        .flows {
+            color: #9b287b;
+        }
+
+        .navbar-link {
+            text-decoration: none;
+        }
+
+        .footer-link {
+            margin: 0 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https://github.com/stoyan-stoyanov/llmflows" target="_blank"><span class="llm">LLM</span><span class="flows">Flows</span> 💖  ⚛️</a>
+            <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="link-light navbar-link"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+        
+    </nav>
+
+    <div class="container custom-container py-5">
+        <div class="text-center mb-5">
+            <h1>⚛️ LLM-99</h1>
+            <h3 class="subheading">Supercondocutors explained</h3>
+        </div>
+
+        <div class="alert alert-info" role="alert">
+            <h4>👋 Welcome to LLM-99!</h4>
+            <p>Using LLMFlows, we simplify complex superconductor concepts. However, as our system can occasionally 'hallucinate' information, please validate answers with trusted sources.</p>
+            <p>Explore more on the <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="alert-link">LLMFlows Github</a> and see other <a href="https://github.com/stoyan-stoyanov/llmflows/tree/main/examples" target="_blank" class="alert-link">examples</a> of what LLMFlows can do!</p>
+        </div>
+        
+        <br/>
+
+        <form id="question-form" class="mb-3">
+            <div class="input-group">
+                <input type="text" id="question-input" class="form-control form-control-dark" placeholder="Enter your question..." required>
+                <button type="submit" id="ask-button" class="btn btn-primary submit-button">Ask</button>
+            </div>
+        </form>
+
+        <div id="response-container" class="row mt-5 g-4">
+        </div>
+
+        <div class="text-center">
+            <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="link-light footer-link"><i class="fab fa-github"></i> LLMFlows Github</a>
+            <a href="https://llmflows.readthedocs.io/en/latest/" target="_blank" class="link-light footer-link"><i class="fa-solid fa-book"></i> Documentation</a>
+            <a href="https://llmflows.substack.com/" target="_blank" class="link-light footer-link"><i class="fa-solid fa-bookmark"></i> Substack</a>
+            <a href="https://twitter.com/LLMFlows" target="_blank" class="link-light footer-link"><i class="fab fa-twitter"></i> LLMFlows on Twitter</a>
+        </div>
+    </div>
+
+    <script>
+       document.getElementById('question-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const questionInput = document.getElementById('question-input');
+        const question = questionInput.value;
+        const askButton = document.getElementById('ask-button');
+        const responseContainer = document.getElementById('response-container');
+        questionInput.disabled = true;
+        askButton.disabled = true;
+        askButton.textContent = 'Loading...';
+        fetch('/qa/?question=' + encodeURIComponent(question))
+            .then(response => response.json())
+            .then(data => {
+                // Clear the response container
+                responseContainer.innerHTML = '';
+                // Create the ELI5 answer card
+                const eli5AnswerCard = `
+                    <div class="col-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">ELI5</h5>
+                                ${data.eli5_answer}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                // Create the answer card
+                const answerCard = `
+                    <div class="col-12 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Original Answer</h5>
+                                ${data.answer}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                // Add the cards to the response container
+                responseContainer.innerHTML = eli5AnswerCard + answerCard;
+                // Re-enable the input and button elements
+                questionInput.disabled = false;
+                askButton.disabled = false;
+                askButton.textContent = 'Ask';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                questionInput.disabled = false;
+                askButton.disabled = false;
+                askButton.textContent = 'Ask';
+            });
+        });
+
+    </script>
+</body>
+</html>
