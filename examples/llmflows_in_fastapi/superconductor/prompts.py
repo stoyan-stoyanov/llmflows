@@ -1,3 +1,5 @@
+# pylint: skip-file
+
 from llmflows.prompts import PromptTemplate
 
 question_template = PromptTemplate(
