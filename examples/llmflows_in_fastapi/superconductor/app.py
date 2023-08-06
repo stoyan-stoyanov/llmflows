@@ -9,13 +9,14 @@ import json
 
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="."), name="static")
+# app.mount("/static", StaticFiles(directory="."), name="static")
 
-@app.get("/")
-async def read_index(request: Request):
-    with open("index.html") as f:
-        html_content = f.read()
-    return HTMLResponse(content=html_content, status_code=200)
+
+# @app.get("/")
+# async def read_index(request: Request):
+#     with open("index.html") as f:
+#         html_content = f.read()
+#     return HTMLResponse(content=html_content, status_code=200)
 
 
 @app.get("/qa/")
