@@ -29,8 +29,9 @@ async def answer_question(question: str):
         question: The question to be answered.
 
     Returns:
-        A dictionary with two keys: 'answer' and 'eli5_answer', containing the
-        respective answers.
+        A dictionary with three keys: 'answer' and 'eli5_answer', containing the
+        respective answers, and 'sources' containing titles and links to Wikipedia
+        articles.
     """
     superconductor_qa_flow = create_flow()
     result = superconductor_qa_flow.start(

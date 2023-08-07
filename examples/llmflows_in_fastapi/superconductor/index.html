@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/favicon.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/db9ed7e340.js" crossorigin="anonymous"></script>
     <script defer src="/_vercel/insights/script.js"></script>
@@ -53,7 +54,7 @@
 <body>
     <nav class="navbar fixed-top bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="https://github.com/stoyan-stoyanov/llmflows" target="_blank"><span class="llm">LLM</span><span class="flows">Flows</span> 💖  ⚛️</a>
+            <a class="navbar-brand" href="https://github.com/stoyan-stoyanov/llmflows" target="_blank"><span class="llm">LLM</span><span class="flows">Flows</span> ❤️  ⚛️</a>
             <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="link-light navbar-link"><i class="fab fa-github"></i> GitHub</a>
         </div>
         
@@ -119,15 +120,16 @@
                     );
 
                     // Generate the list of sources
-                    let sourcesList = '<ul class="list-group list-group-flush">';
+                    let sourcesList = '<div class="col-12 col-md-12"><h5>Sources</h5><ul class="list-group">';
                     uniqueSources.forEach(source => {
                         sourcesList += `
+                            
                             <li class="list-group-item">
                                 <a href="${source.link}" class="list-link" target="_blank"><i class="fa-brands fa-wikipedia-w"></i> ${source.page_title} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                             </li>
                         `;
                     });
-                    sourcesList += '</ul>';
+                    sourcesList += '</ul></div>';
 
                     // Create the ELI5 answer card
                     const eli5AnswerCard = `
@@ -137,7 +139,6 @@
                                     <h5 class="card-title">💡 ELI5</h5>
                                     ${data.eli5_answer}
                                 </div>
-                                ${sourcesList}
                             </div>
                         </div>
                     `;
@@ -150,13 +151,12 @@
                                     <h5 class="card-title">🎓 Original Answer</h5>
                                     ${data.answer}
                                 </div>
-                                ${sourcesList}
                             </div>
                         </div>
                     `;
 
                     // Add the cards to the response container
-                    responseContainer.innerHTML = eli5AnswerCard + answerCard;
+                    responseContainer.innerHTML = eli5AnswerCard + answerCard + sourcesList;
 
                     // Re-enable the input and button elements
                     questionInput.disabled = false;
