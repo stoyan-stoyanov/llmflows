@@ -45,6 +45,13 @@ We aim to help users have full transparency on their LLM-powered apps by providi
 traceable flows and complete information for each app component, making it easy to 
 monitor, maintain, and debug.
 
+## ▶️ See it in action
+Check out [LLM-99](https://llm-99.vercel.app/) - a demo app that uses LLMs to explain 
+superconductors in simple terms. You can find the source code for this demo app and 
+other examples in our [examples folder](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples/llmflows_in_fastapi/superconductor).
+
+![LLM-99](https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/llm9925x.gif)
+
 ## 🧪 Getting Started
 ### LLMs
 LLMs are one of the main abstractions in LLMFlows. LLM classes are wrappers around LLM 
