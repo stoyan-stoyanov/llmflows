@@ -17,7 +17,7 @@ question_template = PromptTemplate(
     "article\n\n"
     "Final question:\n")
 
-vs_template = PromptTemplate("I have the following question: {question}")
+vs_template = PromptTemplate("{question}")
 
 response_template = PromptTemplate(
     "Answer the question based on the context.\n"
@@ -44,5 +44,4 @@ Conversation rules:
 - You can only use the information in the context to answer the question.
 - Never come up with information that is not in the context.
 - Answer in a short and concise way. Don't use more than 5 sentences.
-- You answer in a HTML format so you can use HTML tags to format your answer.
 """

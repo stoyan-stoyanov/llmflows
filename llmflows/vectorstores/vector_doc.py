@@ -3,6 +3,7 @@ This module defines the VectorDoc class which is used to represent a document
 with an optional embedding and metadata.
 """
 
+import copy
 from typing import Union
 from uuid import uuid4
 
@@ -33,7 +34,7 @@ class VectorDoc:
     ):
         self.doc_id = doc_id if doc_id is not None else str(uuid4())
         self.doc = doc
-        self.metadata = metadata if metadata is not None else {}
+        self.metadata = copy.deepcopy(metadata) if metadata is not None else {}
         self._embedding = embedding
 
     @property
@@ -75,4 +76,4 @@ class VectorDoc:
                 "The embedding for this VectorDoc has not been set.\nDoc Id:"
                 f" {self.doc_id}\nDoc:{self.doc}"
             )
-        return self.doc_id, self.doc, self.embedding, self.metadata
+        return self.doc_id, self.doc, self.embedding, copy.deepcopy(self.metadata)

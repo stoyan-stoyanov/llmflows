@@ -22,7 +22,7 @@ def create_flow():
         name="Vectorstore Flowstep",
         embeddings_model=OpenAIEmbeddings(api_key=openai_api_key),
         vector_store=vector_db,
-        top_k=3,
+        top_k=4,
         append_top_k=True,
         prompt_template=vs_template,
         output_key="context",
