@@ -39,6 +39,10 @@
             text-decoration: none;
         }
 
+        .list-link {
+            text-decoration: none;
+        }
+
         .footer-link {
             margin: 0 10px;
             text-decoration: none;
@@ -46,7 +50,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar fixed-top bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="https://github.com/stoyan-stoyanov/llmflows" target="_blank"><span class="llm">LLM</span><span class="flows">Flows</span> 💖  ⚛️</a>
             <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="link-light navbar-link"><i class="fab fa-github"></i> GitHub</a>
@@ -62,8 +66,8 @@
 
         <div class="alert alert-info" role="alert">
             <h4>👋 Welcome to LLM-99!</h4>
-            <p>Using LLMFlows, we simplify complex superconductor concepts. However, as our system can occasionally 'hallucinate' information, please validate answers with trusted sources.</p>
-            <p>Explore more on the <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="alert-link">LLMFlows Github</a> and see other <a href="https://github.com/stoyan-stoyanov/llmflows/tree/main/examples" target="_blank" class="alert-link">examples</a> of what LLMFlows can do!</p>
+            <p>This is a demo app that uses LLMs to explain superconductors in simple terms. However, as LLMs can occasionally 'hallucinate' information, please validate answers with trusted sources.</p>
+            <p>This app is built with LLMFlows. Learn more on the <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="alert-link">LLMFlows Github</a> page.
         </div>
         
         <br/>
@@ -88,55 +92,84 @@
 
     <script>
        document.getElementById('question-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const questionInput = document.getElementById('question-input');
-        const question = questionInput.value;
-        const askButton = document.getElementById('ask-button');
-        const responseContainer = document.getElementById('response-container');
-        questionInput.disabled = true;
-        askButton.disabled = true;
-        askButton.textContent = 'Loading...';
-        fetch('/qa/?question=' + encodeURIComponent(question))
-            .then(response => response.json())
-            .then(data => {
-                // Clear the response container
-                responseContainer.innerHTML = '';
-                // Create the ELI5 answer card
-                const eli5AnswerCard = `
-                    <div class="col-12 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">ELI5</h5>
-                                ${data.eli5_answer}
+            event.preventDefault();
+            const questionInput = document.getElementById('question-input');
+            const question = questionInput.value;
+            const askButton = document.getElementById('ask-button');
+            const responseContainer = document.getElementById('response-container');
+            questionInput.disabled = true;
+            askButton.disabled = true;
+            askButton.innerHTML = `
+                <div class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            `;
+            fetch('/qa/?question=' + encodeURIComponent(question))
+                .then(response => response.json())
+                .then(data => {
+                    // Clear the response container
+                    responseContainer.innerHTML = '';
+
+                    // Remove duplicate sources based on the 'link' property
+                    let uniqueSources = data.sources.filter((source, index, self) =>
+                        index === self.findIndex((s) => (
+                            s.link === source.link
+                        ))
+                    );
+
+                    // Generate the list of sources
+                    let sourcesList = '<ul class="list-group list-group-flush">';
+                    uniqueSources.forEach(source => {
+                        sourcesList += `
+                            <li class="list-group-item">
+                                <a href="${source.link}" class="list-link" target="_blank"><i class="fa-brands fa-wikipedia-w"></i> ${source.page_title} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            </li>
+                        `;
+                    });
+                    sourcesList += '</ul>';
+
+                    // Create the ELI5 answer card
+                    const eli5AnswerCard = `
+                        <div class="col-12 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">💡 ELI5</h5>
+                                    ${data.eli5_answer}
+                                </div>
+                                ${sourcesList}
                             </div>
                         </div>
-                    </div>
-                `;
-                // Create the answer card
-                const answerCard = `
-                    <div class="col-12 col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Original Answer</h5>
-                                ${data.answer}
+                    `;
+
+                    // Create the answer card
+                    const answerCard = `
+                        <div class="col-12 col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">🔎 Original Answer</h5>
+                                    ${data.answer}
+                                </div>
+                                ${sourcesList}
                             </div>
                         </div>
-                    </div>
-                `;
-                // Add the cards to the response container
-                responseContainer.innerHTML = eli5AnswerCard + answerCard;
-                // Re-enable the input and button elements
-                questionInput.disabled = false;
-                askButton.disabled = false;
-                askButton.textContent = 'Ask';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                questionInput.disabled = false;
-                askButton.disabled = false;
-                askButton.textContent = 'Ask';
-            });
+                    `;
+
+                    // Add the cards to the response container
+                    responseContainer.innerHTML = eli5AnswerCard + answerCard;
+
+                    // Re-enable the input and button elements
+                    questionInput.disabled = false;
+                    askButton.disabled = false;
+                    askButton.textContent = 'Ask';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    questionInput.disabled = false;
+                    askButton.disabled = false;
+                    askButton.textContent = 'Ask';
+                });
         });
+
 
     </script>
 </body>
