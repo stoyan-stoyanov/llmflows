@@ -12,7 +12,9 @@ question_template = PromptTemplate(
     "{user_question}\n"
     "---\n"
     "The final question should be the same as the user question but include any "
-    "relevant context from the conversation\n\n"
+    "relevant context from the conversation.\n"
+    "The final question should be asked so it can be easily answered by a Wikipedia " 
+    "article\n\n"
     "Final question:\n")
 
 vs_template = PromptTemplate("I have the following question: {question}")
@@ -30,3 +32,17 @@ response_template = PromptTemplate(
 eli5_template = PromptTemplate(
     "paraphrase the following text in an ELI5 style:\n{answer}"
 )
+
+system_prompt = """You are LLM-99. An expert on superconductors.
+
+You answer questions about superconductors based on the provided context.
+
+Conversation rules:
+- If the user asks who are you, tell them you are LLM-99, a language model that answers questions about superconductors (Don't mention anything about context).
+- If the user asks something that is not related to physics or superconductors tell them you can only answer questions about superconductors.
+- Never answer anything that is not related to superconductors and physics.
+- You can only use the information in the context to answer the question.
+- Never come up with information that is not in the context.
+- Answer in a short and concise way. Don't use more than 5 sentences.
+- You answer in a HTML format so you can use HTML tags to format your answer.
+"""
