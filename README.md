@@ -22,8 +22,6 @@ LLMFlows is a framework for building simple, explicit, and transparent LLM(Large
 At its core, LLMFlows provides a minimalistic set of abstractions that allow you to utilize LLMs and vector stores and build well-structured and explicit apps that don't have hidden prompts or LLM calls. LLM Flows ensures complete transparency for each component, making monitoring, maintenance, and debugging easy. 
 
 
-
-
 ## 📦 Installation
 ```
 pip install llmflows
@@ -45,7 +43,7 @@ We aim to help users have full transparency on their LLM-powered apps by providi
 traceable flows and complete information for each app component, making it easy to 
 monitor, maintain, and debug.
 
-## ▶️ See it in action
+## ▶️ Live Demo
 Check out [LLM-99](https://llm-99.vercel.app/) - a demo app that uses LLMs to explain 
 superconductors in simple terms. The app is built with LLMFlows, and FastAPI and uses 
 Pinecone to store document embeddings created from Wikipedia articles. You can find 

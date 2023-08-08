@@ -20,12 +20,23 @@ Substack: [https://llmflows.substack.com/](https://llmflows.substack.com/)<br/>
 ***
 
 ## About
-LLMFlows is a framework for building simple, explicit, and transparent LLM applications.
+LLMFlows is a framework for building simple, explicit, and transparent LLM(Large Language Model) applications such as chatbots, question-answering systems, and agents.
+
+At its core, LLMFlows provides a minimalistic set of abstractions that allow you to utilize LLMs and vector stores and build well-structured and explicit apps that don't have hidden prompts or LLM calls. LLM Flows ensures complete transparency for each component, making monitoring, maintenance, and debugging easy. 
 
 ## Installation
 ```
 pip install llmflows
 ```
+
+## ▶️ Live Demo
+Check out [LLM-99](https://llm-99.vercel.app/) - a demo app that uses LLMs to explain 
+superconductors in simple terms. The app is built with LLMFlows, and FastAPI and uses 
+Pinecone to store document embeddings created from Wikipedia articles. You can find 
+the source code for this demo app and other examples in our 
+[examples folder](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples/llmflows_in_fastapi/superconductor).
+
+![LLM-99](https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/llm99_2_small.gif)
 
 ## Getting Started
 
