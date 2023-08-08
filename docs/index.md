@@ -19,12 +19,12 @@ Twitter: [https://twitter.com/LLMFlows](https://twitter.com/LLMFlows)<br/>
 Substack: [https://llmflows.substack.com/](https://llmflows.substack.com/)<br/>
 ***
 
-## About
+## 🤖 About LLM Flows
 LLMFlows is a framework for building simple, explicit, and transparent LLM(Large Language Model) applications such as chatbots, question-answering systems, and agents.
 
 At its core, LLMFlows provides a minimalistic set of abstractions that allow you to utilize LLMs and vector stores and build well-structured and explicit apps that don't have hidden prompts or LLM calls. LLM Flows ensures complete transparency for each component, making monitoring, maintenance, and debugging easy. 
 
-## Installation
+## 📦 Installation
 ```
 pip install llmflows
 ```
@@ -36,9 +36,11 @@ Pinecone to store document embeddings created from Wikipedia articles. You can f
 the source code for this demo app and other examples in our 
 [examples folder](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples/llmflows_in_fastapi/superconductor).
 
-![LLM-99](https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/llm99_2_small.gif)
+<p align="center">
+  <img src="llm-99.png" />
+</p>
 
-## Getting Started
+## 🧪 Getting Started
 
 After installing `llmflows` with `pip`, your go-to destination should be our [User 
 Guide](user_guide/Introduction.md). Each page helps new users gradually learn LLMFlow 
@@ -59,7 +61,7 @@ If you have any questions check out our [FAQ](user_guide/FAQ.md) section or feel
 We hope you find this documentation helpful and look forward to your feedback on how 
 we can improve it.
 
-## Philosophy
+## 🧭 Philosophy
 
 ### Simple
 Our goal is to build a simple, well-documented framework with minimal abstractions that 
@@ -75,7 +77,7 @@ We aim to help users have full transparency on their LLM-powered apps by providi
 traceable flows and complete information for each app component, making it easy to 
 monitor, maintain, and debug.
 
-## Features
+## 🛠️ Features
 
 ### **LLMs**
 - Utilize LLMs such as OpenAI's ChatGPT to generate natural language text.
@@ -125,10 +127,13 @@ In addition LLMFlows allows you to answer questions such as:
 - What was the final result?
 
 
-## License
+## 📃 License
 LLMFlows is covered by the MIT license. For more information, check 
 [`LICENCE`](https://github.com/stoyan-stoyanov/llmflows/blob/main/LICENSE).
 
-## Contributing
-If you find LLMFlows exciting and you are considering contributing, please check 
-[`CONTRIBUTING.md`](https://github.com/stoyan-stoyanov/llmflows/blob/main/CONTRIBUTING.md) in our Github repository.
+## ❤️ How you can help?
+If you like the project please consider giving it a star, sharing it with friends or on social media.
+
+If you've tried LLMFlows and have some issues, feedback or ideas feel free to open an issue or reach out!
+
+If you find LLMFlows exciting and you are considering contributing, please check [`CONTRIBUTING.md`](https://github.com/stoyan-stoyanov/llmflows/blob/main/CONTRIBUTING.md).
