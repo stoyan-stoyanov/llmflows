@@ -5,6 +5,8 @@ base class.
 """
 
 import openai
+import litellm 
+from litellm import completion, acompletion
 from llmflows.llms.llm import BaseLLM
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
 from llmflows.llms.message_history import MessageHistory
@@ -99,7 +101,7 @@ class OpenAIChat(BaseLLM):
         """
 
         completion, retries = call_with_retry(
-            api_obj=openai.ChatCompletion,
+            api_obj=completion,
             max_retries=self.max_retries,
             model=self.model,
             messages=message_history.messages,
@@ -126,7 +128,7 @@ class OpenAIChat(BaseLLM):
         """
 
         completion, retries = await async_call_with_retry(
-            api_obj=openai.ChatCompletion,
+            api_obj=acompletion,
             max_retries=self.max_retries,
             model=self.model,
             messages=message_history.messages,

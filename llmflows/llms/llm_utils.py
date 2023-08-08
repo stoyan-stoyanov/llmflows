@@ -47,7 +47,10 @@ def call_with_retry(api_obj, max_retries, *args, **kwargs):
 
     while num_retries <= max_retries:
         try:
-            response = api_obj.create(*args, **kwargs)
+            if "completion" == str(api_obj.__name__):
+                response = api_obj(*args, **kwargs)
+            else: 
+                response = api_obj.create(*args, **kwargs)
             return response, num_retries
 
         except (
@@ -101,7 +104,10 @@ async def async_call_with_retry(api_obj, max_retries, *args, **kwargs):
 
     while num_retries <= max_retries:
         try:
-            response = await api_obj.acreate(*args, **kwargs)
+            if "completion" == str(api_obj.__name__):
+                response = await api_obj(*args, **kwargs)
+            else: 
+                response = await api_obj.acreate(*args, **kwargs)
             return response, num_retries
 
         except (
