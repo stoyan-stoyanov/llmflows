@@ -47,10 +47,12 @@ monitor, maintain, and debug.
 
 ## ▶️ See it in action
 Check out [LLM-99](https://llm-99.vercel.app/) - a demo app that uses LLMs to explain 
-superconductors in simple terms. You can find the source code for this demo app and 
-other examples in our [examples folder](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples/llmflows_in_fastapi/superconductor).
+superconductors in simple terms. The app is built with LLMFlows, and FastAPI and uses 
+Pinecone to store document embeddings created from Wikipedia articles. You can find 
+the source code for this demo app and other examples in our 
+[examples folder](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples/llmflows_in_fastapi/superconductor).
 
-![LLM-99](https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/llm9925x.gif)
+![LLM-99](https://github.com/stoyan-stoyanov/llmflows/blob/main/docs/llm99_2_small.gif)
 
 ## 🧪 Getting Started
 ### LLMs
