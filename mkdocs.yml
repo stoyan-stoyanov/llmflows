@@ -35,6 +35,9 @@ plugins:
   - search
   - mkdocstrings
 
+extra_css:
+  - stylesheets/extra.css
+
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -44,6 +47,7 @@ markdown_extensions:
   - pymdownx.superfences
   - admonition
   - attr_list
+  - md_in_html
 
 
 nav:
@@ -61,6 +65,7 @@ nav:
     - Agents: user_guide/Agents.md
     - Conclusion: user_guide/Conclusion.md
     - FAQ: user_guide/FAQ.md
+#    - Examples: user_guide/Examples.md
 #    - Agents: user_guide/Agents.md
 #    - Flask Apps: user_guide/Flask Apps.md
 #    - FastAPI Apps: user_guide/FastAPI Apps.md

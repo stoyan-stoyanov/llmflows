@@ -3,8 +3,14 @@
 You can find the [complete example](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples/react_agent) on Github.
 
 ## Guide
-The concept of agents became very popular after the release of GPT-4. Agents are programs that include one or multiple LLMs that can invoke traditional functions (often called tools).
-The ability to call specific functions using LLMs is made possible by providing them with prompts that contain rules describing how the function can be used. These prompts typically document the available tools and provide examples demonstrating their use.
+The concept of LLM-powered agents became very popular after the release of GPT-4. 
+Agents are programs that include one or multiple LLMs that can invoke traditional 
+functions (often called tools).
+
+LLMs gain the ability to utilize tools by being forced to generate specific text 
+through prompts that list the available tools and provide examples of how 
+to use them.
+
 For example:
 
 ```python
@@ -20,12 +26,21 @@ calculator: [2 + 3]
 """
 ```
 
-Every time the LLM generates text based on the rules above, the text is evaluated, and if it matches the specified function-calling contract, the relevant function is invoked.
-The result of the function is then injected back into the conversation history, and the LLM can use it to generate more text.
+Every time the LLM generates text based on the rules above, we can parse the text to 
+extract the function name and the function argument (e.g., "search" and "Who is Albert 
+Einstein?) and invoke the respective function. Then we can evaluate the result of the 
+function and even add it to the conversation history, so the LLM can use it the next 
+time it generates text.
 
-One recent popular agent architecture is the <a href="https://arxiv.org/abs/2210.03629" target="_blank">ReAct architecture</a>. 
-You can read the paper from the link above, but the TLDR is the agent running in a loop of reasoning, specifying an action, and observing the action outcome to solve a problem. 
-The agent starts by reasoning how it can solve the provided problem. Afterward, it specifies an action based on the reasoning. A function(tool) is then invoked based on the specified action, and the result of the function is included as observation. The loop continues until the agent decides it has all the required information and generates a final answer.
+One popular agent architecture is the <a href="https://arxiv.org/abs/2210.03629" target="_blank">ReAct architecture</a>. 
+In this paradigm, the agent runs in a loop of reasoning, acting, and observing the 
+action outcome to solve a problem:
+
+1. The agent starts by reasoning how it can solve the appointed task. 
+2. Afterward, it specifies an action based on the reasoning. 
+3. The agent invokes a function corresponding to the action and the result makes up the observation.
+4. Once it has the observation, the agent starts the reasoning phase again, and the 
+loop continues until the agent decides it has all the required information and generates a final answer.
 
 Example:
 ```commandline
@@ -89,67 +104,35 @@ the observation with the result of the expression.
 Here is also the code for the Wikipedia tool:
 
 ```python
-import requests
+from mediawiki import MediaWiki
+
+wikipedia = MediaWiki()
 
 def wikipedia_tool(query: str) -> str:
     """
-    Retrieves the introductory paragraph of a Wikipedia article for a given query.
+    Retrieves the summary of a Wikipedia article for a given query.
 
     Args:
-        query: A string representing the search term to query on Wikipedia.
+        query: A string representing the title of a Wikipedia article.
 
     Returns:
-        A string representing the introductory paragraph of the article, or a preset 
-        string if the article was not found.
+        A string representing the summary of the article, or a preset string if the 
+        article was not found.
     """
-
-    response = requests.get(
-        "https://en.wikipedia.org/w/api.php",
-        params={
-            "action": "opensearch",
-            "search": query,
-            "limit": 1,
-            "namespace": 0,
-            "format": "json"
-        }
-    )
-
-    data = response.json()
-
-    if not data[1]:
-        result = "Observation: The search didn't return any data"
-    else:
-        page_title = data[1][0]
-        response = requests.get(
-            "https://en.wikipedia.org/w/api.php",
-            params={
-                "action": "query",
-                "prop": "extracts",
-                "exintro": True,
-                "titles": page_title,
-                "format": "json",
-                "explaintext": True,
-                "exsentences": 5,
-        )
-
-        data = response.json()
-
-        # Get page id
-        page_id = next(iter(data['query']['pages']))
-
-        # Extract the introduction
-        result = data['query']['pages'][page_id].get('extract')
-        result = result.replace("\n", "")
-
-    return f"Observation: {result}"
+    try:
+        wikipedia_page = wikipedia.page(query)
+        return f"Observation: {wikipedia_page.summary}"
+    except:
+        return "Observation: The search didn't return any data"
 ```
-This function uses the <a href="https://en.wikipedia.org/w/api.php" target="_blank">Wikipedia API</a> to get the first five sentences from a Wikipedia article. The exact details are out of the scope of this guide, but you can read more about the API if you follow the link above. 
+
+This function uses the <a href="https://github.com/barrust/mediawiki" target="_blank">`pymediawiki`</a> package to get the summary of a Wikipedia article. The exact details are out of the scope of this guide, but you can read more about the package if you follow the link above. 
 
 !!! info
 
-    To run this function, you will need to install the `requests` library:
+    To run this function, you will need to install the `pymediawiki` package:
     ```
-    pip install requests
+    pip install pymediawiki
     ```
 
 Great! Now we have two tools that our agent can use. Let's move to the exciting part - building the actual agent.
@@ -226,9 +209,9 @@ In short, here is what the `system_prompt` contains:
 
 1. We start by specifying the behavior and describe the ReAct architecture - explaining 
  that the agent uses thoughts, actions, and observations to solve a problem
-2. We described the two tools - wikipedia search and calculator, and we explained how the agents can invoke it
-3. We continue by providing two example sessions so we can utilize the in-context learning capabilities of the LLMs
-4. We finish by specifying some rules to make sure the produced text is consistent with the ReAct architecture
+1. We described the two tools - wikipedia search and calculator, and we explained how the agents can invoke it
+2. We continue by providing two example sessions so we can utilize the in-context learning capabilities of the LLMs
+3. We finish by specifying some rules to make sure the produced text is consistent with the ReAct architecture
 
 All chat LLMs require message history, so let's define it and include the system prompt:
 
@@ -264,9 +247,9 @@ thought_action = ChatFlowStep(
     perform very poorly with the `gpt-3.5` family of models.
 
 Our next stop is the "Observation" flowstep. In this flowstep, we will use the output of the previous step to invoke the right tool that the agent wants to use.
-To do that, we can use the `FunctionalFlowStep` and pass a function that will parse the previous output based on the specifications in the `system_prompt`:
+To do that, we can use the `FunctionalFlowStep` and pass a function that will parse the previous output based on the specifications in the `system_prompt`.
 
-In `tools.py`
+In `tools.py`:
 ```python
 def tool_selector(thought_action: str) -> str:
     """Invokes a tool based on the action specified in the agent output"""
