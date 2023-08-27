@@ -10,7 +10,7 @@ from abc import ABC, abstractmethod
 
 class BaseLLM(ABC):
     """
-    Base class for all Large Language Models (LLMs). Each specific LLM should extend 
+    Base class for all Large Language Models (LLMs). Each specific LLM should extend
     this class.
 
     Args:
@@ -21,13 +21,25 @@ class BaseLLM(ABC):
         self.model = model
 
     @abstractmethod
-    def generate(self):
+    def generate(self, prompt: str):
         """
         Generates text from the LLM.
+
+        Args:
+            prompt: A string representing the prompt to generate text from.
+
+        Returns:
+            A string representing the generated text.
         """
 
     @abstractmethod
-    async def generate_async(self):
+    async def generate_async(self, prompt: str):
         """
         Generates text from the LLM asynchronously.
+
+        Args:
+            prompt: A string representing the prompt to generate text from.
+
+        Returns:
+            A string representing the generated text.
         """

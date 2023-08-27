@@ -5,7 +5,8 @@ using a chat LLM.
 """
 
 from typing import Any, Union
-from llmflows.llms import OpenAIChat, MessageHistory
+from llmflows.llms import MessageHistory
+from llmflows.llms.chat_llm import BaseChatLLM
 from llmflows.prompts.prompt_template import PromptTemplate
 from llmflows.callbacks.base_callback import BaseCallback
 from llmflows.flows.flowstep import BaseFlowStep
@@ -43,7 +44,7 @@ class ChatFlowStep(BaseFlowStep):
     def __init__(
         self,
         name: str,
-        llm: OpenAIChat,
+        llm: BaseChatLLM,
         output_key: str,
         message_key: str,
         message_history: Union[MessageHistory, None] = None,

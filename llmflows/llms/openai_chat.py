@@ -5,12 +5,12 @@ base class.
 """
 
 import openai
-from llmflows.llms.llm import BaseLLM
+from llmflows.llms.chat_llm import BaseChatLLM
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
 from llmflows.llms.message_history import MessageHistory
 
 
-class OpenAIChat(BaseLLM):
+class OpenAIChat(BaseChatLLM):
     """
     A class for interacting with the OpenAI chat API.
 
