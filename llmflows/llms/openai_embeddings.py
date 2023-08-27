@@ -8,10 +8,10 @@ from typing import Union
 import openai
 from llmflows.vectorstores.vector_doc import VectorDoc
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
-from .llm import BaseLLM
+from llmflows.llms.embeddings import BaseEmbeddings
 
 
-class OpenAIEmbeddings(BaseLLM):
+class OpenAIEmbeddings(BaseEmbeddings):
     """
     A class for interacting with the OpenAI embeddings API.
 

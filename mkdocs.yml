@@ -74,6 +74,7 @@ nav:
       # - Overview: api_reference/llms/llms.md
       - BaseLLM: api_reference/llms/llm.md
       - BaseChatLLM: api_reference/llms/chat_llm.md
+      - BaseEmbeddings: api_reference/llms/embeddings.md
       - OpenAI: api_reference/llms/openai.md
       - OpenAIChat: api_reference/llms/openai_chat.md
       - MessageHistory: api_reference/llms/message_history.md
