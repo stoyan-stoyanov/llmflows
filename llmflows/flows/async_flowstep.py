@@ -53,4 +53,9 @@ class AsyncFlowStep(AsyncBaseFlowStep):
 
     async def generate(self, inputs: dict[str, Any]) -> tuple[Any, Any, Any]:
         prompt = self.prompt_template.get_prompt(**inputs)
-        return await self.llm.generate_async(prompt)
+        text_result, call_data, model_config = await self.llm.generate_async(prompt)
+
+        call_data["prompt_template"] = self.prompt_template.prompt
+        call_data["prompt"] = prompt
+
+        return text_result, call_data, model_config

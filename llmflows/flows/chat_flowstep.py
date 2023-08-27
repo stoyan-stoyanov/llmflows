@@ -82,13 +82,13 @@ class ChatFlowStep(BaseFlowStep):
             message = inputs[self.message_key]
 
         self.message_history.add_user_message(message)
-        results = self.llm.generate(self.message_history)
+        text_result, call_data, model_config = self.llm.generate(self.message_history)
 
-        results[1]["message_prompt_template"] = (
+        call_data["message_prompt_template"] = (
             self.message_prompt_template.prompt
             if self.message_prompt_template
             else None
         )
-        results[1]["message_prompt"] = message
-        results[1]["message_history"] = self.message_history.messages
-        return results
+        call_data["message_prompt"] = message
+        call_data["message_history"] = self.message_history.messages
+        return text_result, call_data, model_config
