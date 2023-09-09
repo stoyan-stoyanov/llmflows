@@ -33,8 +33,8 @@ async def answer_question(question: str):
         respective answers, and 'sources' containing titles and links to Wikipedia
         articles.
     """
-    superconductor_qa_flow = create_flow()
-    result = superconductor_qa_flow.start(
+    rag_flow = create_flow()
+    result = rag_flow.start(
         conversation_history="", question=question, verbose=True
     )
 
