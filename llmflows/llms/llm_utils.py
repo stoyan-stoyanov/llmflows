@@ -1,4 +1,4 @@
-# pylint: disable=R1710
+# pylint: disable=R1710, W0719
 
 """Module containing helper functions for the LLM classes."""
 
@@ -45,7 +45,7 @@ def call_with_retry(func, exceptions_to_retry, max_retries, *args, **kwargs):
             time.sleep(min(delay, max_delay))
             delay *= delay_multiplier
 
-        except Exception as error:  # pylint: disable=broad-exception-raised
+        except Exception as error:
             logging.error(
                 "An error occurred that cannot be resolved by retrying. Error: %s",
                 str(error),
@@ -99,7 +99,7 @@ async def async_call_with_retry(
             await asyncio.sleep(min(delay, max_delay))
             delay *= delay_multiplier
 
-        except Exception as error:  # pylint: disable=broad-exception-raised
+        except Exception as error:
             logging.error(
                 "An error occurred that cannot be resolved by retrying. Error: %s",
                 str(error),
