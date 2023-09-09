@@ -6,6 +6,13 @@ base class.
 """
 
 import openai
+from openai.error import (
+    APIError,
+    Timeout,
+    RateLimitError,
+    APIConnectionError,
+    ServiceUnavailableError,
+)
 from .llm import BaseLLM
 from .llm_utils import call_with_retry, async_call_with_retry
 
@@ -91,7 +98,14 @@ class OpenAI(BaseLLM):
             raise TypeError("Prompt must be a string")
 
         completion, retries = call_with_retry(
-            api_obj=openai.Completion,
+            func=openai.Completion.create,
+            exceptions_to_retry=( 
+                APIError,
+                Timeout,
+                RateLimitError,
+                APIConnectionError,
+                ServiceUnavailableError
+            ),
             max_retries=self.max_retries,
             model=self.model,
             prompt=prompt,
@@ -117,7 +131,14 @@ class OpenAI(BaseLLM):
             raise TypeError("Prompt must be a string")
 
         completion, retries = await async_call_with_retry(
-            api_obj=openai.Completion,
+            async_func=openai.Completion.acreate,
+            exceptions_to_retry=( 
+                APIError,
+                Timeout,
+                RateLimitError,
+                APIConnectionError,
+                ServiceUnavailableError
+            ),
             max_retries=self.max_retries,
             model=self.model,
             prompt=prompt,

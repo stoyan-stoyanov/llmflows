@@ -6,6 +6,13 @@ This module helps with creating embeddings form OpenAIs API.
 
 from typing import Union
 import openai
+from openai.error import (
+    APIError,
+    Timeout,
+    RateLimitError,
+    APIConnectionError,
+    ServiceUnavailableError,
+)
 from llmflows.vectorstores.vector_doc import VectorDoc
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
 from llmflows.llms.embeddings import BaseEmbeddings
@@ -67,7 +74,14 @@ class OpenAIEmbeddings(BaseEmbeddings):
         texts = [doc.doc for doc in docs]
 
         result, _ = call_with_retry(
-            api_obj=openai.Embedding,
+            func=openai.Embedding.create,
+            exceptions_to_retry=( 
+                APIError,
+                Timeout,
+                RateLimitError,
+                APIConnectionError,
+                ServiceUnavailableError
+            ),
             engine=self.model,
             input=texts,
             max_retries=self.max_retries,
@@ -101,7 +115,14 @@ class OpenAIEmbeddings(BaseEmbeddings):
         texts = [doc.doc for doc in docs]
 
         result, _ = await async_call_with_retry(
-            api_obj=openai.Embedding,
+            async_func=openai.Embedding.acreate,
+            exceptions_to_retry=( 
+                APIError,
+                Timeout,
+                RateLimitError,
+                APIConnectionError,
+                ServiceUnavailableError
+            ),
             engine=self.model,
             input=texts,
             max_retries=self.max_retries,

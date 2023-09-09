@@ -5,6 +5,13 @@ base class.
 """
 
 import openai
+from openai.error import (
+    APIError,
+    Timeout,
+    RateLimitError,
+    APIConnectionError,
+    ServiceUnavailableError,
+)
 from llmflows.llms.chat_llm import BaseChatLLM
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
 from llmflows.llms.message_history import MessageHistory
@@ -99,7 +106,14 @@ class OpenAIChat(BaseChatLLM):
         """
 
         completion, retries = call_with_retry(
-            api_obj=openai.ChatCompletion,
+            func=openai.ChatCompletion.create,
+            exceptions_to_retry=( 
+                APIError,
+                Timeout,
+                RateLimitError,
+                APIConnectionError,
+                ServiceUnavailableError
+            ),
             max_retries=self.max_retries,
             model=self.model,
             messages=message_history.messages,
@@ -126,7 +140,14 @@ class OpenAIChat(BaseChatLLM):
         """
 
         completion, retries = await async_call_with_retry(
-            api_obj=openai.ChatCompletion,
+            async_func=openai.ChatCompletion.acreate,
+            exceptions_to_retry=( 
+                APIError,
+                Timeout,
+                RateLimitError,
+                APIConnectionError,
+                ServiceUnavailableError
+            ),
             max_retries=self.max_retries,
             model=self.model,
             messages=message_history.messages,
