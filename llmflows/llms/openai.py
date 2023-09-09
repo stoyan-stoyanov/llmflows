@@ -44,7 +44,7 @@ class OpenAI(BaseLLM):
         model: str = "text-davinci-003",
         temperature: float = 0.7,
         max_tokens: int = 500,
-        max_retries: int = 3
+        max_retries: int = 3,
     ):
         super().__init__(model)
         self.temperature = temperature
@@ -99,12 +99,12 @@ class OpenAI(BaseLLM):
 
         completion, retries = call_with_retry(
             func=openai.Completion.create,
-            exceptions_to_retry=( 
+            exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError
+                ServiceUnavailableError,
             ),
             max_retries=self.max_retries,
             model=self.model,
@@ -132,12 +132,12 @@ class OpenAI(BaseLLM):
 
         completion, retries = await async_call_with_retry(
             async_func=openai.Completion.acreate,
-            exceptions_to_retry=( 
+            exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError
+                ServiceUnavailableError,
             ),
             max_retries=self.max_retries,
             model=self.model,

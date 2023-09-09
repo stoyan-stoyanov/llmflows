@@ -107,12 +107,12 @@ class OpenAIChat(BaseChatLLM):
 
         completion, retries = call_with_retry(
             func=openai.ChatCompletion.create,
-            exceptions_to_retry=( 
+            exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError
+                ServiceUnavailableError,
             ),
             max_retries=self.max_retries,
             model=self.model,
@@ -141,12 +141,12 @@ class OpenAIChat(BaseChatLLM):
 
         completion, retries = await async_call_with_retry(
             async_func=openai.ChatCompletion.acreate,
-            exceptions_to_retry=( 
+            exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError
+                ServiceUnavailableError,
             ),
             max_retries=self.max_retries,
             model=self.model,

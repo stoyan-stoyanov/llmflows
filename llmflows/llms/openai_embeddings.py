@@ -75,12 +75,12 @@ class OpenAIEmbeddings(BaseEmbeddings):
 
         result, _ = call_with_retry(
             func=openai.Embedding.create,
-            exceptions_to_retry=( 
+            exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError
+                ServiceUnavailableError,
             ),
             engine=self.model,
             input=texts,
@@ -116,12 +116,12 @@ class OpenAIEmbeddings(BaseEmbeddings):
 
         result, _ = await async_call_with_retry(
             async_func=openai.Embedding.acreate,
-            exceptions_to_retry=( 
+            exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError
+                ServiceUnavailableError,
             ),
             engine=self.model,
             input=texts,
