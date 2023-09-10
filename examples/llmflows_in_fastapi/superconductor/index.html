@@ -60,6 +60,10 @@
             transition: background-color 0.3s;
         }
 
+        .example-questions-heading {
+            margin-top: 30px;
+        }
+
         .example-question:hover {
             background-color: #343a40;
         }
@@ -88,21 +92,31 @@
             <p>This app is built with LLMFlows. Learn more on the <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="alert-link">LLMFlows Github</a> page.
         </div>
 
-        <div class="row mt-5 g-4 example-questions-row" id="example-questions">
+        <h5 class="example-questions-heading">Example questions</h5>
+
+        <!-- Desktop Version - 3 examples -->
+        <div class="row g-4 example-questions-row d-none d-md-flex" id="example-questions-desktop">
             <div class="col-md-4">
                 <div class="example-question"><span>What is quantum mechanics?</span></div>
             </div>
             <div class="col-md-4">
-                <div class="example-question"><span>What is the theory of relativity?</span></div>
+                <div class="example-question"><span>What is a black hole?</span></div>
             </div>
             <div class="col-md-4">
                 <div class="example-question"><span>What are superconductors?</span></div>
             </div>
         </div>
 
+        <!-- Mobile Version - Single example -->
+        <div class="row g-4 example-questions-row d-md-none" id="example-questions-mobile">
+            <div class="col-12">
+                <div class="example-question"><span>What is quantum mechanics?</span></div>
+            </div>
+        </div>
+
         <form class="question" id="question-form" class="mb-3">
             <div class="input-group">
-                <input type="text" id="question-input" class="form-control form-control-dark" placeholder="Enter your question..." required>
+                <input type="text" id="question-input" class="form-control form-control-dark" placeholder="Type your question..." required>
                 <button type="submit" id="ask-button" class="btn btn-primary submit-button">Ask</button>
             </div>
         </form>
