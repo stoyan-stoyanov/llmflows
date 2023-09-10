@@ -9,7 +9,6 @@
     <title>LLM-99 | Physics explained</title>
     <style>
         body {
-
             display: flex;
             flex-direction: column;
             min-height: 100vh !important;
@@ -48,6 +47,24 @@
             margin: 0 10px;
             text-decoration: none;
         }
+
+        .question {
+            margin-top: 30px;
+        }
+        
+        .example-question {
+            border: 1px solid #343a40;
+            border-radius: 5px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .example-question:hover {
+            background-color: #343a40;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -67,13 +84,23 @@
 
         <div class="alert alert-info" role="alert">
             <h4>👋 Welcome to LLM-99!</h4>
-            <p>This is a demo app that uses LLMs to explain physics in simple terms. However, as LLMs can occasionally 'hallucinate' information, please validate answers with trusted sources.</p>
+            <p>This is a demo app that uses LLMs and RAG to explain physics in simple terms. However, as LLMs can occasionally 'hallucinate' information, please validate answers with trusted sources.</p>
             <p>This app is built with LLMFlows. Learn more on the <a href="https://github.com/stoyan-stoyanov/llmflows" target="_blank" class="alert-link">LLMFlows Github</a> page.
         </div>
-        
-        <br/>
 
-        <form id="question-form" class="mb-3">
+        <div class="row mt-5 g-4 example-questions-row" id="example-questions">
+            <div class="col-md-4">
+                <div class="example-question"><span>What is quantum mechanics?</span></div>
+            </div>
+            <div class="col-md-4">
+                <div class="example-question"><span>What is the theory of relativity?</span></div>
+            </div>
+            <div class="col-md-4">
+                <div class="example-question"><span>What are superconductors?</span></div>
+            </div>
+        </div>
+
+        <form class="question" id="question-form" class="mb-3">
             <div class="input-group">
                 <input type="text" id="question-input" class="form-control form-control-dark" placeholder="Enter your question..." required>
                 <button type="submit" id="ask-button" class="btn btn-primary submit-button">Ask</button>
@@ -92,7 +119,7 @@
     </div>
 
     <script>
-       document.getElementById('question-form').addEventListener('submit', function(event) {
+        document.getElementById('question-form').addEventListener('submit', function(event) {
             event.preventDefault();
             const questionInput = document.getElementById('question-input');
             const question = questionInput.value;
@@ -170,6 +197,12 @@
                 });
         });
 
+        document.querySelectorAll('.example-question').forEach(div => {
+            div.addEventListener('click', function() {
+                const questionText = this.querySelector('span').textContent;
+                document.getElementById('question-input').value = questionText;
+            });
+        });
 
     </script>
 </body>
