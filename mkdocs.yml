@@ -77,6 +77,7 @@ nav:
       - BaseEmbeddings: api_reference/llms/embeddings.md
       - OpenAI: api_reference/llms/openai.md
       - OpenAIChat: api_reference/llms/openai_chat.md
+      - ClaudeChat: api_reference/llms/claude_chat.md
       - MessageHistory: api_reference/llms/message_history.md
       - OpenAIEmbeddings: api_reference/llms/openai_embeddings.md
     - Prompts: 
