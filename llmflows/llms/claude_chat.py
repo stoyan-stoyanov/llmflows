@@ -1,11 +1,9 @@
+# pylint: disable=R0913, R0801
 """
 This module implements a wrapper for Anthropic's Claude chat models, using BaseLLM as a 
 base class.
 """
 
-from llmflows.llms.chat_llm import BaseChatLLM
-from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
-from llmflows.llms.message_history import MessageHistory
 from anthropic import (
     Anthropic,
     AsyncAnthropic,
@@ -15,6 +13,9 @@ from anthropic import (
     InternalServerError,
     APIConnectionError,
 )
+from llmflows.llms.chat_llm import BaseChatLLM
+from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
+from llmflows.llms.message_history import MessageHistory
 
 
 class ClaudeChat(BaseChatLLM):
@@ -83,7 +84,7 @@ class ClaudeChat(BaseChatLLM):
                 "model": model_outputs.model,
                 "stop_reason": model_outputs.stop_reason,
                 "stop": model_outputs.stop,
-                "log_id": model_outputs.log_id
+                "log_id": model_outputs.log_id,
             },
             "retries": retries,
         }
@@ -126,7 +127,7 @@ class ClaudeChat(BaseChatLLM):
                 claude_prompt += f"{HUMAN_PROMPT} {message['content']}"
             elif message["role"] == "assistant":
                 claude_prompt += f"{AI_PROMPT} {message['content']}"
-        
+
         claude_prompt += AI_PROMPT
 
         return claude_prompt
@@ -192,7 +193,7 @@ class ClaudeChat(BaseChatLLM):
             model=self.model,
             temperature=self.temperature,
             max_tokens_to_sample=self.max_tokens,
-            max_retries=self.max_retries
+            max_retries=self.max_retries,
         )
 
         str_message, call_data, model_config = self._format_results(
