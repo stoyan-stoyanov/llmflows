@@ -103,7 +103,7 @@ nav:
       - Pinecone: api_reference/vectorstores/pinecone.md
     - Callbacks:
       # - Overview: api_reference/callbacks/callbacks.md
-      - BaseCallback: api_reference/callbacks/base_callback.md
-      - FunctionalCallback: api_reference/callbacks/functional_callback.md
+      - BaseCallback: api_reference/callbacks/base_cb.md
+      - FunctionalCallback: api_reference/callbacks/functional_cb.md
       - AsyncBaseCallback: api_reference/callbacks/async_base_cb.md
       - AsyncFunctionalCallback: api_reference/callbacks/async_functional_cb.md
