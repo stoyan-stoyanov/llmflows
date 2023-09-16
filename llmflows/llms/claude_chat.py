@@ -99,6 +99,7 @@ class ClaudeChat(BaseChatLLM):
 
         return text_result, call_data, model_config
 
+
     def _convert_message_history(self, message_history: MessageHistory) -> str:
         """
         Converts a MessageHistory object to a Claude prompt string with the required
