@@ -35,9 +35,6 @@ plugins:
   - search
   - mkdocstrings
 
-extra_css:
-  - stylesheets/extra.css
-
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -47,7 +44,6 @@ markdown_extensions:
   - pymdownx.superfences
   - admonition
   - attr_list
-  - md_in_html
 
 
 nav:
