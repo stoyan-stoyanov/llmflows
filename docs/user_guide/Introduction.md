@@ -14,7 +14,7 @@ retrying failed calls, and formatting the responses.
 
 !!! info
 
-    LLM classes can be imported from `llmfwlos.llms`
+    LLM classes can be imported from `llmflows.llms`
 
 OpenAI's `GPT-3` is one of the commonly used LLMs, and is available through their 
 completion API. The LLMFlows' `OpenAI` class is a wrapper around this API. It can be 
