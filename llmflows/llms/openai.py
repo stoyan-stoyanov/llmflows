@@ -55,7 +55,7 @@ class OpenAI(BaseLLM):
             raise ValueError("You must provide OpenAI API key")
         openai.api_key = self._api_key
 
-    def prepare_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
+    def format_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
         """
         Formats results after generation.
 
@@ -113,7 +113,7 @@ class OpenAI(BaseLLM):
             temperature=self.temperature,
         )
 
-        return self.prepare_results(completion, retries)
+        return self.format_results(completion, retries)
 
     async def generate_async(self, prompt: str) -> tuple[str, dict, dict]:
         """
@@ -146,4 +146,4 @@ class OpenAI(BaseLLM):
             temperature=self.temperature,
         )
 
-        return self.prepare_results(completion, retries)
+        return self.format_results(completion, retries)

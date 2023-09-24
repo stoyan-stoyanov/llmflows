@@ -63,14 +63,14 @@ class TestOpenAI(unittest.TestCase):
         with self.assertRaises(TypeError):
             self.llm.generate(123)
 
-    def test_prepare_results(self):
+    def test_format_results(self):
         # Mock the model_outputs and retries arguments
         model_outputs = MagicMock()
         model_outputs.choices = [{"text": "test_text"}]
         retries = 0
 
-        # Call the prepare_results method
-        text_result, call_data, config = self.llm.prepare_results(
+        # Call the format_results method
+        text_result, call_data, config = self.llm.format_results(
             model_outputs, retries
         )
 

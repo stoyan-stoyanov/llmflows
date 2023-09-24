@@ -62,7 +62,7 @@ class OpenAIChat(BaseChatLLM):
             raise ValueError("You must provide OpenAI API key")
         openai.api_key = self._api_key
 
-    def prepare_results(
+    def format_results(
         self, model_outputs, retries, message_history
     ) -> tuple[str, dict, dict]:
         """
@@ -118,7 +118,7 @@ class OpenAIChat(BaseChatLLM):
             temperature=self.temperature,
         )
 
-        str_message, call_data, model_config = self.prepare_results(
+        str_message, call_data, model_config = self.format_results(
             model_outputs=completion, retries=retries, message_history=message_history
         )
 
@@ -152,7 +152,7 @@ class OpenAIChat(BaseChatLLM):
             temperature=self.temperature,
         )
 
-        str_message, call_data, model_config = self.prepare_results(
+        str_message, call_data, model_config = self.format_results(
             model_outputs=completion, retries=retries, message_history=message_history
         )
 

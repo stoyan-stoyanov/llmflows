@@ -27,7 +27,7 @@ class TestOpenAIChat(unittest.TestCase):
         self.assertEqual(self.llm.verbose, False)
         self.assertEqual(self.llm._api_key, "test_api_key")
 
-    def test_prepare_results(self):
+    def tes_format_results(self):
         # Mock the model_outputs and retries arguments
         model_outputs = MagicMock()
         model_outputs.choices = [{"message": {"content": "test_text"}}]
@@ -35,7 +35,7 @@ class TestOpenAIChat(unittest.TestCase):
 
         mh = MessageHistory()
 
-        text_result, call_data, config = self.llm.prepare_results(
+        text_result, call_data, config = self.llm.format_results(
             model_outputs, retries, message_history=mh
         )
 
