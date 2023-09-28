@@ -158,7 +158,7 @@ class AzureOpenAI(BaseLLM):
                 APIConnectionError,
                 ServiceUnavailableError,
             ),
-            engine=self._deployment_name,
+            engine=self._engine,
             max_retries=self.max_retries,
             model=self.model,
             prompt=prompt,
