@@ -64,7 +64,7 @@ class AzureOpenAIChat(BaseChatLLM):
             raise ValueError("You must provide OpenAI API key")
 
         self._engine = engine
-        if not self._deployment_name:
+        if not self._engine:
             raise ValueError("You must provide Azure OpenAI deployment name")
 
         self._azure_openai_endpoint = azure_openai_endpoint
