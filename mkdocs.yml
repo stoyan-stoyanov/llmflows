@@ -69,8 +69,8 @@ nav:
       # - Overview: api_reference/llms/llms.md
       - BaseLLM: api_reference/llms/llm.md
       - OpenAI: api_reference/llms/openai.md
-      - AzureOpenAI: api_reference/llms/azure_openai.md
       - OpenAIChat: api_reference/llms/openai_chat.md
+      - AzureOpenAI: api_reference/llms/azure_openai.md
       - AzureOpenAIChat: api_reference/llms/azure_openai_chat.md
       - MessageHistory: api_reference/llms/message_history.md
       - OpenAIEmbeddings: api_reference/llms/openai_embeddings.md
