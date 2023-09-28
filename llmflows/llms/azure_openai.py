@@ -1,4 +1,4 @@
-# pylint: disable=too-few-public-methods, R0913, W0221
+# pylint: disable=too-few-public-methods, R0913, W0221, R0801
 
 """
 This module implements a wrapper for Azure OpenAI completion models, using BaseLLM as a 
