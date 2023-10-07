@@ -30,7 +30,7 @@ class AzureOpenAIChat(BaseChatLLM):
 
     Args:
         system_prompt (str): The system prompt to use for the chat model.
-        engine (str): The name of the OpenAI model to use (following Azure naming).
+        deployment (str): The deployment name of the Azure OpenAI model.
         azure_openai_endpoint (str): The Azure OpenAI endpoint to use.
         azure_api_version (str): The Azure OpenAI API version to use.
         temperature (float): The temperature to use for text generation.
@@ -50,12 +50,12 @@ class AzureOpenAIChat(BaseChatLLM):
         api_key: str,
         azure_openai_endpoint: str,
         azure_api_version: str = "2023-05-15",
-        engine: str = "gpt-35-turbo",
+        deployment: str = "gpt-35-turbo",
         temperature: float = 0.7,
         max_tokens: int = 250,
         max_retries: int = 3,
     ):
-        super().__init__(model=engine)
+        super().__init__(model=deployment)
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.max_retries = max_retries
@@ -63,8 +63,8 @@ class AzureOpenAIChat(BaseChatLLM):
         if not self._api_key:
             raise ValueError("You must provide OpenAI API key")
 
-        self._engine = engine
-        if not self._engine:
+        self._deployment = deployment
+        if not self._deployment:
             raise ValueError("You must provide Azure OpenAI deployment name")
 
         self._azure_openai_endpoint = azure_openai_endpoint
@@ -125,7 +125,7 @@ class AzureOpenAIChat(BaseChatLLM):
                 APIConnectionError,
                 ServiceUnavailableError,
             ),
-            engine=self._engine,
+            engine=self._deployment,
             max_retries=self.max_retries,
             model=self.model,
             messages=message_history.messages,
@@ -160,7 +160,7 @@ class AzureOpenAIChat(BaseChatLLM):
                 APIConnectionError,
                 ServiceUnavailableError,
             ),
-            engine=self._engine,
+            engine=self._deployment,
             max_retries=self.max_retries,
             model=self.model,
             messages=message_history.messages,

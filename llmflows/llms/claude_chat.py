@@ -1,7 +1,7 @@
 # pylint: disable=R0913, R0801
 """
-This module implements a wrapper for Anthropic's Claude chat models, using BaseLLM as a 
-base class.
+This module implements a wrapper for Anthropic's Claude chat models, using BaseChatLLM 
+as a base class.
 """
 
 from anthropic import (
@@ -22,7 +22,7 @@ class ClaudeChat(BaseChatLLM):
     """
     A class for interacting with the Claude API.
 
-    Inherits from BaseLLM.
+    Inherits from BaseChatLLM.
 
     Uses the specified Claude model and parameters for interacting with the Claude API,
     and provides methods to add, remove, replace messages, update system prompts, and
@@ -142,7 +142,8 @@ class ClaudeChat(BaseChatLLM):
                 history.
 
         Returns:
-            A string representing the generated text.
+            A tuple containing the generated text, the raw response data, and the model
+                configuration.
         """
         client = Anthropic(api_key=self._api_key)
         claude_prompt = self._convert_message_history(message_history)

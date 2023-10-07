@@ -1,6 +1,6 @@
 # pylint: disable=R0913, R0902, R0801, W0221
 """
-This module implements a wrapper for OpenAI chat models, using BaseLLM as a 
+This module implements a wrapper for OpenAI chat models, using BaseChatLLM as a 
 base class.
 """
 
@@ -21,7 +21,7 @@ class OpenAIChat(BaseChatLLM):
     """
     A class for interacting with the OpenAI chat API.
 
-    Inherits from BaseLLM.
+    Inherits from BaseChatLLM.
 
     Uses the specified OpenAI model and parameters for interacting with the OpenAI chat
     API, and provides methods to add, remove, replace messages, update system prompts,
