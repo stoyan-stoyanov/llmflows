@@ -73,7 +73,7 @@ class AzureOpenAI(BaseLLM):
         openai.api_type = "azure"
         openai.api_version = azure_api_version
 
-    def format_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
+    def _format_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
         """
         Formats results after generation.
 
@@ -132,7 +132,7 @@ class AzureOpenAI(BaseLLM):
             temperature=self.temperature,
         )
 
-        return self.format_results(completion, retries)
+        return self._format_results(completion, retries)
 
     async def generate_async(self, prompt: str) -> tuple[str, dict, dict]:
         """
@@ -166,4 +166,4 @@ class AzureOpenAI(BaseLLM):
             temperature=self.temperature,
         )
 
-        return self.format_results(completion, retries)
+        return self._format_results(completion, retries)

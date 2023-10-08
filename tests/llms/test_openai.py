@@ -70,7 +70,7 @@ class TestOpenAI(unittest.TestCase):
         retries = 0
 
         # Call the format_results method
-        text_result, call_data, config = self.llm.format_results(
+        text_result, call_data, config = self.llm._format_results(
             model_outputs, retries
         )
 

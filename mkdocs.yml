@@ -75,6 +75,8 @@ nav:
       - MessageHistory: api_reference/llms/message_history.md
       - OpenAIEmbeddings: api_reference/llms/openai_embeddings.md
       - ClaudeChat: api_reference/llms/claude_chat.md
+      - PaLM: api_reference/llms/palm.md
+      - PaLMChat: api_reference/llms/palm_chat.md
     - Prompts: 
       # - Overview: api_reference/prompts/prompts.md
       - PromptTemplate: api_reference/prompts/prompt_template.md

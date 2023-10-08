@@ -76,7 +76,7 @@ class AzureOpenAIChat(BaseChatLLM):
         openai.api_type = "azure"
         openai.api_version = azure_api_version
 
-    def format_results(
+    def _format_results(
         self, model_outputs, retries, message_history
     ) -> tuple[str, dict, dict]:
         """
@@ -133,7 +133,7 @@ class AzureOpenAIChat(BaseChatLLM):
             temperature=self.temperature,
         )
 
-        str_message, call_data, model_config = self.format_results(
+        str_message, call_data, model_config = self._format_results(
             model_outputs=completion, retries=retries, message_history=message_history
         )
 
@@ -168,7 +168,7 @@ class AzureOpenAIChat(BaseChatLLM):
             temperature=self.temperature,
         )
 
-        str_message, call_data, model_config = self.format_results(
+        str_message, call_data, model_config = self._format_results(
             model_outputs=completion, retries=retries, message_history=message_history
         )
 

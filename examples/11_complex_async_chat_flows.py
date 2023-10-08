@@ -21,7 +21,7 @@ from llmflows.flows import AsyncFlow, AsyncFlowStep, AsyncChatFlowStep
 from llmflows.llms import OpenAI, OpenAIChat, MessageHistory
 from llmflows.prompts import PromptTemplate
 import asyncio
-import json
+
 
 openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 openai_llm = OpenAI(api_key=openai_api_key)
@@ -74,7 +74,7 @@ critic_message_template = PromptTemplate(
     "Hey, what is your opinion on the following song: {song_lyrics}"
 )
 
-for i in range(10):
+for i in range(5):
     message_history = MessageHistory()
     message_history.system_prompt = critic_system_prompt
 
@@ -101,7 +101,6 @@ async def run_flow():
     # Create and run Flow
     soundtrack_flow = AsyncFlow(flowstep1)
     result = await soundtrack_flow.start(topic="friendship", verbose=True)
-    print(json.dumps(result, indent=4))
 
 # Run the flow in an event loop
 asyncio.run(run_flow())
