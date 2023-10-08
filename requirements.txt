@@ -7,3 +7,4 @@ mkdocs-material==9.1.14
 mkdocstrings==0.22.0
 mkdocstrings-python==1.1.0
 urllib3==1.26.17
+google-generativeai==0.2.1
