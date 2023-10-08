@@ -1,4 +1,4 @@
-# pylint: disable=too-few-public-methods, R0913, W0221
+# pylint: disable=too-few-public-methods, R0913, W0221, R0801
 
 """
 This module implments a wrapper for the Google PaLM model API, using BaseLLM as a
@@ -7,7 +7,7 @@ base class.
 
 import google.generativeai as palm
 from .llm import BaseLLM
-from .llm_utils import call_with_retry, async_call_with_retry
+from .llm_utils import call_with_retry
 
 
 class PaLM(BaseLLM):
@@ -100,7 +100,7 @@ class PaLM(BaseLLM):
 
         return self._format_results(completion, retries)
 
-    def generate_async(self, prompt: str) -> tuple[str, dict, dict]:
+    async def generate_async(self, prompt: str) -> tuple[str, dict, dict]:
         """
         Generates text from the Google PaLM API asynchronously.
 

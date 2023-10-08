@@ -50,7 +50,7 @@ class PaLMChat(BaseChatLLM):
         Returns:
             A tuple containing the generated text, the raw response data, and the model
                 configuration.
-        """ 
+        """
         text_result = model_outputs.last
 
         if text_result is None:
@@ -125,7 +125,7 @@ class PaLMChat(BaseChatLLM):
         """
 
         conversation_history = self._convert_message_history(message_history)
-        
+
         completion, retries = call_with_retry(
             func=palm.chat,
             exceptions_to_retry=(),
@@ -155,7 +155,7 @@ class PaLMChat(BaseChatLLM):
         """
 
         conversation_history = self._convert_message_history(message_history)
-        
+
         completion, retries = await async_call_with_retry(
             async_func=palm.chat_async,
             exceptions_to_retry=(),
