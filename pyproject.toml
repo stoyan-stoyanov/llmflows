@@ -22,7 +22,7 @@ dependencies = [
     "openai==0.28.1",
     "tiktoken==0.5.1",
     "pinecone-client==2.2.4",
-    "urllib3==1.26.17",
+    "urllib3==1.26.18",
     "google-generativeai==0.2.1"
 ]
 
