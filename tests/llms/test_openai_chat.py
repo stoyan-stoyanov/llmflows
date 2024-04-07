@@ -66,7 +66,11 @@ class TestOpenAIChat(unittest.TestCase):
 
         # Check that openai.ChatCompletion.create was called with the right arguments
         mock_openai_chatcompletion_create.assert_called_once_with(
-            model="test_model", messages=mh.messages, max_tokens=250, temperature=0.7
+            model="test_model",
+            messages=mh.messages,
+            max_tokens=250,
+            temperature=0.7,
+            api_base="https://api.openai.com/v1/"
         )
 
         # Assert that the method returned the expected output
@@ -76,3 +80,28 @@ class TestOpenAIChat(unittest.TestCase):
         self.assertEqual(config["model_name"], "test_model")
         self.assertEqual(config["temperature"], 0.7)
         self.assertEqual(config["max_tokens"], 250)
+
+    @patch("openai.ChatCompletion.create", autospec=True)
+    def test_generate_custom_api_base(self, mock_openai_chatcompletion_create):
+        self.llm = OpenAIChat(
+            model="test_model",
+            temperature=0.7,
+            max_tokens=250,
+            max_retries=3,
+            verbose=False,
+            api_key="test_api_key",
+            api_base="http://localhost:4000/"
+        )
+
+        mh = MessageHistory()
+        mh.add_user_message("test message")
+        self.llm.generate(mh)
+
+        # Check that openai.ChatCompletion.create was called with the right arguments
+        mock_openai_chatcompletion_create.assert_called_once_with(
+            model="test_model",
+            messages=mh.messages,
+            max_tokens=250,
+            temperature=0.7,
+            api_base="http://localhost:4000/"
+        )

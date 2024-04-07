@@ -31,6 +31,7 @@ class OpenAI(BaseLLM):
         max_tokens (int): The maximum number of tokens to generate.
         max_retries (int): The maximum number of retries for generating tokens.
         api_key (str): The API key to use for interacting with the OpenAI API.
+        api_base (str): The base URL of the api calls, useful to interact with OpenAI-compatible services
 
     Attributes:
         temperature (float): The temperature to use for text generation.
@@ -41,6 +42,7 @@ class OpenAI(BaseLLM):
     def __init__(
         self,
         api_key: str,
+        api_base: str = "https://api.openai.com/v1/",
         model: str = "text-davinci-003",
         temperature: float = 0.7,
         max_tokens: int = 500,
@@ -50,6 +52,7 @@ class OpenAI(BaseLLM):
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.max_retries = max_retries
+        self.api_base = api_base
         self._api_key = api_key
         if not self._api_key:
             raise ValueError("You must provide OpenAI API key")
@@ -111,6 +114,7 @@ class OpenAI(BaseLLM):
             prompt=prompt,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
+            api_base=self.api_base,
         )
 
         return self._format_results(completion, retries)
@@ -144,6 +148,7 @@ class OpenAI(BaseLLM):
             prompt=prompt,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
+            api_base=self.api_base,
         )
 
         return self._format_results(completion, retries)

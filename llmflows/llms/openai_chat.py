@@ -35,6 +35,7 @@ class OpenAIChat(BaseChatLLM):
         max_retries (int): The maximum number of retries for generating tokens.
         verbose (bool): Whether to print debug information.
         api_key (str): The API key to use for interacting with the OpenAI API.
+        api_base (str): The base URL of the api calls, useful to interact with OpenAI-compatible services
 
     Attributes:
         temperature (float): The temperature to use for text generation.
@@ -46,6 +47,7 @@ class OpenAIChat(BaseChatLLM):
     def __init__(
         self,
         api_key: str,
+        api_base: str = "https://api.openai.com/v1/",
         model: str = "gpt-3.5-turbo",
         temperature: float = 0.7,
         max_tokens: int = 250,
@@ -57,6 +59,7 @@ class OpenAIChat(BaseChatLLM):
         self.max_tokens = max_tokens
         self.max_retries = max_retries
         self.verbose = verbose
+        self.api_base = api_base
         self._api_key = api_key
         if not self._api_key:
             raise ValueError("You must provide OpenAI API key")
@@ -116,6 +119,7 @@ class OpenAIChat(BaseChatLLM):
             messages=message_history.messages,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
+            api_base=self.api_base,
         )
 
         str_message, call_data, model_config = self._format_results(
@@ -150,6 +154,7 @@ class OpenAIChat(BaseChatLLM):
             messages=message_history.messages,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
+            api_base=self.api_base,
         )
 
         str_message, call_data, model_config = self._format_results(
