@@ -33,7 +33,6 @@ def create_flow():
         llm=OpenAIChat(api_key=openai_api_key, max_tokens=500),
         message_history=mh,
         message_prompt_template=response_template,
-        message_key="question",
         output_key="answer",
     )
 
@@ -41,7 +40,6 @@ def create_flow():
         name="ELI5 Flowstep",
         llm=OpenAIChat(api_key=openai_api_key, max_tokens=500),
         message_prompt_template=eli5_template,
-        message_key="answer",
         output_key="eli5_answer",
     )
 

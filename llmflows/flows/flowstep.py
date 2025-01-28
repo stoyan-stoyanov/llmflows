@@ -47,6 +47,9 @@ class FlowStep(BaseFlowStep):
         self.required_keys = prompt_template.variables
 
     def generate(self, inputs: dict[str, Any]) -> tuple[Any, Any, Any]:
+        # TODO: construct new inputs since we are going to receive the whole result from the previous step
+        # something like:
+        
         prompt = self.prompt_template.get_prompt(**inputs)
         text_result, call_data, model_config = self.llm.generate(prompt)
         call_data["prompt_template"] = self.prompt_template.prompt

@@ -88,11 +88,7 @@ class BaseFlow:
             if flowstep_class == "FlowStep":
                 self.input_keys.update(step.prompt_template.variables)
             elif flowstep_class == "ChatFlowStep":
-                self.input_keys.update({step.message_key})
-
-                if step.message_prompt_template:
-                    self.input_keys.update(step.message_prompt_template.variables)
-
+                self.input_keys.update(step.message_prompt_template.variables)
             elif flowstep_class == "FunctionalFlowStep":
                 self.input_keys.update(step.required_keys)
 

@@ -4,7 +4,6 @@ This module contains the MessageHistory class, which is used to store the conver
 history and the system prompt sent to OpenAI's chat API.
 """
 
-
 class MessageHistory:
     """
     Abstraction for the conversation history and the system prompt sent to OpenAI's
@@ -102,20 +101,36 @@ class MessageHistory:
             self.validate_message(item)
         self._messages = value
 
-    def add_user_message(self, message: str) -> None:
+    def add_user_message(self, message: str, image_url: str = None) -> None:
         """Adds a new user message to the conversation history."""
-        self.add_message(message_str=message, role="user")
+        if image_url:
+            content = [
+                {"type": "text", "text": message}, 
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": image_url
+                    }
+                }
+            ]
+        else:
+            content = message
+        self.add_message(message_content=content, role="user")
 
-    def add_ai_message(self, message: str) -> None:
+    def add_ai_message(self, message: str, **kwargs) -> None:
         """Adds a new assistant message to the conversation history."""
-        self.add_message(message_str=message, role="assistant")
+        self.add_message(message_content=message, role="assistant", **kwargs)
+    
+    def add_tool_message(self, message: str, tool_call_id: str) -> None:
+        """Adds a new tool message to the conversation history."""
+        self.add_message(message_content=message, tool_call_id=tool_call_id, role="tool")
 
-    def add_message(self, message_str: str, role: str) -> None:
+    def add_message(self, message_content: str, role: str, **kwargs) -> None:
         """
         Appends a new message to the message history.
 
         Args:
-            message_str (str): Content of the message.
+            message_content (str): Content of the message.
             role (str, optional): Role in the conversation. Can be "user" or
                 "assistant". Defaults to "user".
 
@@ -127,7 +142,13 @@ class MessageHistory:
         if self.max_messages and (len(self.messages) >= self.max_messages):
             self.remove_message(idx=1)
 
-        self.messages.append({"role": role, "content": message_str})
+        self.messages.append(
+            {
+                "role": role, 
+                "content": message_content, 
+                **kwargs
+            }
+        )
 
     @staticmethod
     def validate_role(role: str) -> str:
@@ -147,9 +168,9 @@ class MessageHistory:
             ValueError: If the role is not "user" or "assistant".
         """
 
-        if role not in ["user", "system", "assistant"]:
+        if role not in ["user", "system", "assistant", "tool"]:
             raise ValueError(
-                "The role should be either 'system', 'user' or 'assistant'"
+                "The role should be either 'system', 'user', 'assistant' or 'tool'"
             )
 
         return role

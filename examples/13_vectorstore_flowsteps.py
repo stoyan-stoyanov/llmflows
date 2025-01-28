@@ -86,4 +86,3 @@ answer_flowstep.connect(eli5_flowstep)
 # Create and run the Flow
 qa_flow = Flow(q_flowstep)
 results = qa_flow.start(topic="wormholes", verbose=True)
-print(results)

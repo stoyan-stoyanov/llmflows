@@ -72,16 +72,25 @@ class Flow(BaseFlow):
 
         if not step or any(parent.output_key not in inputs for parent in step.parents):
             return
+        
+        # from pprint import pprint
+        # pprint(inputs)
 
         required_inputs = {key: inputs[key] for key in step.required_keys}
+        print(f"Running step {step.name}")
 
         if step not in self.completed_steps:
             flow_data = step.run(required_inputs, verbose)
             self.completed_steps.add(step)
+            # from pprint import pprint
+            # pprint(flow_data)
 
+            #TODO: add the whole flow_data to inputs and consider unifying inputs and results sets
             if flow_data:
                 self.results[step.name] = flow_data
                 inputs.update(flow_data["result"])
+                # print(f"Updated inputs: {inputs}")
+                # print("-----\n\n")
 
         for next_step in step.next_steps:
             self._run_step(next_step, inputs, verbose)

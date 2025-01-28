@@ -22,7 +22,6 @@ title_flowstep = ChatFlowStep(
     llm=OpenAIChat(api_key=openai_api_key),
     message_history=title_message_history,
     message_prompt_template=PromptTemplate("Write a good song title about {topic}"),
-    message_key="topic",
     output_key="song_title",
 )
 
@@ -33,7 +32,6 @@ lyrics_flowstep = ChatFlowStep(
     message_prompt_template=PromptTemplate(
         "Write the lyrics of a song titled {song_title}"
     ),
-    message_key="song_title",
     output_key="lyrics",
 )
 
@@ -50,4 +48,3 @@ lyrics_flowstep.connect(capitalizer_flowstep)
 # Create and run Flow
 songwriting_flow = Flow(title_flowstep)
 result = songwriting_flow.start(topic="love", verbose=True)
-print(result)

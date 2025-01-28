@@ -4,13 +4,13 @@ This module implements a wrapper for Azure OpenAI chat models, using BaseLLM as 
 base class.
 """
 
-import openai
-from openai.error import (
+from openai import AzureOpenAI as AzureOpenAIClient
+from openai import AsyncAzureOpenAI as AsyncAzureOpenAIClient
+from openai import (
     APIError,
+    APIConnectionError,
     Timeout,
     RateLimitError,
-    APIConnectionError,
-    ServiceUnavailableError,
 )
 from llmflows.llms.chat_llm import BaseChatLLM
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
@@ -30,7 +30,7 @@ class AzureOpenAIChat(BaseChatLLM):
 
     Args:
         system_prompt (str): The system prompt to use for the chat model.
-        deployment (str): The deployment name of the Azure OpenAI model.
+        deployment_name (str): The deployment name of the Azure OpenAI model.
         azure_openai_endpoint (str): The Azure OpenAI endpoint to use.
         azure_api_version (str): The Azure OpenAI API version to use.
         temperature (float): The temperature to use for text generation.
@@ -50,12 +50,12 @@ class AzureOpenAIChat(BaseChatLLM):
         api_key: str,
         azure_openai_endpoint: str,
         azure_api_version: str = "2023-05-15",
-        deployment: str = "gpt-35-turbo",
+        deployment_name: str = "gpt-35-turbo",
         temperature: float = 0.7,
         max_tokens: int = 250,
         max_retries: int = 3,
     ):
-        super().__init__(model=deployment)
+        super().__init__(model=deployment_name)
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.max_retries = max_retries
@@ -63,7 +63,7 @@ class AzureOpenAIChat(BaseChatLLM):
         if not self._api_key:
             raise ValueError("You must provide OpenAI API key")
 
-        self._deployment = deployment
+        self._deployment = deployment_name
         if not self._deployment:
             raise ValueError("You must provide Azure OpenAI deployment name")
 
@@ -71,10 +71,17 @@ class AzureOpenAIChat(BaseChatLLM):
         if not self._azure_openai_endpoint:
             raise ValueError("You must provide Azure OpenAI endpoint")
 
-        openai.api_key = self._api_key
-        openai.api_base = self._azure_openai_endpoint
-        openai.api_type = "azure"
-        openai.api_version = azure_api_version
+        self.client = AzureOpenAIClient(
+            api_key=self._api_key,
+            api_version=azure_api_version,
+            azure_endpoint=self._azure_openai_endpoint
+        )
+
+        self.async_client = AsyncAzureOpenAIClient(
+            api_key=self._api_key,
+            api_version=azure_api_version,
+            azure_endpoint=self._azure_openai_endpoint
+        )
 
     def _format_results(
         self, model_outputs, retries, message_history
@@ -90,7 +97,7 @@ class AzureOpenAIChat(BaseChatLLM):
             tuple(str, dict, dict): Formatted output text, raw outputs, and model
                 configuration.
         """
-        text_result = model_outputs.choices[0]["message"]["content"]
+        text_result = model_outputs.choices[0].message.content
 
         call_data = {
             "raw_outputs": model_outputs,
@@ -117,17 +124,15 @@ class AzureOpenAIChat(BaseChatLLM):
         """
 
         completion, retries = call_with_retry(
-            func=openai.ChatCompletion.create,
+            func=self.client.chat.completions.create,
             exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError,
             ),
-            engine=self._deployment,
-            max_retries=self.max_retries,
             model=self.model,
+            max_retries=self.max_retries,
             messages=message_history.messages,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
@@ -152,17 +157,15 @@ class AzureOpenAIChat(BaseChatLLM):
         """
 
         completion, retries = await async_call_with_retry(
-            async_func=openai.ChatCompletion.acreate,
+            async_func=self.async_client.chat.completions.create,
             exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError,
             ),
-            engine=self._deployment,
-            max_retries=self.max_retries,
             model=self.model,
+            max_retries=self.max_retries,
             messages=message_history.messages,
             max_tokens=self.max_tokens,
             temperature=self.temperature,

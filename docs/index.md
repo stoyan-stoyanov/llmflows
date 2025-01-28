@@ -1,7 +1,7 @@
 # LLMFlows - Simple, Explicit, and Transparent LLM Apps
 
 <p align="center">
-  <img src="llmflows_last_logo.png" />
+  <img src="logo_with_subheading.png" />
 </p>
 <br/>
 
@@ -12,12 +12,16 @@
 ![Stars](https://img.shields.io/github/stars/stoyan-stoyanov/llmflows?style=social)
 ![Release date](https://img.shields.io/github/release-date/stoyan-stoyanov/llmflows?style=social)
 
-
 ***
 Source code: [https://github.com/stoyan-stoyanov/llmflows](https://github.com/stoyan-stoyanov/llmflows)<br/>
 Twitter: [https://twitter.com/LLMFlows](https://twitter.com/LLMFlows)<br/>
 Substack: [https://llmflows.substack.com/](https://llmflows.substack.com/)<br/>
 ***
+
+!!! info
+
+    Starting with version `1.0.0`, the `message_key` parameter in the `ChatFlowStep` and 
+    `AsyncChatFlowStep` has been removed.
 
 ## 🤖 About LLM Flows
 LLMFlows is a framework for building simple, explicit, and transparent LLM(Large Language Model) applications such as chatbots, question-answering systems, and agents.
@@ -31,7 +35,7 @@ pip install llmflows
 
 ## ▶️ Live Demo
 Check out [LLM-99](https://llm-99.vercel.app/) - a demo app that uses LLMs to explain 
-superconductors in simple terms. The app is built with LLMFlows, and FastAPI and uses 
+physics in simple terms. The app is built with LLMFlows, and FastAPI and uses 
 Pinecone to store document embeddings created from Wikipedia articles. You can find 
 the source code for this demo app and other examples in our 
 [examples folder](https://github.com/stoyan-stoyanov/llmflows/tree/main/examples/llmflows_in_fastapi/superconductor).

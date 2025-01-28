@@ -68,7 +68,6 @@ for i in range(5):
             llm=OpenAIChat(api_key=openai_api_key),
             message_history=message_history,
             message_prompt_template=critic_message_template,
-            message_key="song_lyrics",
             output_key=f"song_review_{i}"
         )
     )
@@ -209,7 +208,6 @@ for i in range(5):
             llm=OpenAIChat(api_key=openai_api_key),
             message_history=message_history,
             message_prompt_template=critic_message_template,
-            message_key="song_lyrics",
             output_key=f"song_review_{i}"
         )
     )
@@ -237,7 +235,10 @@ The `ChatFlowStep` and `AsyncChatFlowStep` classes use chat LLMs. They have the 
 
     Q: What is a message prompt template?
 
-    A: If provided, the `message_prompt_template` is used together with the `message_key` to provide the final usere message in the message history.
+    A: The `AsyncChatFlowstep` adds a message to the provided message history and uses 
+    the message history to make the call to the LLM. Since the message can be 
+    constructed with outputs from previous flows the `AsyncChatFlowstep` requires a 
+    PromptTemplate. `AsyncChatFlowstep`.
 
 In this example we are specifying the chat LLM behavior with the system prompt in the message history, and we are using the message template to construct the user message that we send to the chat LLM so it can generate the reviews.
 

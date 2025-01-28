@@ -5,13 +5,13 @@ This module helps with creating embeddings form OpenAIs API.
 """
 
 from typing import Union
-import openai
-from openai.error import (
+from openai import OpenAI as OpenAIClient
+from openai import AsyncOpenAI as AsyncOpenAIClient
+from openai import (
     APIError,
+    APIConnectionError,
     Timeout,
     RateLimitError,
-    APIConnectionError,
-    ServiceUnavailableError,
 )
 from llmflows.vectorstores.vector_doc import VectorDoc
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
@@ -49,7 +49,8 @@ class OpenAIEmbeddings(BaseEmbeddings):
         self._api_key = api_key
         if not self._api_key:
             raise ValueError("You must provide OpenAI API key")
-        openai.api_key = self._api_key
+        self.client = OpenAIClient(api_key=self._api_key)
+        self.async_client = AsyncOpenAIClient(api_key=self._api_key)
 
     def generate(
         self, docs: Union[VectorDoc, list[VectorDoc]]
@@ -74,21 +75,20 @@ class OpenAIEmbeddings(BaseEmbeddings):
         texts = [doc.doc for doc in docs]
 
         result, _ = call_with_retry(
-            func=openai.Embedding.create,
+            func=self.client.embeddings.create,
             exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError,
             ),
-            engine=self.model,
+            model=self.model,
             input=texts,
             max_retries=self.max_retries,
         )
 
         for i, doc in enumerate(docs):
-            doc.embedding = result["data"][i]["embedding"]
+            doc.embedding = result.data[i].embedding
 
         return docs[0] if single_item else docs
 
@@ -115,20 +115,19 @@ class OpenAIEmbeddings(BaseEmbeddings):
         texts = [doc.doc for doc in docs]
 
         result, _ = await async_call_with_retry(
-            async_func=openai.Embedding.acreate,
+            async_func=self.async_client.embeddings.acreate,
             exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError,
             ),
-            engine=self.model,
+            model=self.model,
             input=texts,
             max_retries=self.max_retries,
         )
 
         for i, doc in enumerate(docs):
-            doc.embedding = result["data"][i]["embedding"]
+            doc.embedding = result.data[i].embedding
 
         return docs[0] if single_item else docs

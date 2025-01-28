@@ -17,7 +17,6 @@ thought_action = ChatFlowStep(
     llm=OpenAIChat(api_key=open_ai_key, model="gpt-4"),
     message_history=message_history,
     message_prompt_template=react_prompt_template,
-    message_key="question",
     output_key=f"thought_action",
 )
 
@@ -51,3 +50,4 @@ for i in range(max_steps):
             + result["Observation Step"]["generated"]
             + "\n"
         )
+    print("step", i, "completed")

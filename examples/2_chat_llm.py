@@ -18,7 +18,6 @@ from llmflows.llms import OpenAIChat, MessageHistory
 open_ai_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 llm = OpenAIChat(api_key=open_ai_key)
-
 message_history = MessageHistory()
 
 while True:

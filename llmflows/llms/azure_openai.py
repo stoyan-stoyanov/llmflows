@@ -5,13 +5,13 @@ This module implements a wrapper for Azure OpenAI completion models, using BaseL
 base class.
 """
 
-import openai
-from openai.error import (
+from openai import AzureOpenAI as AzureOpenAIClient
+from openai import AsyncAzureOpenAI as AsyncAzureOpenAIClient
+from openai import (
     APIError,
+    APIConnectionError,
     Timeout,
     RateLimitError,
-    APIConnectionError,
-    ServiceUnavailableError,
 )
 from .llm import BaseLLM
 from .llm_utils import call_with_retry, async_call_with_retry
@@ -68,10 +68,17 @@ class AzureOpenAI(BaseLLM):
         if not self._azure_openai_endpoint:
             raise ValueError("You must provide Azure OpenAI endpoint")
 
-        openai.api_key = self._api_key
-        openai.api_base = self._azure_openai_endpoint
-        openai.api_type = "azure"
-        openai.api_version = azure_api_version
+        self.client = AzureOpenAIClient(
+            api_key=self._api_key,
+            api_version=azure_api_version,
+            azure_endpoint=self._azure_openai_endpoint
+        )
+
+        self.async_client = AsyncAzureOpenAIClient(
+            api_key=self._api_key,
+            api_version=azure_api_version,
+            azure_endpoint=self._azure_openai_endpoint
+        )
 
     def _format_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
         """
@@ -85,7 +92,7 @@ class AzureOpenAI(BaseLLM):
             A tuple containing the generated text, the raw response data, and the
                 model configuration.
         """
-        text_result = model_outputs.choices[0]["text"]
+        text_result = model_outputs.choices[0].text
 
         call_data = {
             "raw_outputs": model_outputs,
@@ -116,17 +123,15 @@ class AzureOpenAI(BaseLLM):
             raise TypeError("Prompt must be a string")
 
         completion, retries = call_with_retry(
-            func=openai.Completion.create,
+            func=self.client.completions.create,
             exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError,
             ),
-            engine=self._engine,
-            max_retries=self.max_retries,
             model=self.model,
+            max_retries=self.max_retries,
             prompt=prompt,
             max_tokens=self.max_tokens,
             temperature=self.temperature,
@@ -150,17 +155,15 @@ class AzureOpenAI(BaseLLM):
             raise TypeError("Prompt must be a string")
 
         completion, retries = await async_call_with_retry(
-            async_func=openai.Completion.acreate,
+            async_func=self.async_client.completions.create,
             exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError,
             ),
-            engine=self._engine,
-            max_retries=self.max_retries,
             model=self.model,
+            max_retries=self.max_retries,
             prompt=prompt,
             max_tokens=self.max_tokens,
             temperature=self.temperature,

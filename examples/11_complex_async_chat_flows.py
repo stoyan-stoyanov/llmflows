@@ -84,7 +84,6 @@ for i in range(5):
             llm=OpenAIChat(api_key=openai_api_key),
             message_history=message_history,
             message_prompt_template=critic_message_template,
-            message_key="song_lyrics",
             output_key=f"song_review_{i}"
         )
     )

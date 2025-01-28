@@ -84,7 +84,6 @@ for i in range(3):
             llm=OpenAIChat(api_key=open_ai_key),
             message_history=message_history,
             message_prompt_template=critic_message_template,
-            message_key="song_lyrics",
             output_key=f"song_review_{i+1}",
         )
     )
@@ -98,4 +97,3 @@ flowstep4.connect(*critics)
 # Create and run Flow
 soundtrack_flow = Flow(flowstep1)
 results = soundtrack_flow.start(topic="friendship", verbose=True)
-print(json.dumps(results, indent=4))

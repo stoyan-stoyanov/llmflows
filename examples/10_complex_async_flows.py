@@ -86,7 +86,6 @@ async def run_flow():
     # Create and run Flow
     soundtrack_flow = AsyncFlow(flowstep1)
     result = await soundtrack_flow.start(topic="friendship", verbose=True)
-    print(result)
 
 
 # Run the flow in an event loop

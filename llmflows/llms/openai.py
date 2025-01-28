@@ -1,17 +1,16 @@
 # pylint: disable=too-few-public-methods, R0913, W0221
-
 """
 This module implements a wrapper for OpenAI completion models, using BaseLLM as a 
 base class.
 """
 
-import openai
-from openai.error import (
+from openai import OpenAI as OpenAIClient
+from openai import AsyncOpenAI as AsyncOpenAIClient
+from openai import (
     APIError,
+    APIConnectionError,
     Timeout,
     RateLimitError,
-    APIConnectionError,
-    ServiceUnavailableError,
 )
 from .llm import BaseLLM
 from .llm_utils import call_with_retry, async_call_with_retry
@@ -41,7 +40,7 @@ class OpenAI(BaseLLM):
     def __init__(
         self,
         api_key: str,
-        model: str = "text-davinci-003",
+        model: str = "gpt-3.5-turbo-instruct",
         temperature: float = 0.7,
         max_tokens: int = 500,
         max_retries: int = 3,
@@ -53,7 +52,8 @@ class OpenAI(BaseLLM):
         self._api_key = api_key
         if not self._api_key:
             raise ValueError("You must provide OpenAI API key")
-        openai.api_key = self._api_key
+        self.client = OpenAIClient(api_key=self._api_key)
+        self.async_client = AsyncOpenAIClient(api_key=self._api_key)
 
     def _format_results(self, model_outputs, retries) -> tuple[str, dict, dict]:
         """
@@ -67,7 +67,7 @@ class OpenAI(BaseLLM):
             A tuple containing the generated text, the raw response data, and the
                 model configuration.
         """
-        text_result = model_outputs.choices[0]["text"]
+        text_result = model_outputs.choices[0].text
 
         call_data = {
             "raw_outputs": model_outputs,
@@ -98,13 +98,12 @@ class OpenAI(BaseLLM):
             raise TypeError("Prompt must be a string")
 
         completion, retries = call_with_retry(
-            func=openai.Completion.create,
+            func=self.client.completions.create,
             exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError,
             ),
             max_retries=self.max_retries,
             model=self.model,
@@ -131,13 +130,12 @@ class OpenAI(BaseLLM):
             raise TypeError("Prompt must be a string")
 
         completion, retries = await async_call_with_retry(
-            async_func=openai.Completion.acreate,
+            async_func=self.async_client.completions.create,
             exceptions_to_retry=(
                 APIError,
                 Timeout,
                 RateLimitError,
                 APIConnectionError,
-                ServiceUnavailableError,
             ),
             max_retries=self.max_retries,
             model=self.model,
