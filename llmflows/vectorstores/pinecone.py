@@ -20,16 +20,15 @@ class Pinecone(VectorStore):
     Args:
         index_name (str): The name of the index to use.
         api_key (str): The Pinecone API key to use for authentication.
-        environment (str): The environment to use, e.g. "production" or "development".
     
     Attributes:
         index_name (str): The name of the index to use.
-        environment (str): The pinecone environment to use.
     """
 
-    def __init__(self, index_name: str, api_key: str, environment: str):
-        super().__init__(index_name, api_key, environment)
+    def __init__(self, index_name: str, api_key: str):
+        super().__init__(storage_entity=index_name, api_key=api_key)
         self._init_client()
+        self.describe()
 
     def _prepare_results(self, search_result) -> tuple[list, dict, dict]:
         """
@@ -56,13 +55,13 @@ class Pinecone(VectorStore):
         return search_results, call_data, config
 
     def _init_client(self):
-        pinecone.init(api_key=self._api_key, environment=self.region)
-        self.index = pinecone.Index(self.storage_entity)
-        self.describe()
+        self.client = pinecone.Pinecone(api_key=self._api_key)
+        self.index = self.client.Index(self.storage_entity)
+        
 
     def describe(self):
         """Describe the index."""
-        print(self.index.describe_index_stats())
+        print(self.client.describe_index(self.storage_entity))
 
     def search(self, query: VectorDoc, top_k: int) -> tuple[list, dict, dict]:
         """
@@ -77,7 +76,7 @@ class Pinecone(VectorStore):
         """
         query_embedding = query.embedding
         search_result = self.index.query(
-            query_embedding, top_k=top_k, include_metadata=True
+            vector=query_embedding, top_k=top_k, include_metadata=True
         )
         return self._prepare_results(search_result)
 

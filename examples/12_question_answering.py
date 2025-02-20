@@ -27,7 +27,7 @@ Before starting this tutorial go and create an index in Pinecone with dimension 
 (the default dimension or openai's embeddings)
 """
 
-piencone_api_key = os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>")
+piencone_api_key = os.environ.get("PINECONE_API_KEY_LLMFLOWS_TEST", "<YOUR-API-KEY>")
 openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 # Create embeddings LLM
@@ -101,8 +101,7 @@ embedded_docs = embeddings_llm.generate(vector_docs)
 # initialize Pinecone
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
-    api_key=piencone_api_key,
-    environment="us-west4-gcp-free",
+    api_key=piencone_api_key
 )
 
 # Add the embedded documents to the vector database

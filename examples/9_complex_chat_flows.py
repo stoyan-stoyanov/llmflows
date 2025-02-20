@@ -18,12 +18,18 @@ Note:
 import os
 import json
 from llmflows.flows import Flow, FlowStep, ChatFlowStep
-from llmflows.llms import OpenAI, OpenAIChat, MessageHistory
+from llmflows.llms import OpenAI, OpenAIChat, MessageHistory, ClaudeChat
 from llmflows.prompts import PromptTemplate
 
 open_ai_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
+claude_key = os.environ.get("CLAUDE_API_KEY", "<your-api-key>")
 
-# Create LLM
+llm = "claude"
+if llm == "openai":
+    chat_llm = OpenAIChat(api_key=open_ai_key)
+elif llm == "claude":
+    chat_llm = ClaudeChat(api_key=claude_key)
+
 open_ai_llm = OpenAI(api_key=open_ai_key)
 
 # Create prompt templates
@@ -81,7 +87,7 @@ for i in range(3):
     critics.append(
         ChatFlowStep(
             name=f"Critic Flowstep {i+1}",
-            llm=OpenAIChat(api_key=open_ai_key),
+            llm=chat_llm,
             message_history=message_history,
             message_prompt_template=critic_message_template,
             output_key=f"song_review_{i+1}",

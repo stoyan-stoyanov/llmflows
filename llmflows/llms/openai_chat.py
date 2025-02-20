@@ -16,7 +16,6 @@ from llmflows.llms.chat_llm import BaseChatLLM
 from llmflows.llms.llm_utils import call_with_retry, async_call_with_retry
 from llmflows.llms.message_history import MessageHistory
 from typing import Optional, Callable, get_type_hints
-import json
 from inspect import signature
 
 class OpenAIChat(BaseChatLLM):
@@ -110,11 +109,6 @@ class OpenAIChat(BaseChatLLM):
             self._validate_tools_setup()
             self.client_func = self.client.chat.completions.create
             self.mode_params = {"tools": self.tools}
-            if self.tools_functions == None:
-                raise ValueError(
-                    "If you want to use function (tools) calling, you must provide a "
-                    "list of python functions with the tools_functions argument"
-                )
         elif self.mode == "response_format":
             self.client_func = self.client.beta.chat.completions.parse
             self.mode_params = {"response_format": self.response_format}
@@ -127,9 +121,9 @@ class OpenAIChat(BaseChatLLM):
     def _validate_tools_setup(self) -> None:
         """
         Validates tools setup and checks if:
-        - Functions defined in schema exist in tools_functions
-        - Required attributes in schema exist in tools_functions
-        - All attributes in schema have types
+        - Functions defined in the schema exist in tools_functions
+        - Required attributes in the schema exist as parameters in tools_functions
+        - All attributes in the schema have types
         - Attributes in tools_functions lack types
 
         Args:
@@ -142,6 +136,12 @@ class OpenAIChat(BaseChatLLM):
         """
         errors = []
         warnings = []
+
+        if self.tools_functions is None:
+            raise ValueError(
+                "If you want to use function (tools) calling, you must provide a "
+                "list of python functions with the tools_functions argument"
+            )
 
         for tool in self.tools:
             tool_name = tool["function"]["name"]
@@ -201,9 +201,37 @@ class OpenAIChat(BaseChatLLM):
 
         text_result = message.content
 
+        tool_calling = None
+
+        """
+        tool calling format:
+        [
+            {
+                "function_name": tool_call.function.name,
+                "function_arguments": tool_call.function.arguments,
+                "tool_call_id": tool_call.id
+            },
+            ...
+        ]
+        """
+
+        if message.tool_calls:
+            tool_calls = []
+            for tool_call in message.tool_calls:
+                tool_calls.append({
+                    "function_name": tool_call.function.name,
+                    "function_arguments": tool_call.function.arguments,
+                    "tool_call_id": tool_call.id
+                })
+
+            tool_calling = {
+                "tool_calls": tool_calls,
+            }
+
         call_data = {
             "raw_outputs": model_outputs,
             "retries": retries,
+            "tool_calling": tool_calling,
         }
 
         model_config = {
@@ -214,6 +242,73 @@ class OpenAIChat(BaseChatLLM):
         }
 
         return text_result, call_data, model_config
+
+    def _convert_message_history(self, message_history: MessageHistory) -> str:
+        """
+        Converts the message history to a format that can be used by the OpenAI API.
+        Replaces the 'tool_result' role with 'tool' role.
+        Replaces the 'content' with None if the message includes tool calls.
+        Replaces the 'tool_calls' with the correct format.
+        Replaces the 'content' with the correct format if the message includes images.
+
+        For more information about the OpenAI API message format, see:
+        - https://platform.openai.com/docs/guides/text-generation
+        - https://platform.openai.com/docs/guides/vision
+        - https://platform.openai.com/docs/guides/function-calling
+
+        Args:
+            message_history (MessageHistory): The message history to convert.
+
+        Returns:
+            list: The converted message history.
+        """
+        print("----------ORIGINAL MESSAGES---------------------")
+        print(message_history.messages)
+        print("------------------------------------------------")
+        converted_messages = []
+
+        for original_msg in message_history.messages:
+            msg = original_msg.copy()
+
+            if msg.get("role") == "tool_result":
+                msg["role"] = "tool"
+
+            content = msg.get("content")
+            if isinstance(content, list):
+                converted_list = []
+                for item in content:
+                    if item.get("type") == "image":
+                        converted_list.append({
+                            "type": "image_url",
+                            "image_url": {"url": f"data:{item['mime_type']};base64,{item['base64']}"}
+                        })
+                    else:
+                        converted_list.append(item)
+                msg["content"] = converted_list
+
+            if "tool_calls" in msg:
+                tool_calls = []
+                for call in msg["tool_calls"]:
+                    tool_calls.append({
+                        "id": call["tool_call_id"],
+                        "type": "function",
+                        "function": {
+                            "name": call["function_name"],
+                            "arguments": call["function_arguments"]
+                        },
+                    })
+
+                msg["content"] = None
+                msg["tool_calls"] = tool_calls
+
+            converted_messages.append(msg)
+        
+        print("--------------------------------")
+        print(converted_messages)
+        print("--------------------------------")
+
+        return converted_messages
+
 
     def generate(self, message_history: MessageHistory) -> tuple[str, dict, dict]:
         """
@@ -234,9 +329,9 @@ class OpenAIChat(BaseChatLLM):
             ),
             max_retries=self.max_retries,
             model=self.model,
-            messages=message_history.messages,
+            messages=self._convert_message_history(message_history),
             temperature=self.temperature,
-            **self.mode_params,
+            **self.mode_params
         )
 
         str_message, call_data, model_config = self._format_results(
@@ -269,6 +364,7 @@ class OpenAIChat(BaseChatLLM):
             model=self.model,
             messages=message_history.messages,
             temperature=self.temperature,
+            **self.mode_params
         )
 
         str_message, call_data, model_config = self._format_results(
@@ -276,3 +372,45 @@ class OpenAIChat(BaseChatLLM):
         )
 
         return str_message, call_data, model_config
+
+
+
+
+# for m in message_history.messages:
+        #     new_msg = {}
+        #     for key, value in m.items():
+        #         if key == 'role':
+        #             if value == 'tool_result':
+        #                 new_msg[key] = 'tool'
+        #             else:
+        #                 new_msg[key] = value
+        #         elif key == 'tool_calls':
+        #             tool_calls = []
+        #             for tool_call in value:
+        #                 tool_calls.append({
+        #                     "id": tool_call["tool_call_id"],
+        #                     "type": "function",
+        #                     "function": {
+        #                         "name": tool_call["function_name"],
+        #                         "arguments": tool_call["function_arguments"],
+        #                     },
+        #                 })
+        #             new_msg["content"] = None
+        #             new_msg["tool_calls"] = tool_calls
+        #         elif key == 'content':
+        #             if type(value) == list:
+        #                 content_list = []
+        #                 for item in value:
+        #                     if item["type"] == "image":
+        #                         content_list.append({
+        #                             "type": "image_url",
+        #                             "image_url": {"url": f"data:image/jpeg;base64,{item['base64']}"}
+        #                         })
+        #                     else:
+        #                         content_list.append(item)
+        #                 new_msg["content"] = content_list
+        #             else:
+        #                 new_msg["content"] = value
+        #         else:
+        #             new_msg[key] = value
+        #     messages.append(new_msg)

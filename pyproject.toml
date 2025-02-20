@@ -17,19 +17,23 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    openai==1.59.7
-    anthropic==0.43.0
-    tiktoken==0.8.0
-    black==24.10.0
-    pinecone-client==5.0.1
-    mkdocs-material==9.5.49
-    mkdocstrings==0.27.0
-    mkdocstrings-python==1.13.0
-    urllib3==2.3.0
-    google-generativeai==0.8.3
-    pytest==8.3.4
+    "openai==1.59.7",
+    "anthropic==0.43.0",
+    "tiktoken==0.8.0",
+    "black==24.10.0",
+    "pinecone-client==5.0.1",
+    "mkdocs-material==9.5.49",
+    "mkdocstrings==0.27.0",
+    "mkdocstrings-python==1.13.0",
+    "urllib3==2.3.0",
+    "google-generativeai==0.8.3",
+    "pytest==8.3.4",
+    "pytest-asyncio==0.25.3",
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/stoyan-stoyanov/llmflows"
 "github" = "https://github.com/stoyan-stoyanov/llmflows"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

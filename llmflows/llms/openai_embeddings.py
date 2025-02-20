@@ -41,7 +41,7 @@ class OpenAIEmbeddings(BaseEmbeddings):
     def __init__(
         self,
         api_key: str,
-        model: str = "text-embedding-ada-002",
+        model: str = "text-embedding-3-small",
         max_retries: int = 3,
     ):
         super().__init__(model)
@@ -115,7 +115,7 @@ class OpenAIEmbeddings(BaseEmbeddings):
         texts = [doc.doc for doc in docs]
 
         result, _ = await async_call_with_retry(
-            async_func=self.async_client.embeddings.acreate,
+            async_func=self.async_client.embeddings.create,
             exceptions_to_retry=(
                 APIError,
                 Timeout,

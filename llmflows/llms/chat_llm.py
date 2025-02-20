@@ -32,6 +32,8 @@ class BaseChatLLM(ABC):
 
         Returns:
             A string representing the generated text.
+            A dictionary representing the raw outputs.
+            A dictionary representing the model configuration.
         """
 
     @abstractmethod
@@ -45,4 +47,6 @@ class BaseChatLLM(ABC):
 
         Returns:
             A string representing the generated text.
+            A dictionary representing the raw outputs.
+            A dictionary representing the model configuration.
         """

@@ -21,7 +21,7 @@ class VectorStore(ABC):
     This class defines the interface that all vector store services must provide.
     """
 
-    def __init__(self, storage_entity: str, api_key: str, region: str):
+    def __init__(self, storage_entity: str, api_key: str, region: str=None):
         self.storage_entity = storage_entity
         self._api_key = api_key
         self.region = region

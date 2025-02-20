@@ -27,8 +27,7 @@ openai_api_key = os.environ.get("OPENAI_API_KEY", "<your-api-key>")
 
 vector_db = Pinecone(
     index_name="llmflows-tutorial",
-    api_key=os.environ.get("PINECONE_API_KEY", "<YOUR-API-KEY>"),
-    environment="us-west4-gcp-free",
+    api_key=os.environ.get("PINECONE_API_KEY_LLMFLOWS_TEST", "<YOUR-API-KEY>"),
 )
 
 # Create prompt templates

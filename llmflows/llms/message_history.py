@@ -101,18 +101,20 @@ class MessageHistory:
             self.validate_message(item)
         self._messages = value
 
-    def add_user_message(self, message: str, image_url: str = None) -> None:
+    def add_user_message(self, message: str, images: list = None) -> None:
         """Adds a new user message to the conversation history."""
-        if image_url:
+        if images:
             content = [
                 {"type": "text", "text": message}, 
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": image_url
-                    }
-                }
             ]
+            for image in images:
+                content.append({
+                    "type": "image",
+                    "image_extension": image.image_extension,
+                    "mime_type": image.image_mime_type,
+                    "base64": image.base64,
+                    "url": image.url
+                })
         else:
             content = message
         self.add_message(message_content=content, role="user")
@@ -120,10 +122,11 @@ class MessageHistory:
     def add_ai_message(self, message: str, **kwargs) -> None:
         """Adds a new assistant message to the conversation history."""
         self.add_message(message_content=message, role="assistant", **kwargs)
-    
-    def add_tool_message(self, message: str, tool_call_id: str) -> None:
-        """Adds a new tool message to the conversation history."""
-        self.add_message(message_content=message, tool_call_id=tool_call_id, role="tool")
+
+    def add_tool_result_message(self, message: str, tool_call_id: str) -> None:
+        """Adds a new tool result message to the conversation history."""
+        self.add_message(
+            message_content=message, tool_call_id=tool_call_id, role="tool_result")
 
     def add_message(self, message_content: str, role: str, **kwargs) -> None:
         """
@@ -144,8 +147,8 @@ class MessageHistory:
 
         self.messages.append(
             {
-                "role": role, 
-                "content": message_content, 
+                "role": role,
+                "content": message_content,
                 **kwargs
             }
         )
@@ -168,9 +171,9 @@ class MessageHistory:
             ValueError: If the role is not "user" or "assistant".
         """
 
-        if role not in ["user", "system", "assistant", "tool"]:
+        if role not in ["user", "system", "assistant", "tool_result"]:
             raise ValueError(
-                "The role should be either 'system', 'user', 'assistant' or 'tool'"
+                "The role should be either 'system', 'user', 'assistant' or 'tool_result'"
             )
 
         return role

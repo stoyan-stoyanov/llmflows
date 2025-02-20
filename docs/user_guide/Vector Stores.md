@@ -88,7 +88,7 @@ print(vector_db.describe())
 
     Before starting this guide, you must have a Pinecone account and a Pinecone API key 
     and create an index called `llmflows-tutorial` with a dimension of 1536 (the default 
-    dimension or openai's embeddings).
+    dimension for openai's embeddings).
     If you don't have an account, you can register for free at 
     [pinecone.io](https://www.pinecone.io/). 
 

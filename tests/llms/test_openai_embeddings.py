@@ -1,67 +1,115 @@
-# pylint: skip-file
+"""Tests for the OpenAI embeddings implementation."""
 
-import os
-import asyncio
-import unittest
-from unittest.mock import MagicMock, patch
-from llmflows.llms import OpenAIEmbeddings
+import pytest
+from unittest.mock import Mock, patch
+from openai import APIError, Timeout, RateLimitError, APIConnectionError
+from llmflows.llms.openai_embeddings import OpenAIEmbeddings
 from llmflows.vectorstores.vector_doc import VectorDoc
 
+def test_init_with_valid_api_key():
+    """Test initialization with valid API key."""
+    embeddings = OpenAIEmbeddings(api_key="test_key")
+    assert embeddings.model == "text-embedding-3-small"
+    assert embeddings.max_retries == 3
+    assert embeddings._api_key == "test_key"
 
-class TestOpenAIEmbeddings(unittest.TestCase):
-    def setUp(self):
-        self.llm = OpenAIEmbeddings(
-            model="test_model", max_retries=3, api_key="test_key"
-        )
+def test_init_without_api_key():
+    """Test initialization without API key raises error."""
+    with pytest.raises(ValueError, match="You must provide OpenAI API key"):
+        OpenAIEmbeddings(api_key="")
 
-    def test_initialization(self):
-        self.assertEqual(self.llm.model, "test_model")
-        self.assertEqual(self.llm.max_retries, 3)
+def test_init_with_custom_params():
+    """Test initialization with custom parameters."""
+    embeddings = OpenAIEmbeddings(
+        api_key="test_key",
+        model="text-embedding-ada-002",
+        max_retries=5
+    )
+    assert embeddings.model == "text-embedding-ada-002"
+    assert embeddings.max_retries == 5
 
-    @patch("openai.Embedding.create", autospec=True)
-    def test_generate_single_doc(self, mock_openai_embedding_create):
-        # Define the mock return value
-        mock_output = {"data": [{"embedding": "test_embedding"}]}
-        mock_openai_embedding_create.return_value = mock_output
+@patch('llmflows.llms.openai_embeddings.call_with_retry')
+def test_generate_single_doc(mock_call_with_retry):
+    """Test successful embedding generation for a single document."""
+    # Mock the API response
+    mock_response = Mock()
+    mock_response.data = [Mock(embedding=[0.1, 0.2, 0.3])]
+    mock_call_with_retry.return_value = (mock_response, 0)
+    
+    embeddings = OpenAIEmbeddings(api_key="test_key")
+    doc = VectorDoc(doc="Test document")
+    
+    result = embeddings.generate(doc)
+    
+    assert isinstance(result, VectorDoc)
+    assert result.embedding == [0.1, 0.2, 0.3]
+    mock_call_with_retry.assert_called_once()
 
-        # Prepare a VectorDoc
-        doc = VectorDoc(doc="test_doc")
+@patch('llmflows.llms.openai_embeddings.call_with_retry')
+def test_generate_multiple_docs(mock_call_with_retry):
+    """Test successful embedding generation for multiple documents."""
+    # Mock the API response
+    mock_response = Mock()
+    mock_response.data = [
+        Mock(embedding=[0.1, 0.2, 0.3]),
+        Mock(embedding=[0.4, 0.5, 0.6])
+    ]
+    mock_call_with_retry.return_value = (mock_response, 0)
+    
+    embeddings = OpenAIEmbeddings(api_key="test_key")
+    docs = [
+        VectorDoc(doc="Test document 1"),
+        VectorDoc(doc="Test document 2")
+    ]
+    
+    results = embeddings.generate(docs)
+    
+    assert isinstance(results, list)
+    assert len(results) == 2
+    assert results[0].embedding == [0.1, 0.2, 0.3]
+    assert results[1].embedding == [0.4, 0.5, 0.6]
+    mock_call_with_retry.assert_called_once()
 
-        # Call the generate method
-        result_doc = self.llm.generate(doc)
+@pytest.mark.asyncio
+@patch('llmflows.llms.openai_embeddings.async_call_with_retry')
+async def test_generate_async_single_doc(mock_async_call_with_retry):
+    """Test async embedding generation for a single document."""
+    # Mock the API response
+    mock_response = Mock()
+    mock_response.data = [Mock(embedding=[0.1, 0.2, 0.3])]
+    mock_async_call_with_retry.return_value = (mock_response, 0)
+    
+    embeddings = OpenAIEmbeddings(api_key="test_key")
+    doc = VectorDoc(doc="Test document")
+    
+    result = await embeddings.generate_async(doc)
+    
+    assert isinstance(result, VectorDoc)
+    assert result.embedding == [0.1, 0.2, 0.3]
+    mock_async_call_with_retry.assert_called_once()
 
-        # Check that openai.Embedding.create was called with the right arguments
-        mock_openai_embedding_create.assert_called_once_with(
-            engine="test_model",
-            input=["test_doc"],
-        )
-
-        # Assert that the method returned the expected output
-        self.assertEqual(result_doc.embedding, "test_embedding")
-
-    @patch("openai.Embedding.create", autospec=True)
-    def test_generate_multiple_docs(self, mock_openai_embedding_create):
-        # Define the mock return value
-        mock_output = {
-            "data": [
-                {"embedding": "test_embedding_1"},
-                {"embedding": "test_embedding_2"},
-            ]
-        }
-        mock_openai_embedding_create.return_value = mock_output
-
-        # Prepare VectorDocs
-        docs = [VectorDoc(doc="test_doc_1"), VectorDoc(doc="test_doc_2")]
-
-        # Call the generate method
-        result_docs = self.llm.generate(docs)
-
-        # Check that openai.Embedding.create was called with the right arguments
-        mock_openai_embedding_create.assert_called_once_with(
-            engine="test_model",
-            input=["test_doc_1", "test_doc_2"],
-        )
-
-        # Assert that the method returned the expected output
-        self.assertEqual(result_docs[0].embedding, "test_embedding_1")
-        self.assertEqual(result_docs[1].embedding, "test_embedding_2")
+@pytest.mark.asyncio
+@patch('llmflows.llms.openai_embeddings.async_call_with_retry')
+async def test_generate_async_multiple_docs(mock_async_call_with_retry):
+    """Test async embedding generation for multiple documents."""
+    # Mock the API response
+    mock_response = Mock()
+    mock_response.data = [
+        Mock(embedding=[0.1, 0.2, 0.3]),
+        Mock(embedding=[0.4, 0.5, 0.6])
+    ]
+    mock_async_call_with_retry.return_value = (mock_response, 0)
+    
+    embeddings = OpenAIEmbeddings(api_key="test_key")
+    docs = [
+        VectorDoc(doc="Test document 1"),
+        VectorDoc(doc="Test document 2")
+    ]
+    
+    results = await embeddings.generate_async(docs)
+    
+    assert isinstance(results, list)
+    assert len(results) == 2
+    assert results[0].embedding == [0.1, 0.2, 0.3]
+    assert results[1].embedding == [0.4, 0.5, 0.6]
+    mock_async_call_with_retry.assert_called_once()
