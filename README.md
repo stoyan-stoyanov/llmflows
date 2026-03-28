@@ -119,6 +119,25 @@ while True:
     print(f"LLM: {llm_response}")
 ```
 
+You can also use `MiniMaxChat` for [MiniMax](https://www.minimaxi.com/) models
+(MiniMax-M2.7, MiniMax-M2.7-highspeed) with the same `MessageHistory` interface:
+
+```python
+from llmflows.llms import MiniMaxChat, MessageHistory
+
+llm = MiniMaxChat(api_key="<your-minimax-api-key>", model="MiniMax-M2.7")
+message_history = MessageHistory()
+
+while True:
+    user_message = input("You:")
+    message_history.add_user_message(user_message)
+
+    llm_response, call_data, model_config = llm.generate(message_history)
+    message_history.add_ai_message(llm_response)
+
+    print(f"LLM: {llm_response}")
+```
+
 ### LLM Flows
 Often times, real-world applications can be more complex and can have dependencies 
 between prompts and LLM calls. For example:
@@ -238,7 +257,8 @@ apps, agents, and web applications visit our
 ## 🛠️ Features
 
 ### **LLMs**
-- Utilize LLMs such as OpenAI's ChatGPT to generate natural language text.
+- Utilize LLMs such as OpenAI's ChatGPT, Anthropic's Claude, Google's PaLM, and
+  MiniMax to generate natural language text.
 - Configure LLM classes easily, choosing specific models, parameters, and settings.
 - Benefit from automatic retries when model calls fail, ensuring reliable LLM 
   interactions.
